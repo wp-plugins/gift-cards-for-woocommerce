@@ -3,7 +3,7 @@ Contributors: rpletcher
 Tags: woocommerce, gift, gift card, payment, gift certificate, certificate
 Requires at least: 3.0
 Tested up to: 3.7
-Stable tag: 1.0
+Stable tag: 1.1
 Donate link: https://ryanpletcher.com/donate/
 License: GPLv2 or later
 
@@ -32,6 +32,10 @@ If you have a feature that you would like let me know.
 None at this time
 
 == Changelog ==
+= 1.1 =
+* FIX: Made it possible to edit a gift card after creation
+* FIX: A couple of formating errors
+
 = 1.0 =
 * Initial Release
 

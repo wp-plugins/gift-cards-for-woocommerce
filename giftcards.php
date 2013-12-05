@@ -3,7 +3,7 @@
 Plugin Name: Gift Cards for WooCommerce
 Plugin URI: http://ryanpletcher.com
 Description: Gift Cards for WooCommerce allows you to offer gift cards to your customer and allow them to place orders using them.
-Version: 1.0
+Version: 1.1
 Author: Ryan Pletcher
 Author URI: http://ryanpletcher.com
 License: GPL2
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 define( 'RPWCGC_CORE_TEXT_DOMAIN', 'rpgiftcards' );
 define( 'RPWCGC_PATH', plugin_dir_path( __FILE__ ) );
-define( 'RPWCGC_VERSION', '1.0' );
+define( 'RPWCGC_VERSION', '1.1' );
 define( 'RPWCGC_FILE', plugin_basename( __FILE__ ) );
 define( 'RPWCGC_URL', plugins_url( 'woocommerce-gift-cards', 'giftcards.php' ) );
 
@@ -257,7 +257,7 @@ function rpgc_woocommerce() {
 			woocommerce_wp_text_input( 
 				array( 
 					'id' 				=> 'rpgc_amount',
-					'label'				=> __( 'Gift Card amount', RPWCGC_CORE_TEXT_DOMAIN ),
+					'label'				=> __( 'Gift Card Amount', RPWCGC_CORE_TEXT_DOMAIN ),
 					'placeholder'		=> '0.00',
 					'description'		=> __( 'Value of the Gift Card.', RPWCGC_CORE_TEXT_DOMAIN ),
 					'type'				=> 'number',
@@ -273,7 +273,7 @@ function rpgc_woocommerce() {
 					woocommerce_wp_text_input( 
 						array( 
 							'id'				=> 'rpgc_balance',
-							'label'				=> __( 'Gift Card balance', RPWCGC_CORE_TEXT_DOMAIN ),
+							'label'				=> __( 'Gift Card Balance', RPWCGC_CORE_TEXT_DOMAIN ),
 							'placeholder'		=> '0.00',
 							'description'		=> __( 'Remaining Balance of the Gift Card.', RPWCGC_CORE_TEXT_DOMAIN ),
 							'type'				=> 'number',
@@ -300,7 +300,7 @@ function rpgc_woocommerce() {
 					'id' => 'rpgc_expiry_date',
 					'label' => __( 'Expiry date', RPWCGC_CORE_TEXT_DOMAIN ), 
 					'placeholder' => _x('Never expire', 'placeholder', RPWCGC_CORE_TEXT_DOMAIN ), 
-					'description' => __( 'The date this coupon will expire, <code>YYYY-MM-DD</code>.', RPWCGC_CORE_TEXT_DOMAIN ), 
+					'description' => __( 'The date this Gift Card will expire, <code>YYYY-MM-DD</code>. (Currently not available)', RPWCGC_CORE_TEXT_DOMAIN ), 
 					'class' => 'short date-picker',
 					'custom_attributes' => array( 
 						'pattern' => "[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])"
@@ -354,46 +354,44 @@ function rpgc_woocommerce() {
 			$woocommerce_errors[] = __( 'Gift Card code already exists - customers will use the latest coupon with this code.', RPWCGC_CORE_TEXT_DOMAIN );
 
 		if ( isset( $_POST['rpgc_description'] ) ) {
-			$description		= woocommerce_clean( $_POST['rpgc_description'] );
+			$description	= woocommerce_clean( $_POST['rpgc_description'] );
 			update_post_meta( $post_id, 'rpgc_description', $description );
 		}
 		if ( isset( $_POST['rpgc_to'] ) ) {
-			$to 				= woocommerce_clean( $_POST['rpgc_to'] );
+			$to 			= woocommerce_clean( $_POST['rpgc_to'] );
 			update_post_meta( $post_id, 'rpgc_to', $to );
 		}
 		if ( isset( $_POST['rpgc_email_to'] ) ) {
-			$toEmail			= woocommerce_clean( $_POST['rpgc_email_to'] );
+			$toEmail		= woocommerce_clean( $_POST['rpgc_email_to'] );
 			update_post_meta( $post_id, 'rpgc_email_to', $toEmail );
 		}
 		if ( isset( $_POST['rpgc_from'] ) ) {
-			$from 				= woocommerce_clean( $_POST['rpgc_from'] );
+			$from 			= woocommerce_clean( $_POST['rpgc_from'] );
 			update_post_meta( $post_id, 'rpgc_from', $from );
 		}
 		if ( isset( $_POST['rpgc_email_from'] ) ) {
-			$fromEmail			= woocommerce_clean( $_POST['rpgc_email_from'] );
+			$fromEmail		= woocommerce_clean( $_POST['rpgc_email_from'] );
 			update_post_meta( $post_id, 'rpgc_email_from', $fromEmail );
 		}
 		if (isset( $_POST['rpgc_amount'] ) ) {
-			$amount 			= woocommerce_clean( $_POST['rpgc_amount'] );
+			$amount 		= woocommerce_clean( $_POST['rpgc_amount'] );
 			update_post_meta( $post_id, 'rpgc_amount', $amount );
-		}
-		if ( isset( $_GET['action']  ) ) {
-			if ( isset( $_POST['rpgc_balance'] ) ) {
-				$balance 		= woocommerce_clean( $_POST['rpgc_balance'] );
-				update_post_meta( $post_id, 'rpgc_balance', $balance );
-			}
-		} else {
-			if ( isset( $_POST['rpgc_amount'] ) ) {
+
+			if ( ! isset( $_POST['rpgc_balance'] ) ) {
 				$balance 		= woocommerce_clean( $_POST['rpgc_amount'] );
 				update_post_meta( $post_id, 'rpgc_balance', $balance );
 			}
 		}
+		if ( isset( $_POST['rpgc_balance'] ) ) {
+			$balance 		= woocommerce_clean( $_POST['rpgc_balance'] );
+			update_post_meta( $post_id, 'rpgc_balance', $balance );
+		}
 		if ( isset( $_POST['rpgc_note'] ) ) {
-			$note				= woocommerce_clean( $_POST['rpgc_note'] );
+			$note			= woocommerce_clean( $_POST['rpgc_note'] );
 			update_post_meta( $post_id, 'rpgc_note', $note );
 		}
 		if ( isset( $_POST['rpgc_expiry_date'] ) ) {
-			$expiry_date		= woocommerce_clean( $_POST['rpgc_expiry_date'] );
+			$expiry_date	= woocommerce_clean( $_POST['rpgc_expiry_date'] );
 			update_post_meta( $post_id, 'rpgc_expiry_date', $expiry_date );
 		}
 	
@@ -486,7 +484,7 @@ function rpgc_woocommerce() {
   			$randomNumber = substr(number_format(time() * rand(),0,'',''),0,15);
     		$data['post_title'] = $randomNumber;
     		$data['post_name'] = $randomNumber;
-    		$data['post_status'] = 'publish';
+    		//$data['post_status'] = 'publish';
   		}
   		
   		return $data;
@@ -508,9 +506,6 @@ function rpgc_woocommerce() {
 			global $woocommerce;
 
 			//get_template( '/woocommerce-gift-cards/form-giftcard.php', array( 'checkout' => $woocommerce->checkout() ) );
-
-			if ( ! $woocommerce->cart->coupons_enabled() )
-				return;
 
 			$info_message = apply_filters('woocommerce_checkout_coupon_message', __( 'Have a giftcard?', RPWCGC_CORE_TEXT_DOMAIN ));
 			?>
@@ -767,5 +762,9 @@ function rpgc_woocommerce() {
 		unset( $woocommerce->session->giftcard_payment, $woocommerce->session->giftcard_id, $woocommerce->session->giftcard_post );
 
 	}
-	
+
+
+
+
+
 }
