@@ -3,7 +3,7 @@
 Plugin Name: Gift Cards for WooCommerce
 Plugin URI: http://ryanpletcher.com
 Description: Gift Cards for WooCommerce allows you to offer gift cards to your customer and allow them to place orders using them.
-Version: 1.1
+Version: 1.2
 Author: Ryan Pletcher
 Author URI: http://ryanpletcher.com
 License: GPL2
