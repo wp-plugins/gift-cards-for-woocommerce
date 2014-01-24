@@ -3,7 +3,7 @@ Contributors: rpletcher
 Tags: woocommerce, gift, gift card, payment, gift certificate, certificate
 Requires at least: 3.0
 Tested up to: 3.8
-Stable tag: 1.2
+Stable tag: 1.2.1
 Donate link: https://ryanpletcher.com/donate/
 License: GPLv2 or later
 
@@ -32,6 +32,10 @@ If you have a feature that you would like let me know.
 
 
 == Changelog ==
+= 1.2.1 =
+* FIX: Set the sending address for giftcard emails
+* FIX: Removed the addition fields for Giftcards on products that are not
+
 = 1.2 =
 * ADD: Automatic email sent when gift card is created in admin control panel
 * ADD: Check mark option in product to set as a gift card 

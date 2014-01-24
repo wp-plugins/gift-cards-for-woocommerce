@@ -3,7 +3,7 @@
 Plugin Name: Gift Cards for WooCommerce
 Plugin URI: http://ryanpletcher.com
 Description: Gift Cards for WooCommerce allows you to offer gift cards to your customer and allow them to place orders using them.
-Version: 1.2
+Version: 1.2.1
 Author: Ryan Pletcher
 Author URI: http://ryanpletcher.com
 License: GPL2
@@ -737,8 +737,16 @@ function rpgc_woocommerce() {
 		}
 
 		if ( $sendTheEmail == 1 ) {
+			$sendName = bloginfo('name');
 
-			add_filter( 'wp_mail_content_type', 'set_html_content_type' );
+
+			add_filter( 'wp_mail_content_type', 'rpgc_html_content_type' );
+			add_filter( 'wp_mail_from_name', 'rpgc_mail_from_name' );
+
+			$sendEmail = get_bloginfo('admin_email');
+			$sendName = bloginfo('name');
+
+
 
 	        $email_subject = "New Giftcard";
 	        $email_heading = __( 'A gift card has been sent to you.', 'woocommerce');
@@ -862,7 +870,7 @@ function rpgc_woocommerce() {
 																			<?php //endif; ?>
 
 																			<div class="message">
-																				Dear <?php echo $to; ?>, <br /><br />
+																				Dear <?php echo $to; ?>,<br /><br />
 
 																				<?php echo $from; ?> has selected a <strong><?php bloginfo('name'); ?></strong> Gift Card for you! This card can be used for online purchases at <?php bloginfo('name'); ?>. <br />
 
@@ -954,13 +962,15 @@ function rpgc_woocommerce() {
 
 	        $message = ob_get_contents();
 
-	        $headers = 'From: Ryan <ryan.pletcher@gmail.com>' . "\r\n"; //. bloginfo('name') . ' <' . bloginfo('admin_email') . '>' 
+			$headers = 'From: ' . $sendEmail . "\r\n" . ' Reply-To: ' . $sendEmail;
 
 	        ob_get_clean();
+	        
 
 	        wp_mail( $toEmail, $email_subject, $message, $headers );
 
-			remove_filter( 'wp_mail_content_type', 'set_html_content_type' );
+	        remove_filter( 'wp_mail_from_name', 'rpgc_mail_from_name' );
+			remove_filter( 'wp_mail_content_type', 'rpgc_html_content_type' );
 		}
 
 		/* Deprecated - same hook name as in the meta */ 
@@ -969,7 +979,14 @@ function rpgc_woocommerce() {
 	}
 
 
-	function set_html_content_type() {
+	
+	
+	function rpgc_mail_from_name( ) {
+    	return bloginfo('name');
+	}
+
+
+	function rpgc_html_content_type() {
 
 		return 'text/html';
 	}
@@ -1125,7 +1142,7 @@ function rpgc_woocommerce() {
 
 		update_post_meta( $post_id, '_giftcard', $is_giftcard );
 
-		if($is_giftcard == "yes") {
+		if( $is_giftcard == "yes" ) {
 			update_post_meta( $post_id, '_virtual', $is_giftcard );
 			update_post_meta( $post_id, '_sold_individually', $is_giftcard );
 		}
@@ -1140,7 +1157,7 @@ function rpgc_woocommerce() {
 
 		$is_giftcard = get_post_meta( $post->ID, '_giftcard', true );
 
-		if($is_giftcard) {
+		if( $is_giftcard == "yes" ) {
 		?>
 			<div>
 				<div>All fields are Optional</div>
@@ -1163,7 +1180,7 @@ function rpgc_woocommerce() {
 
 		$is_giftcard = get_post_meta($product_id, '_giftcard', true );
 
-		if($is_giftcard) {
+		if( $is_giftcard == "yes" ) {
 
 
 
