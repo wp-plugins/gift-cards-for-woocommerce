@@ -3,7 +3,7 @@ Contributors: rpletcher
 Tags: woocommerce, gift, gift card, payment, gift certificate, certificate
 Requires at least: 3.0
 Tested up to: 3.8
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 Donate link: https://ryanpletcher.com/donate/
 License: GPLv2 or later
 
@@ -32,6 +32,10 @@ If you have a feature that you would like let me know.
 
 
 == Changelog ==
+= 1.2.3 =
+* FIX: Paypal now will get Giftcard Data on the receipt as a discount
+* FIX: Undefined index on order page when no giftcard is present has been fixed
+
 = 1.2.2 =
 * FIX: Fixed calculation in cart when you change a giftcard on checkout
 
