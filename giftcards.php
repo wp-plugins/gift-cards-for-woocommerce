@@ -3,7 +3,7 @@
 Plugin Name: Gift Cards for WooCommerce
 Plugin URI: http://ryanpletcher.com
 Description: Gift Cards for WooCommerce allows you to offer gift cards to your customer and allow them to place orders using them.
-Version: 1.2.3
+Version: 1.2.4
 Author: Ryan Pletcher
 Author URI: http://ryanpletcher.com
 License: GPL2
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 define( 'RPWCGC_CORE_TEXT_DOMAIN', 'rpgiftcards' );
 define( 'RPWCGC_PATH', plugin_dir_path( __FILE__ ) );
-define( 'RPWCGC_VERSION', '1.2' );
+define( 'RPWCGC_VERSION', '1.2.4' );
 define( 'RPWCGC_FILE', plugin_basename( __FILE__ ) );
 define( 'RPWCGC_URL', plugins_url( 'woocommerce-gift-cards', 'giftcards.php' ) );
 
@@ -68,20 +68,7 @@ function rpgc_woocommerce() {
 		global $woocommerce, $post;
 		$rpgc_url = plugins_url() . '/woocommerce-gift-cards';
 		wp_enqueue_style( 'rpgc_style', RPWCGC_URL . '/style/style.css' );
-		//var_dump($woocommerce->session);
-
 	}
-
-
-	
-
-
-
-
-
-
-
-
 
 
 	/**
@@ -263,7 +250,6 @@ function rpgc_woocommerce() {
 		$theBalance = get_post_meta( $order->id, 'rpgc_balance' );
 
 		if( empty( $theIDNum[0] ) ) {
-			var_dump( $theIDNum );
 			if ( $theIDNum[0] <> '' ) {
 			?>
 				<h4><?php _e( 'Remaining Gift Card Balance:', RPWCGC_CORE_TEXT_DOMAIN ); ?><?php echo ' ' . woocommerce_price( $theBalance[0] ); ?> </h4>

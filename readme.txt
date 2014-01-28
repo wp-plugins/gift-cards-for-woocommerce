@@ -32,6 +32,9 @@ If you have a feature that you would like let me know.
 
 
 == Changelog ==
+= 1.2.4 =
+* FIX: Removed a var_dump accidently left in the code
+
 = 1.2.3 =
 * FIX: Paypal now will get Giftcard Data on the receipt as a discount
 * FIX: Undefined index on order page when no giftcard is present has been fixed
