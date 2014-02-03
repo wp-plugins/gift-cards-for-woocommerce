@@ -3,7 +3,7 @@
 Plugin Name: Gift Cards for WooCommerce
 Plugin URI: http://ryanpletcher.com
 Description: Gift Cards for WooCommerce allows you to offer gift cards to your customer and allow them to place orders using them.
-Version: 1.2.4
+Version: 1.2.5
 Author: Ryan Pletcher
 Author URI: http://ryanpletcher.com
 License: GPL2
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 define( 'RPWCGC_CORE_TEXT_DOMAIN', 'rpgiftcards' );
 define( 'RPWCGC_PATH', plugin_dir_path( __FILE__ ) );
-define( 'RPWCGC_VERSION', '1.2.4' );
+define( 'RPWCGC_VERSION', '1.2.5' );
 define( 'RPWCGC_FILE', plugin_basename( __FILE__ ) );
 define( 'RPWCGC_URL', plugins_url( 'woocommerce-gift-cards', 'giftcards.php' ) );
 
@@ -301,8 +301,6 @@ function rpgc_woocommerce() {
 	}
 
 
-	add_action( 'woocommerce_cart_totals_before_order_total', 'rpgc_order_giftcard' );
-	add_action( 'woocommerce_review_order_before_order_total', 'rpgc_order_giftcard' );
 	/**
 	 * Function to add the giftcard data to the cart display
 	 *
@@ -333,12 +331,17 @@ function rpgc_woocommerce() {
 
 		}
 	}
+	add_action( 'woocommerce_cart_totals_before_order_total', 'rpgc_order_giftcard' );
+	add_action( 'woocommerce_review_order_before_order_total', 'rpgc_order_giftcard' );
 
-	function rpgc_add_order_giftcard( $total_rows) {
 
-		$order_id = $_GET['order'];
+	function rpgc_add_order_giftcard( $total_rows ) {
+		global $woocommerce;
+
+		$order_id = $woocommerce->session->idForEmail;
 
 		$order = new WC_Order( $order_id );
+
 		$giftCardPayment = get_post_meta( $order_id, 'rpgc_payment');
 
 		$total_rows['rpgc_data'] = array(
@@ -346,16 +349,12 @@ function rpgc_woocommerce() {
 			'value'	=> woocommerce_price( $giftCardPayment[0] )
 		);
 
+		//unset( $woocommerce->session->idForEmail );
+
 
 		return $total_rows;
 	}
-
 	add_filter( 'woocommerce_get_order_item_totals', 'rpgc_add_order_giftcard');
-
-	add_action( 'woocommerce_order_status_pending', 'rpgc_update_card' );
-	add_action( 'woocommerce_order_status_on-hold', 'rpgc_update_card' );
-	add_action( 'woocommerce_order_status_completed', 'rpgc_update_card' );
-	add_action( 'woocommerce_order_status_processing', 'rpgc_update_card' );
 
 	/**
 	 * Updates the Gift Card and the order information when the order is processed
@@ -370,6 +369,8 @@ function rpgc_woocommerce() {
 			update_post_meta( $order_id, 'rpgc_payment', $woocommerce->session->giftcard_payment );
 			update_post_meta( $order_id, 'rpgc_balance', $woocommerce->session->giftcard_balance );
 
+			$woocommerce->session->idForEmail = $order_id;
+
 			unset( $woocommerce->session->giftcard_id, $woocommerce->session->giftcard_payment, $woocommerce->session->giftcard_post, $woocommerce->session->giftcard_balance );
 		}
 
@@ -380,6 +381,11 @@ function rpgc_woocommerce() {
 		}
 
 	}
+	add_action( 'woocommerce_order_status_pending', 'rpgc_update_card' );
+	add_action( 'woocommerce_order_status_on-hold', 'rpgc_update_card' );
+	add_action( 'woocommerce_order_status_completed', 'rpgc_update_card' );
+	add_action( 'woocommerce_order_status_processing', 'rpgc_update_card' );
+
 
 
 	add_action( 'woocommerce_order_status_refunded', 'rpgc_refund_order' );
