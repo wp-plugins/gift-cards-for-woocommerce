@@ -15,6 +15,11 @@ Gift Cards for WooCommerce is a plugin which allows you to manage and sell gift 
 
 If you have an interest in translating this plugin please let me know.
 
+<strong>Translations:</strong>
+German
+Spanish
+Dutch
+
 == Installation ==
 1. Install the WooCommerce Gift Cards plugin
 2. Activate the plugin
@@ -32,6 +37,14 @@ If you have a feature that you would like let me know.
 
 
 == Changelog ==
+= 1.3 =
+* CHANGE: Changed file stucture of plugin
+* ADD: Gift Card panel in WooCommerce Settings
+* ADD: Ability to determine if your customers can pay for shipping with their giftcard
+* ADD: Setting to determine a default experation date for gift cards purchased online
+* ADD: Documentation for plugin.
+
+
 = 1.2.5 =
 * FIX: Display of giftcard paymnt on email reciept will now display
 
