@@ -15,10 +15,6 @@ Gift Cards for WooCommerce is a plugin which allows you to manage and sell gift 
 
 If you have an interest in translating this plugin please let me know.
 
-<strong>Translations:</strong>
-German
-Spanish
-Dutch
 
 == Installation ==
 1. Install the WooCommerce Gift Cards plugin
