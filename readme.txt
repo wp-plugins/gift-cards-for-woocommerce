@@ -73,7 +73,13 @@ If you have a feature that you would like let me know.
 * Initial Release
 
 == Screenshots ==
-None at this time
+1. Gift Card Menu added to Woocommerce -> screenshot-1.png
+2. Gift card option on product when make the product a giftcard -> screenshot-2.png
+3. Place to enter a gift card number on checkout -> screenshot-3.png
+4. Enter a gift card on checkout -> screenshot-4.png
+5. Gift card product will get additional fields when adding a product -> screenshot-5.png
+6. Gift card can be removed from the cart -> screenshot-6.png
+7. Manage gift cards and create gift cards from the wp-admin area -> screenshot-7.png
 
 == Upgrade Notice ==
 None at this time.
