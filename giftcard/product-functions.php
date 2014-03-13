@@ -52,7 +52,7 @@ function rpgc_cart_fields( ) {
 	global $post;
 
 	$is_giftcard = get_post_meta( $post->ID, '_giftcard', true );
-	if ( $is_giftcard ) {
+	if ( $is_giftcard == "yes" ) {
 ?>
 		<div>
 			<div>All fields are Optional</div>

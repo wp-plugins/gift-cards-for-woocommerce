@@ -32,11 +32,11 @@ class RPGC_Settings extends WC_Settings_Page {
 	 */
 	public function get_settings() {
 
-		return apply_filters( 'woocommerce_' . $this->id . '_settings', array(
+		return apply_filters( 'woocommerce_giftcard_settings', array(
 
 			array( 'type' 		=> 'sectionend', 'id' => 'giftcard_experation_options' ),
 
-			array( 'title' 		=> __( 'Processesing Options',  RPWCGC_CORE_TEXT_DOMAIN  ), 'type' => 'title', 'id' => 'giftcard_processing_options_title' ),
+			array( 'title' 		=> __( 'Processing Options',  RPWCGC_CORE_TEXT_DOMAIN  ), 'type' => 'title', 'id' => 'giftcard_processing_options_title' ),
 
 			array(
 				'title'         => __( 'Shipping Charge?',  RPWCGC_CORE_TEXT_DOMAIN  ),

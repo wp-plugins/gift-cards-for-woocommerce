@@ -318,7 +318,7 @@ function rpgc_display_giftcard( $order ) {
 	if( isset( $theGiftCardData ) ) {
 		if ( $theGiftCardData <> '' ) {
 	?>
-			<h4><?php _e( 'Gift Card Informaion:', RPWCGC_CORE_TEXT_DOMAIN ); ?></h4>
+			<h4><?php _e( 'Gift Card Information:', RPWCGC_CORE_TEXT_DOMAIN ); ?></h4>
 			<?php
 			$i = 1;
 
