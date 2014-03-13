@@ -3,7 +3,7 @@ Contributors: rpletcher
 Tags: woocommerce, gift, gift card, payment, gift certificate, certificate
 Requires at least: 3.0
 Tested up to: 3.8
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 Donate link: https://ryanpletcher.com/donate/
 License: GPLv2 or later
 
@@ -32,6 +32,10 @@ If you have a feature that you would like let me know.
 
 
 == Changelog ==
+= 1.3.2 =
+* FIX: Gift card fields on all the products
+* FIX: More issues with spelling
+
 = 1.3.1 =
 * FIX: Updated place holder to display the information correctly.
 * FIX: Corrected path on a script to call correct location.
