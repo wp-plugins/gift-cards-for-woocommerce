@@ -20,8 +20,8 @@ function rpgc_extra_check( $product_type_options ) {
 		'giftcard' => array(
 			'id' => '_giftcard',
 			'wrapper_class' => 'show_if_simple',
-			'label' => __( 'Gift Card',  RPWCGC_CORE_TEXT_DOMAIN ),
-			'description' => __( 'Make product a gift card.',  RPWCGC_CORE_TEXT_DOMAIN )
+			'label' => __( 'Gift Card', 'woocommerce' ),
+			'description' => __( 'Make product a gift card.', 'woocommerce' )
 		),
 	);
 
@@ -56,10 +56,10 @@ function rpgc_cart_fields( ) {
 ?>
 		<div>
 			<div>All fields are Optional</div>
-			<input type="hidden" id="rpgc_description" name="rpgc_description" value="<?php __('Generated from the website.' , RPWCGC_CORE_TEXT_DOMAIN ); ?>" />
-			<input name="rpgc_to" id="rpgc_to" placeholder="<?php __('To',  RPWCGC_CORE_TEXT_DOMAIN ); ?>" class="input-text" style="margin-bottom:5px;">
-			<input type="email" name="rpgc_to_email" id="rpgc_to_email" placeholder="<?php __('Send To',  RPWCGC_CORE_TEXT_DOMAIN ); ?>" class="input-text" style="margin-bottom:5px;">
-			<textarea class="input-text" id="rpgc_note" name="rpgc_note" placeholder="<?php __('Enter your note here.',  RPWCGC_CORE_TEXT_DOMAIN ); ?>" rows="2"></textarea>
+			<input type="hidden" id="rpgc_description" name="rpgc_description" value="<?php _e('Generated from the website.', RPWCGC_CORE_TEXT_DOMAIN ); ?>" />
+			<input name="rpgc_to" id="rpgc_to" placeholder="<?php _e('To', RPWCGC_CORE_TEXT_DOMAIN ); ?>" class="input-text" style="margin-bottom:5px;">
+			<input type="email" name="rpgc_to_email" id="rpgc_to_email" placeholder="S<?php _e('end To', RPWCGC_CORE_TEXT_DOMAIN ); ?>" class="input-text" style="margin-bottom:5px;">
+			<textarea class="input-text" id="rpgc_note" name="rpgc_note" placeholder="<?php _e('Enter your note here.', RPWCGC_CORE_TEXT_DOMAIN ); ?>" rows="2"></textarea>
 		</div>
 
 		<?php

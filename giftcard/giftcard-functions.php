@@ -25,7 +25,7 @@ function rpgc_create_number( $data , $postarr ) {
 		$data['post_name'] = $randomNumber;
 	}
 
-	return $data;
+	return apply_filter('rpgc_create_number', $data);
 }
 add_filter( 'wp_insert_post_data' , 'rpgc_create_number' , '99', 2 );
 
