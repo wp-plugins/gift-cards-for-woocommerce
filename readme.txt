@@ -3,7 +3,7 @@ Contributors: rpletcher
 Tags: woocommerce, gift, gift card, payment, gift certificate, certificate
 Requires at least: 3.0
 Tested up to: 3.8
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 Donate link: https://ryanpletcher.com/donate/
 License: GPLv2 or later
 
@@ -28,7 +28,7 @@ Q: I want to be able to do ______ with my gift card but you dont have the featur
 A: You can find more pluins at <a href="wp-ronin.com">wp-ronin.com</a>.
 
 == Changelog ==
-= 1.3.3 =
+= 1.3.4 =
 * ADD: Experation date is checked when using the card
 * ADD: Ability to regenerate the card number if needed
 * ADD: Ability to send out gift card after initial creation
