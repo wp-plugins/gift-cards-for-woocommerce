@@ -28,8 +28,8 @@ function rpgc_admin_enqueue() {
 		wp_enqueue_style( 'woocommerce_admin_styles', $woocommerce->plugin_url() . '/assets/css/admin.css' );
 		$jquery_version = isset( $wp_scripts->registered['jquery-ui-core']->ver ) ? $wp_scripts->registered['jquery-ui-core']->ver : '1.9.2';
 		
-		wp_enqueue_style( 'jquery-ui-style', RPWCGC_URL . '/style/jquery-ui.css' );
-		wp_enqueue_style( 'font-awesome_styles', RPWCGC_URL . '/style/font-awesome/css/font-awesome.min.css' ); // Adds the custom icon style
+		//wp_enqueue_style( 'jquery-ui-style', RPWCGC_URL . '/style/jquery-ui.css' );
+		//wp_enqueue_style( 'font-awesome_styles', RPWCGC_URL . '/style/font-awesome/css/font-awesome.min.css' ); // Adds the custom icon style
 		wp_enqueue_style( 'farbtastic' );
 
 		wp_enqueue_script( 'woocommerce_writepanel' );
@@ -63,14 +63,59 @@ function rpgc_meta_boxes() {
 	);
 
 
-	if ( ! isset( $_GET['action'] ) )
+	if ( ! isset( $_GET['action'] ) ) 
 		remove_post_type_support( 'rp_shop_giftcard', 'title' );
+	
+	if ( isset ( $_GET['action'] ) )
+		add_meta_box(
+			'rpgc-more-options',
+			__( 'Additional Card Options', RPWCGC_CORE_TEXT_DOMAIN ),
+			'rpgc_options_meta_box',
+			'rp_shop_giftcard',
+			'side',
+			'low'
+		);		
 
 	remove_meta_box( 'woothemes-settings', 'rp_shop_giftcard' , 'normal' );
 	remove_meta_box( 'commentstatusdiv', 'rp_shop_giftcard' , 'normal' );
 	remove_meta_box( 'slugdiv', 'rp_shop_giftcard' , 'normal' );
 }
 add_action( 'add_meta_boxes', 'rpgc_meta_boxes' );
+
+/**
+ * Creates the Giftcard Regenerate Meta Box in the admin control panel when in the Giftcard Post Type.  Allows you to click a button regenerate the number.
+ * @param  [type] $post
+ * @return [type]
+ */
+function rpgc_options_meta_box( $post ) {
+	global $woocommerce;
+
+	wp_nonce_field( 'woocommerce_save_data', 'woocommerce_meta_nonce' );
+	
+	
+	echo '<div id="giftcard_regenerate" class="panel woocommerce_options_panel">';
+	echo '    <div class="options_group">';
+
+	if( $post->post_status <> 'zerobalance' ) {
+		// Regenerate the Card Number
+		woocommerce_wp_checkbox( array( 'id' => 'rpgc_resend_email', 'label' => __( 'Send Gift Card Email', RPWCGC_CORE_TEXT_DOMAIN ) ) );
+
+		// Regenerate the Card Number
+		woocommerce_wp_checkbox( array( 'id' => 'rpgc_regen_number', 'label' => __( 'Regenerate Card Number', RPWCGC_CORE_TEXT_DOMAIN ) ) );
+
+		do_action( 'rpgc_add_more_options' );
+
+	} else {
+		_e( 'No additional options available. Zero balance', RPWCGC_CORE_TEXT_DOMAIN );
+
+		
+	}
+
+
+	echo '    </div>';
+	echo '</div>';
+
+}
 	
 /**
  * Creates the Giftcard Meta Box in the admin control panel when in the Giftcard Post Type.  Allows you to create a giftcard manually.
@@ -174,7 +219,8 @@ function rpgc_meta_box( $post ) {
 			'id' => 'rpgc_note',
 			'label' => __( 'Gift Card Note', RPWCGC_CORE_TEXT_DOMAIN ),
 			'description' => __( 'Enter a message to your customer.', RPWCGC_CORE_TEXT_DOMAIN ),
-			'class' => 'wide'
+			'class' => 'short'
+			
 		)
 	);
 
@@ -184,7 +230,7 @@ function rpgc_meta_box( $post ) {
 			'id' => 'rpgc_expiry_date',
 			'label' => __( 'Expiry date', RPWCGC_CORE_TEXT_DOMAIN ),
 			'placeholder' => _x( 'Never expire', 'placeholder', RPWCGC_CORE_TEXT_DOMAIN ),
-			'description' => __( 'The date this Gift Card will expire, <code>YYYY-MM-DD</code>. (Currently not available)', RPWCGC_CORE_TEXT_DOMAIN ),
+			'description' => __( 'The date this Gift Card will expire, <code>YYYY-MM-DD</code>.', RPWCGC_CORE_TEXT_DOMAIN ),
 			'class' => 'short date-picker',
 			'custom_attributes' => array( 'pattern' => "[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" )
 		)
@@ -193,33 +239,35 @@ function rpgc_meta_box( $post ) {
 	do_action( 'rpgc_woocommerce_options' );
 
 	echo '</div>';
-
-?>
-</div>
-<?php
+	echo '</div>';
 }
+
+
+
+
 
 	add_filter( 'manage_edit-rp_shop_giftcard_columns', 'rpgc_add_columns' );
 
 	function rpgc_add_columns( $columns ) {
 		$new_columns = ( is_array( $columns ) ) ? $columns : array();
+		unset( $new_columns['title'] );
 		unset( $new_columns['date'] );
 		unset( $new_columns['comments'] );
 
 		//all of your columns will be added before the actions column on the Giftcard page
 
-		$new_columns["amount"]    = __( 'Giftcard Amount', RPWCGC_CORE_TEXT_DOMAIN );
-		$new_columns["balance"]   = __( 'Remaining Balance', RPWCGC_CORE_TEXT_DOMAIN );
-		$new_columns["buyer"]    = __( 'Buyer', RPWCGC_CORE_TEXT_DOMAIN );
-		$new_columns["recipient"]   = __( 'Recipient', RPWCGC_CORE_TEXT_DOMAIN );
-		$new_columns["expiry_date"]  = __( 'Expiry date', RPWCGC_CORE_TEXT_DOMAIN );
+		$new_columns["title"]		= __( 'Giftcard Number', RPWCGC_CORE_TEXT_DOMAIN );
+		$new_columns["amount"]		= __( 'Giftcard Amount', RPWCGC_CORE_TEXT_DOMAIN );
+		$new_columns["balance"]		= __( 'Remaining Balance', RPWCGC_CORE_TEXT_DOMAIN );
+		$new_columns["buyer"]		= __( 'Buyer', RPWCGC_CORE_TEXT_DOMAIN );
+		$new_columns["recipient"]	= __( 'Recipient', RPWCGC_CORE_TEXT_DOMAIN );
+		$new_columns["expiry_date"]	= __( 'Expiry date', RPWCGC_CORE_TEXT_DOMAIN );
 
-		$new_columns['comments']   = $columns['comments'];
-		$new_columns['date']    = $columns['date'];
+		$new_columns['comments']	= $columns['comments'];
+		$new_columns['date']		= __( 'Creation Date', RPWCGC_CORE_TEXT_DOMAIN );
 
 		return $new_columns;
 	}
-
 
 /**
  */
@@ -318,6 +366,18 @@ add_filter( 'woocommerce_get_order_item_totals', 'rpgc_add_order_giftcard');
 function rpgc_update_card( $order_id ) {
 	global $woocommerce;
 
+	$balance = get_post_meta($order_id, 'rpgc_balance', true);
+	// Check if the gift card ballance is 0 and if it is change the post status to zerobalance
+	if( $balance == 0 ) {
+		$my_post = array(
+	    	'ID'           => $woocommerce->session->giftcard_post,
+	    	'post_status'  => 'zerobalance'
+  		);
+
+		// Update the post into the database
+		  wp_update_post( $my_post );
+	}
+
 	if ( $woocommerce->session->giftcard_post <> '' ) {
 		update_post_meta( $woocommerce->session->giftcard_post, 'rpgc_balance', $woocommerce->session->giftcard_balance ); // Update balance of Giftcard
 		update_post_meta( $order_id, 'rpgc_id', $woocommerce->session->giftcard_id );
@@ -347,20 +407,21 @@ add_action( 'woocommerce_order_status_processing', 'rpgc_update_card' );
 function rpgc_process_giftcard_meta( $post_id, $post ) {
 	global $wpdb, $woocommerce_errors;
 
-	$description  = '';
-	$to     = '';
-	$toEmail   = '';
-	$from     = '';
-	$fromEmail   = '';
-	$sendto_from   = '';
-	$sendautomaticly = '';
-	$amount    = '';
-	$balance   = '';
-	$note    = '';
-	$expiry_date   = '';
-	$sendTheEmail  = 0;
+	$description  		= '';
+	$to     			= '';
+	$toEmail   			= '';
+	$from     			= '';
+	$fromEmail   		= '';
+	$sendto_from   		= '';
+	$sendautomaticly 	= '';
+	$amount    			= '';
+	$balance   			= '';
+	$note    			= '';
+	$expiry_date   		= '';
+	$sendTheEmail  		= 0;
 
-	// Ensure coupon code is correctly formatted
+	
+	// Ensure gift card code is correctly formatted
 	$wpdb->update( $wpdb->posts, array( 'post_title' => $post->post_title ), array( 'ID' => $post_id ) );
 
 	// Check for duplicate giftcards
@@ -415,9 +476,18 @@ function rpgc_process_giftcard_meta( $post_id, $post ) {
 		update_post_meta( $post_id, 'rpgc_expiry_date', $expiry_date );
 	}
 
-	if( $sendTheEmail == 1 ) {
+	if ( isset( $_POST['rpgc_regen_number'] ) ) {
+
+		$newNumber = apply_filters( 'rpgc_regen_number', rpgc_generate_number());
+
+		$wpdb->update( $wpdb->posts, array( 'post_title' => $newNumber ), array( 'ID' => $post_id ) );
+		$wpdb->update( $wpdb->posts, array( 'post_name' => $newNumber ), array( 'ID' => $post_id ) );
+
+	}
+
+	if( ( ( $sendTheEmail == 1 ) && ( $balance <> 0 ) ) || isset( $_POST['rpgc_resend_email'] ) ) {
 		$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
-		$subject = apply_filters( 'woocommerce_email_subject_gift_card', sprintf( '[%s] %s', $blogname, __( 'Gift card information', 'woocommerce' ) ), $post->post_title );
+		$subject = apply_filters( 'woocommerce_email_subject_gift_card', sprintf( '[%s] %s', $blogname, __( 'Gift Card Information', 'woocommerce' ) ), $post->post_title );
 		$sendEmail = get_bloginfo( 'admin_email' );
 
 		ob_start();
@@ -446,6 +516,7 @@ function rpgc_process_giftcard_meta( $post_id, $post ) {
 	/* Deprecated - same hook name as in the meta */
 	do_action( 'woocommerce_rpgc_options' );
 	do_action( 'woocommerce_rpgc_options_save' );
+
 }
 add_action( 'save_post', 'rpgc_process_giftcard_meta', 20, 2 );
 
@@ -456,16 +527,16 @@ function sendGiftcardEmail ( $giftCard ) {
 	?>
 
 	<div class="message">
-		Dear <?php echo get_post_meta( $giftCard->ID, 'rpgc_to', true); ?>,<br /><br />
+		<?php _e( 'Dear', RPWCGC_CORE_TEXT_DOMAIN ); ?> <?php echo get_post_meta( $giftCard->ID, 'rpgc_to', true); ?>,<br /><br />
 			
-		<?php echo get_post_meta( $giftCard->ID, 'rpgc_from', true); ?> has selected a <strong><a href="<?php bloginfo( 'url' ); ?>"><?php bloginfo( 'name' ); ?></a></strong> Gift Card for you! This card can be used for online purchases at <?php bloginfo( 'name' ); ?>. <br />
+		<?php echo get_post_meta( $giftCard->ID, 'rpgc_from', true); ?> has selected a <strong><a href="<?php bloginfo( 'url' ); ?>"><?php bloginfo( 'name' ); ?></a></strong> <?php _e( 'Gift Card for you! This card can be used for online purchases at', RPWCGC_CORE_TEXT_DOMAIN ); ?> <?php bloginfo( 'name' ); ?>. <br />
 
-		<h4>Gift Card Amount: <?php echo woocommerce_price( get_post_meta( $giftCard->ID, 'rpgc_amount', true) ); ?></h4>
-		<h4>Gift Card Number: <?php echo $giftCard->post_title; ?></h4>
+		<h4><?php _e( 'Gift Card Amount', RPWCGC_CORE_TEXT_DOMAIN ); ?>: <?php echo woocommerce_price( get_post_meta( $giftCard->ID, 'rpgc_balance', true) ); ?></h4>
+		<h4><?php _e( 'Gift Card Number', RPWCGC_CORE_TEXT_DOMAIN ); ?>: <?php echo $giftCard->post_title; ?></h4>
 
 		<?php
 		if ( $expiry_date != "" ) {
-			echo 'Expiration Date: ' . get_post_meta( $giftCard->ID, 'rpgc_expiry_date', true);
+			echo __( 'Expiration Date', RPWCGC_CORE_TEXT_DOMAIN ) . ': ' . get_post_meta( $giftCard->ID, 'rpgc_expiry_date', true);
 		}
 		?>
 	</div>
@@ -475,12 +546,12 @@ function sendGiftcardEmail ( $giftCard ) {
 	</div>
 
 	<div style="padding-top: 10px; border-top: 1px solid #ccc;">
-		Using your Gift Card is easy:
+		<?php _e( 'Using your Gift Card is easy', RPWCGC_CORE_TEXT_DOMAIN ); ?>:
 
 		<ol>
-			<li>Shop at <?php bloginfo( 'name' ); ?></li>
-			<li>Select "Pay with a Gift Card" during checkout.</li>
-			<li>Enter your card number.</li>
+			<li><?php _e( 'Shop at', RPWCGC_CORE_TEXT_DOMAIN ); ?> <?php bloginfo( 'name' ); ?></li>
+			<li><?php _e( 'Select \"Pay with a Gift Card\" during checkout.', RPWCGC_CORE_TEXT_DOMAIN ); ?></li>
+			<li><?php _e( 'Enter your card number.', RPWCGC_CORE_TEXT_DOMAIN ); ?></li>
 		</ol>
 	</div>
 
