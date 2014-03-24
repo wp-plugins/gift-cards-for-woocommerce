@@ -95,14 +95,14 @@ function rpgc_woocommerce() {
 	     if($post->post_type == 'rp_shop_giftcard'){
 	          if($post->post_status == 'zerobalance'){
 	               $complete = ' selected=\"selected\"';
-	               $label = '<span id=\"post-status-display\">' . _e( 'Zero Balanace', RPWCGC_CORE_TEXT_DOMAIN ) . '</span>';
+	               $label = '<span id=\"post-status-display\">' . _e( 'Zero Balance', RPWCGC_CORE_TEXT_DOMAIN ) . '</span>';
 	          }
 
 	          echo '
 	          <script>
 	          jQuery(document).ready(function($){
 	               $("select#post_status").append("<option value=\"zerobalance\" '.$complete.'>';
-	               	_e( 'Zero Balanace', RPWCGC_CORE_TEXT_DOMAIN );
+	               	_e( 'Zero Balance', RPWCGC_CORE_TEXT_DOMAIN );
 	           echo '</option>");
 	               $(".misc-pub-section label").append("'.$label.'");
 	          });
