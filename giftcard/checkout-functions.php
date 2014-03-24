@@ -117,6 +117,8 @@ function rpgc_add_card_data( $cart_item_key, $product_id, $quantity ) {
 		if ( isset( $_POST['rpgc_note'] ) )
 			$giftcard_data['Note'] = woocommerce_clean( $_POST['rpgc_note'] );
 
+		$giftcard_data = apply_filters( 'rpgc_giftcard_data', $giftcard_data, $_POST );
+
 		$woocommerce->cart->cart_contents[$cart_item_key]["variation"] = $giftcard_data;
 		return $woocommerce;
 	}
@@ -167,54 +169,64 @@ function woocommerce_ajax_apply_giftcard() {
 
 		$orderTotal = (float) $woocommerce->cart->total;
 
+		$current_date = date("Y-m-d");
+		$cardExperation = get_post_meta( $giftcard_found, 'rpgc_expiry_date', true );
+
 		if ( $giftcard_found ) {
-			// Valid Gift Card Entered					
+			// Valid Gift Card Entered		
+			if ( strtotime($current_date) <= strtotime($cardExperation) ) {
 
-			$oldBalance = get_post_meta( $giftcard_found, 'rpgc_balance' );
+				$oldBalance = get_post_meta( $giftcard_found, 'rpgc_balance' );
 
-			if ( is_string( $oldBalance[0] ) )  // Determin if the Value from $oldBalance is a String and convert it
-				$oldGiftcardValue = (float) $oldBalance[0];
+				if ( is_string( $oldBalance[0] ) )  // Determin if the Value from $oldBalance is a String and convert it
+					$oldGiftcardValue = (float) $oldBalance[0];
 
-			if ( is_string( $orderTotal ) )   // Determin if the Value from $orderTotal is a String and convert it
-				$orderTotalCost = (float) $orderTotal;
+				if ( is_string( $orderTotal ) )   // Determin if the Value from $orderTotal is a String and convert it
+					$orderTotalCost = (float) $orderTotal;
 
-			$woocommerce->session->giftcard_post = $giftcard_found;
-			$woocommerce->session->giftcard_id = $giftCardNumber;
-
-
-			if ( $oldGiftcardValue == 0 ) {
-				// Giftcard Entered does not have a balance
-				$woocommerce->add_error( __( 'Gift Card does not have a balance!', RPWCGC_CORE_TEXT_DOMAIN ) );
-
-			} elseif ( $oldGiftcardValue >= $orderTotal ) {
-				//  Giftcard Balance is more than the order total.
-				//  Subtract the order from the card
-				$woocommerce->session->giftcard_payment = $orderTotal;
-
-				if( get_option( 'woocommerce_enable_giftcard_process' ) == 'no' )
-					$woocommerce->session->giftcard_payment = $woocommerce->session->giftcard_payment - $woocommerce->cart->shipping_total;
+				$woocommerce->session->giftcard_post = $giftcard_found;
+				$woocommerce->session->giftcard_id = $giftCardNumber;
 
 
-				$woocommerce->session->giftcard_balance = $oldGiftcardValue - $orderTotal;
-				$msg = __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN );
-				$woocommerce->add_message(  __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN ) );
+				if ( $oldGiftcardValue == 0 ) {
+					// Giftcard Entered does not have a balance
+					$woocommerce->add_error( __( 'Gift Card does not have a balance!', RPWCGC_CORE_TEXT_DOMAIN ) );
 
-			} elseif ( $oldGiftcardValue < $orderTotal ) {
-				//  Giftcard Balance is less than the order total.
-				//  Subtract the giftcard from the order total
-				
-				$woocommerce->session->giftcard_payment = $oldGiftcardValue;
-				$woocommerce->session->giftcard_balance = 0;
-				
-				if( get_option( 'woocommerce_enable_giftcard_process' ) == 'no' ) {
-					$cartSubtotal = $orderTotal - $woocommerce->cart->shipping_total;
-					if ( $oldGiftcardValue > $cartSubtotal ) {
-						$woocommerce->session->giftcard_balance = $oldGiftcardValue - $cartSubtotal;
-						$woocommerce->session->giftcard_payment = $cartSubtotal;
+				} elseif ( $oldGiftcardValue >= $orderTotal ) {
+					//  Giftcard Balance is more than the order total.
+					//  Subtract the order from the card
+					$woocommerce->session->giftcard_payment = $orderTotal;
+
+					if( get_option( 'woocommerce_enable_giftcard_process' ) == 'no' )
+						$woocommerce->session->giftcard_payment = $woocommerce->session->giftcard_payment - $woocommerce->cart->shipping_total;
+
+
+					$woocommerce->session->giftcard_balance = $oldGiftcardValue - $orderTotal;
+					$msg = __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN );
+					$woocommerce->add_message(  __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN ) );
+
+				} elseif ( $oldGiftcardValue < $orderTotal ) {
+					//  Giftcard Balance is less than the order total.
+					//  Subtract the giftcard from the order total
+					
+					$woocommerce->session->giftcard_payment = $oldGiftcardValue;
+					$woocommerce->session->giftcard_balance = 0;
+					
+					if( get_option( 'woocommerce_enable_giftcard_process' ) == 'no' ) {
+						$cartSubtotal = $orderTotal - $woocommerce->cart->shipping_total;
+						if ( $oldGiftcardValue > $cartSubtotal ) {
+							$woocommerce->session->giftcard_balance = $oldGiftcardValue - $cartSubtotal;
+							$woocommerce->session->giftcard_payment = $cartSubtotal;
+						}
 					}
-				}
 
-				$woocommerce->add_message(  __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN ) );
+					$woocommerce->add_message(  __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN ) );
+				}
+			} else {
+				// Giftcard Entered has expired
+				$woocommerce->add_error( __( 'Gift Card has expired!', RPWCGC_CORE_TEXT_DOMAIN ) );
+
+
 			}
 		} else {
 			// Giftcard Entered does not exist
