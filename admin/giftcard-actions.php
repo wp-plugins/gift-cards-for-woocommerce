@@ -535,6 +535,9 @@ function sendGiftcardEmail ( $giftCard ) {
 		<h4><?php _e( 'Gift Card Number', RPWCGC_CORE_TEXT_DOMAIN ); ?>: <?php echo $giftCard->post_title; ?></h4>
 
 		<?php
+		$expiry_date = get_post_meta( $giftCard->ID, 'rpgc_expiry_date', true);
+
+
 		if ( $expiry_date != "" ) {
 			echo __( 'Expiration Date', RPWCGC_CORE_TEXT_DOMAIN ) . ': ' . get_post_meta( $giftCard->ID, 'rpgc_expiry_date', true);
 		}
