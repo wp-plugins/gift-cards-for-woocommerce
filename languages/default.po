@@ -1,0 +1,307 @@
+# Copyright (C) 2014 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/gift-cards-for-woocommerce\n"
+"POT-Creation-Date: 2014-03-20 00:17:57+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-03-19 18:29-0700\n"
+"Last-Translator: \n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Poedit 1.6.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: en_US\n"
+
+#: admin/giftcard-actions.php:58
+msgid "Gift Card Data"
+msgstr ""
+
+#: admin/giftcard-actions.php:97
+msgid "Gift Card description"
+msgstr ""
+
+#: admin/giftcard-actions.php:99
+msgid "Optionally enter a description for this gift card for your reference."
+msgstr ""
+
+#: admin/giftcard-actions.php:103
+msgid "Who are you sending this to?"
+msgstr ""
+
+#: admin/giftcard-actions.php:108 giftcard/checkout-functions.php:332
+#: giftcard/product-functions.php:60
+msgid "To"
+msgstr ""
+
+#: admin/giftcard-actions.php:110
+msgid "Who is getting this gift card."
+msgstr ""
+
+#: admin/giftcard-actions.php:117
+msgid "Email To"
+msgstr ""
+
+#: admin/giftcard-actions.php:119
+msgid "What email should we send this gift card to."
+msgstr ""
+
+#: admin/giftcard-actions.php:127
+msgid "From"
+msgstr ""
+
+#: admin/giftcard-actions.php:129
+msgid "Who is sending this gift card."
+msgstr ""
+
+#: admin/giftcard-actions.php:136
+msgid "Email From"
+msgstr ""
+
+#: admin/giftcard-actions.php:138
+msgid "What email account is sending this gift card."
+msgstr ""
+
+#: admin/giftcard-actions.php:144
+msgid "Personalize it"
+msgstr ""
+
+#: admin/giftcard-actions.php:149
+msgid "Gift Card Amount"
+msgstr ""
+
+#: admin/giftcard-actions.php:151
+msgid "Value of the Gift Card."
+msgstr ""
+
+#: admin/giftcard-actions.php:162
+msgid "Gift Card Balance"
+msgstr ""
+
+#: admin/giftcard-actions.php:164
+msgid "Remaining Balance of the Gift Card."
+msgstr ""
+
+#: admin/giftcard-actions.php:175
+msgid "Gift Card Note"
+msgstr ""
+
+#: admin/giftcard-actions.php:176
+msgid "Enter a message to your customer."
+msgstr ""
+
+#: admin/giftcard-actions.php:185 admin/giftcard-actions.php:215
+msgid "Expiry date"
+msgstr ""
+
+#: admin/giftcard-actions.php:186
+msgctxt "placeholder"
+msgid "Never expire"
+msgstr ""
+
+#: admin/giftcard-actions.php:187
+msgid ""
+"The date this Gift Card will expire, <code>YYYY-MM-DD</code>. (Currently not "
+"available)"
+msgstr ""
+
+#: admin/giftcard-actions.php:211
+msgid "Giftcard Amount"
+msgstr ""
+
+#: admin/giftcard-actions.php:212
+msgid "Remaining Balance"
+msgstr ""
+
+#: admin/giftcard-actions.php:213
+msgid "Buyer"
+msgstr ""
+
+#: admin/giftcard-actions.php:214
+msgid "Recipient"
+msgstr ""
+
+#: admin/giftcard-actions.php:306
+msgid "Gift Card Payment:"
+msgstr ""
+
+#: admin/giftcard-actions.php:420
+msgid "Gift card information"
+msgstr ""
+
+#: admin/giftcard-actions.php:427
+msgid "New gift card from "
+msgstr ""
+
+#: admin/giftcard-settings.php:21 giftcards.php:55
+msgid "Gift Cards"
+msgstr ""
+
+#: admin/giftcard-settings.php:39
+msgid "Processing Options"
+msgstr ""
+
+#: admin/giftcard-settings.php:42
+msgid "Shipping Charge?"
+msgstr ""
+
+#: admin/giftcard-settings.php:43
+msgid "Allow customers to pay for shipping with their gift card."
+msgstr ""
+
+#: admin/order-functions.php:27
+msgid "Giftcard Information"
+msgstr ""
+
+#: admin/order-functions.php:31
+msgid "Gift Card #:"
+msgstr ""
+
+#: admin/order-functions.php:36
+msgid "Payment:"
+msgstr ""
+
+#: admin/order-functions.php:41
+msgid "Balance remaining:"
+msgstr ""
+
+#: giftcard/checkout-functions.php:27
+msgid "Have a giftcard?"
+msgstr ""
+
+#: giftcard/checkout-functions.php:30
+msgid "Click here to enter your giftcard"
+msgstr ""
+
+#: giftcard/checkout-functions.php:35 giftcard/product-functions.php:23
+#: giftcards.php:56
+msgid "Gift Card"
+msgstr ""
+
+#: giftcard/checkout-functions.php:39
+msgid "Apply Giftcard"
+msgstr ""
+
+#: giftcard/checkout-functions.php:187
+msgid "Gift Card does not have a balance!"
+msgstr ""
+
+#: giftcard/checkout-functions.php:199 giftcard/checkout-functions.php:200
+#: giftcard/checkout-functions.php:217
+msgid "Gift card applied successfully."
+msgstr ""
+
+#: giftcard/checkout-functions.php:221
+msgid "Gift Card does not exist!"
+msgstr ""
+
+#: giftcard/checkout-functions.php:265 giftcard/checkout-functions.php:289
+msgid "Gift Card Payment"
+msgstr ""
+
+#: giftcard/checkout-functions.php:266
+msgid "Remove Gift Card"
+msgstr ""
+
+#: giftcard/checkout-functions.php:312
+msgid "Remaining Gift Card Balance:"
+msgstr ""
+
+#: giftcard/checkout-functions.php:321
+msgid "Gift Card Information:"
+msgstr ""
+
+#: giftcard/checkout-functions.php:329
+msgid "Giftcard"
+msgstr ""
+
+#: giftcard/checkout-functions.php:331
+msgid "Card"
+msgstr ""
+
+#: giftcard/checkout-functions.php:333
+msgid "Send To"
+msgstr ""
+
+#: giftcard/checkout-functions.php:334
+msgid "Balance"
+msgstr ""
+
+#: giftcard/checkout-functions.php:335
+msgid "Note"
+msgstr ""
+
+#: giftcard/checkout-functions.php:336
+msgid "Quantity"
+msgstr ""
+
+#: giftcard/product-functions.php:24
+msgid "Make product a gift card."
+msgstr ""
+
+#: giftcard/product-functions.php:59
+msgid "Generated from the website."
+msgstr ""
+
+#: giftcard/product-functions.php:61
+msgid "end To"
+msgstr ""
+
+#: giftcard/product-functions.php:58
+msgid "All fields are Optional"
+msgstr ""
+
+#: giftcard/product-functions.php:62
+msgid "Enter your note here."
+msgstr ""
+
+#: giftcards.php:57
+msgctxt "Admin menu name"
+msgid "Gift Cards"
+msgstr ""
+
+#: giftcards.php:58
+msgid "Add Gift Card"
+msgstr ""
+
+#: giftcards.php:59
+msgid "Add New Gift Card"
+msgstr ""
+
+#: giftcards.php:60
+msgid "Edit"
+msgstr ""
+
+#: giftcards.php:61
+msgid "Edit Gift Card"
+msgstr ""
+
+#: giftcards.php:62
+msgid "New Gift Card"
+msgstr ""
+
+#: giftcards.php:63
+msgid "View Gift Cards"
+msgstr ""
+
+#: giftcards.php:64
+msgid "View Gift Card"
+msgstr ""
+
+#: giftcards.php:65
+msgid "Search Gift Cards"
+msgstr ""
+
+#: giftcards.php:66
+msgid "No Gift Cards found"
+msgstr ""
+
+#: giftcards.php:67
+msgid "No Gift Cards found in trash"
+msgstr ""
+
+#: giftcards.php:68
+msgid "Parent Gift Card"
+msgstr ""

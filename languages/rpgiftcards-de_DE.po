@@ -1,0 +1,303 @@
+# Copyright (C) 2014 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: default\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/gift-cards-for-woocommerce\n"
+"POT-Creation-Date: 2014-03-20 00:17:57+00:00\n"
+"PO-Revision-Date: 2014-03-19 19:07-0700\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: WP-Ronin <ryan@wp-ronin.com>\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.6.4\n"
+
+#: admin/giftcard-actions.php:58
+msgid "Gift Card Data"
+msgstr "Geschenkkartendaten"
+
+#: admin/giftcard-actions.php:97
+msgid "Gift Card description"
+msgstr "Geschenkkarte Beschreibung"
+
+#: admin/giftcard-actions.php:99
+msgid "Optionally enter a description for this gift card for your reference."
+msgstr ""
+"Geben Sie optional eine Beschreibung dieser Geschenkkarte für Ihre Referenz "
+"ein."
+
+#: admin/giftcard-actions.php:103
+msgid "Who are you sending this to?"
+msgstr "An wen senden Sie das?"
+
+#: admin/giftcard-actions.php:108 giftcard/checkout-functions.php:332
+#: giftcard/product-functions.php:60
+msgid "To"
+msgstr "An"
+
+#: admin/giftcard-actions.php:110
+msgid "Who is getting this gift card."
+msgstr "Wer bekommt diese Geschenkkarte."
+
+#: admin/giftcard-actions.php:117
+msgid "Email To"
+msgstr "Email an"
+
+#: admin/giftcard-actions.php:119
+msgid "What email should we send this gift card to."
+msgstr "An welche Email sollen wir die Geschenkkarte senden."
+
+#: admin/giftcard-actions.php:127
+msgid "From"
+msgstr "Von"
+
+#: admin/giftcard-actions.php:129
+msgid "Who is sending this gift card."
+msgstr "Wer sendet diese Geschenkkarte."
+
+#: admin/giftcard-actions.php:136
+msgid "Email From"
+msgstr "Email von"
+
+#: admin/giftcard-actions.php:138
+msgid "What email account is sending this gift card."
+msgstr "Welches Emailkonto versendet diese Geschenkkarte."
+
+#: admin/giftcard-actions.php:144
+msgid "Personalize it"
+msgstr "Personalisieren"
+
+#: admin/giftcard-actions.php:149
+msgid "Gift Card Amount"
+msgstr "Betrag der Geschenkkarte"
+
+#: admin/giftcard-actions.php:151
+msgid "Value of the Gift Card."
+msgstr "Wert der Geschenkkarte."
+
+#: admin/giftcard-actions.php:162
+msgid "Gift Card Balance"
+msgstr "Geschenkkarten Restbetrag"
+
+#: admin/giftcard-actions.php:164
+msgid "Remaining Balance of the Gift Card."
+msgstr "Verbleibender Restbetrag der Geschenkkarte."
+
+#: admin/giftcard-actions.php:175
+msgid "Gift Card Note"
+msgstr "Anmerkung zur Geschenkkarte"
+
+#: admin/giftcard-actions.php:176
+msgid "Enter a message to your customer."
+msgstr "Eine Nachricht an den Kunden eintragen."
+
+#: admin/giftcard-actions.php:185 admin/giftcard-actions.php:215
+msgid "Expiry date"
+msgstr "Verfallsdatum"
+
+#: admin/giftcard-actions.php:186
+msgctxt "placeholder"
+msgid "Never expire"
+msgstr "Verfällt nicht"
+
+#: admin/giftcard-actions.php:187
+msgid ""
+"The date this Gift Card will expire, <code>YYYY-MM-DD</code>. (Currently not "
+"available)"
+msgstr ""
+"Diese  Geschenkkarte verfällt am, <code>MM.DD. YYYY</ code>. (Derzeit nicht "
+"verfügbar)"
+
+#: admin/giftcard-actions.php:211
+msgid "Giftcard Amount"
+msgstr "Geschenkkartenbetrag"
+
+#: admin/giftcard-actions.php:212
+msgid "Remaining Balance"
+msgstr "Verbleibender Restbetrag"
+
+#: admin/giftcard-actions.php:213
+msgid "Buyer"
+msgstr "Käufer"
+
+#: admin/giftcard-actions.php:214
+msgid "Recipient"
+msgstr "Empfänger"
+
+#: admin/giftcard-actions.php:306
+msgid "Gift Card Payment:"
+msgstr "Geschenkkartenzahlung:"
+
+#: admin/giftcard-actions.php:420
+msgid "Gift card information"
+msgstr "Geschenkkarteninformation"
+
+#: admin/giftcard-actions.php:427
+msgid "New gift card from "
+msgstr "Neue Geschenkkarte von:"
+
+#: admin/giftcard-settings.php:21 giftcards.php:55
+msgid "Gift Cards"
+msgstr "Geschenkkarten"
+
+#: admin/giftcard-settings.php:39
+msgid "Processing Options"
+msgstr "Verarbeitungs Optionen"
+
+#: admin/giftcard-settings.php:42
+msgid "Shipping Charge?"
+msgstr "Versandkostenfreie Lieferung?"
+
+#: admin/giftcard-settings.php:43
+msgid "Allow customers to pay for shipping with their gift card."
+msgstr "Kunden erlauben den Versand mit Geschenkkarte zu zahlen."
+
+#: admin/order-functions.php:27
+msgid "Giftcard Information"
+msgstr "Geschenkkarteninformation"
+
+#: admin/order-functions.php:31
+msgid "Gift Card #:"
+msgstr "Geschenkkarte #:"
+
+#: admin/order-functions.php:36
+msgid "Payment:"
+msgstr "Bezahlung:"
+
+#: admin/order-functions.php:41
+msgid "Balance remaining:"
+msgstr "Restbetrag:"
+
+#: giftcard/checkout-functions.php:27
+msgid "Have a giftcard?"
+msgstr "Haben Sie eine Geschenkkarte?"
+
+#: giftcard/checkout-functions.php:30
+msgid "Click here to enter your giftcard"
+msgstr "Hier klicken um Ihre Geschenkkarte einzugeben"
+
+#: giftcard/checkout-functions.php:35 giftcard/product-functions.php:23
+#: giftcards.php:56
+msgid "Gift Card"
+msgstr "Geschenkkarte"
+
+#: giftcard/checkout-functions.php:39
+msgid "Apply Giftcard"
+msgstr "Geschenkkarte anwenden"
+
+#: giftcard/checkout-functions.php:187
+msgid "Gift Card does not have a balance!"
+msgstr "Diese Geschenkkarte hat keinen Betrag!"
+
+#: giftcard/checkout-functions.php:199 giftcard/checkout-functions.php:200
+#: giftcard/checkout-functions.php:217
+msgid "Gift card applied successfully."
+msgstr "Geschenkarge erfolgreich angewendet."
+
+#: giftcard/checkout-functions.php:221
+msgid "Gift Card does not exist!"
+msgstr "Geschenkkarte existiert nicht!"
+
+#: giftcard/checkout-functions.php:265 giftcard/checkout-functions.php:289
+msgid "Gift Card Payment"
+msgstr "Geschenkkartenzahlung"
+
+#: giftcard/checkout-functions.php:266
+msgid "Remove Gift Card"
+msgstr "Geschenkkarte entfernen"
+
+#: giftcard/checkout-functions.php:312
+msgid "Remaining Gift Card Balance:"
+msgstr "Verbleibender Geschenkarten Restbetrag:"
+
+#: giftcard/checkout-functions.php:321
+msgid "Gift Card Information:"
+msgstr "Geschenkkarten information:"
+
+#: giftcard/checkout-functions.php:329
+msgid "Giftcard"
+msgstr "Geschenkkarte"
+
+#: giftcard/checkout-functions.php:331
+msgid "Card"
+msgstr "Karte"
+
+#: giftcard/checkout-functions.php:333
+msgid "Send To"
+msgstr "Senden an"
+
+#: giftcard/checkout-functions.php:334
+msgid "Balance"
+msgstr "Betrag"
+
+#: giftcard/checkout-functions.php:335
+msgid "Note"
+msgstr "Nachricht"
+
+#: giftcard/checkout-functions.php:336
+msgid "Quantity"
+msgstr "Anzahl"
+
+#: giftcard/product-functions.php:24
+msgid "Make product a gift card."
+msgstr "Ein Produkt zu einer Geschenkkarte machen."
+
+#: giftcard/product-functions.php:59
+msgid "Generated from the website."
+msgstr "Von der Website erstellt."
+
+#: giftcard/product-functions.php:58
+msgid "All fields are Optional"
+msgstr ""
+
+#: giftcard/product-functions.php:62
+msgid "Enter your note here."
+msgstr "Geben Sie hier Ihre Nachricht ein."
+
+#: giftcards.php:57
+msgctxt "Admin menu name"
+msgid "Gift Cards"
+msgstr "Geschenkkarten"
+
+#: giftcards.php:58
+msgid "Add Gift Card"
+msgstr "Geschenkkarte hinzufügen"
+
+#: giftcards.php:59
+msgid "Add New Gift Card"
+msgstr "Neue Geschenkkarte hinzufügen"
+
+#: giftcards.php:60
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: giftcards.php:61
+msgid "Edit Gift Card"
+msgstr "Geschenkgutschein bearbeiten"
+
+#: giftcards.php:62
+msgid "New Gift Card"
+msgstr "Neue Geschenkkarte"
+
+#: giftcards.php:63
+msgid "View Gift Cards"
+msgstr "Geschenkkarten ansehen"
+
+#: giftcards.php:64
+msgid "View Gift Card"
+msgstr "Geschenkkarte ansehen"
+
+#: giftcards.php:65
+msgid "Search Gift Cards"
+msgstr "Geschenkkarten suchen"
+
+#: giftcards.php:66
+msgid "No Gift Cards found"
+msgstr "Keine Geschenkkarten gefunden"
+
+#: giftcards.php:67
+msgid "No Gift Cards found in trash"
+msgstr "Keine Geschenkkarten im Papierkorb gefunden"
