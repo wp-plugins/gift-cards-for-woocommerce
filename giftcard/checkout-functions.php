@@ -174,7 +174,7 @@ function woocommerce_ajax_apply_giftcard() {
 
 		if ( $giftcard_found ) {
 			// Valid Gift Card Entered		
-			//if ( strtotime($current_date) <= strtotime($cardExperation) ) {
+			if ( ( strtotime($current_date) <= strtotime($cardExperation) ) || ( strtotime($cardExperation) == '' ) ) {
 
 				$oldBalance = get_post_meta( $giftcard_found, 'rpgc_balance' );
 
@@ -190,7 +190,7 @@ function woocommerce_ajax_apply_giftcard() {
 
 				if ( $oldGiftcardValue == 0 ) {
 					// Giftcard Entered does not have a balance
-					$woocommerce->add_error( __( 'Gift Card does not have a balance!', RPWCGC_CORE_TEXT_DOMAIN ) );
+					wc_add_notice( __( 'Gift Card does not have a balance!', RPWCGC_CORE_TEXT_DOMAIN ), 'error' );
 
 				} elseif ( $oldGiftcardValue >= $orderTotal ) {
 					//  Giftcard Balance is more than the order total.
@@ -203,7 +203,7 @@ function woocommerce_ajax_apply_giftcard() {
 
 					$woocommerce->session->giftcard_balance = $oldGiftcardValue - $orderTotal;
 					$msg = __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN );
-					$woocommerce->add_message(  __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN ) );
+					wc_add_notice(  __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN ), 'success' );
 
 				} elseif ( $oldGiftcardValue < $orderTotal ) {
 					//  Giftcard Balance is less than the order total.
@@ -220,21 +220,21 @@ function woocommerce_ajax_apply_giftcard() {
 						}
 					}
 
-					$woocommerce->add_message(  __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN ) );
+					wc_add_notice(  __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN ), 'success' );
 				}
-			//} else {
+			} else {
 				// Giftcard Entered has expired
-				//$woocommerce->add_error( __( 'Gift Card has expired!', RPWCGC_CORE_TEXT_DOMAIN ) );
+				wc_add_notice( __( 'Gift Card has expired!', RPWCGC_CORE_TEXT_DOMAIN ), 'error' );
 
 
-			//}
+			}
 		} else {
 			// Giftcard Entered does not exist
-			$woocommerce->add_error( __( 'Gift Card does not exist!', RPWCGC_CORE_TEXT_DOMAIN ) );
+			wc_add_notice( __( 'Gift Card does not exist!', RPWCGC_CORE_TEXT_DOMAIN ), 'error' );
 		}
 	}
 
-	$woocommerce->show_messages();
+	wc_print_notices();
 
 	die();
 }
