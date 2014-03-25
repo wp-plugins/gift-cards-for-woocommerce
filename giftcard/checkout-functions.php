@@ -24,10 +24,10 @@ if ( ! function_exists( 'rpgc_checkout_form' ) ) {
 	function rpgc_checkout_form() {
 		global $woocommerce;
 
-		$info_message = apply_filters( 'woocommerce_checkout_giftcaard_message', __( 'Have a gift card?', RPWCGC_CORE_TEXT_DOMAIN ) );
+		$info_message = apply_filters( 'woocommerce_checkout_giftcaard_message', __( 'Have a giftcard?', RPWCGC_CORE_TEXT_DOMAIN ) );
 		?>
 
-		<p class="woocommerce-info"><?php echo $info_message; ?> <a href="#" class="showgiftcard"><?php _e( 'Click here to enter your gift card', RPWCGC_CORE_TEXT_DOMAIN ); ?></a></p>
+		<p class="woocommerce-info"><?php echo $info_message; ?> <a href="#" class="showgiftcard"><?php _e( 'Click here to enter your giftcard', RPWCGC_CORE_TEXT_DOMAIN ); ?></a></p>
 
 		<form class="checkout_giftcard" method="post" style="display:none">
 
@@ -36,7 +36,7 @@ if ( ! function_exists( 'rpgc_checkout_form' ) ) {
 			</p>
 
 			<p class="form-row form-row-last">
-				<input type="submit" class="button" name="apply_giftcard" value="<?php _e( 'Apply Gift card', RPWCGC_CORE_TEXT_DOMAIN ); ?>" />
+				<input type="submit" class="button" name="apply_giftcard" value="<?php _e( 'Apply Giftcard', RPWCGC_CORE_TEXT_DOMAIN ); ?>" />
 			</p>
 
 			<div class="clear"></div>
@@ -174,7 +174,7 @@ function woocommerce_ajax_apply_giftcard() {
 
 		if ( $giftcard_found ) {
 			// Valid Gift Card Entered		
-			if ( strtotime($current_date) <= strtotime($cardExperation) ) {
+			//if ( strtotime($current_date) <= strtotime($cardExperation) ) {
 
 				$oldBalance = get_post_meta( $giftcard_found, 'rpgc_balance' );
 
@@ -207,7 +207,7 @@ function woocommerce_ajax_apply_giftcard() {
 
 				} elseif ( $oldGiftcardValue < $orderTotal ) {
 					//  Giftcard Balance is less than the order total.
-					//  Subtract the gift card from the order total
+					//  Subtract the giftcard from the order total
 					
 					$woocommerce->session->giftcard_payment = $oldGiftcardValue;
 					$woocommerce->session->giftcard_balance = 0;
@@ -222,12 +222,12 @@ function woocommerce_ajax_apply_giftcard() {
 
 					$woocommerce->add_message(  __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN ) );
 				}
-			} else {
+			//} else {
 				// Giftcard Entered has expired
-				$woocommerce->add_error( __( 'Gift Card has expired!', RPWCGC_CORE_TEXT_DOMAIN ) );
+				//$woocommerce->add_error( __( 'Gift Card has expired!', RPWCGC_CORE_TEXT_DOMAIN ) );
 
 
-			}
+			//}
 		} else {
 			// Giftcard Entered does not exist
 			$woocommerce->add_error( __( 'Gift Card does not exist!', RPWCGC_CORE_TEXT_DOMAIN ) );
