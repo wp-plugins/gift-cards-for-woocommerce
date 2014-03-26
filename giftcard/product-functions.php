@@ -40,7 +40,7 @@ function rpgc_process_meta( $post_id, $post ) {
 
 	update_post_meta( $post_id, '_giftcard', $is_giftcard );
 
-	if ( $is_giftcard ) {
+	if ( $is_giftcard == "yes" ) {
 		update_post_meta( $post_id, '_virtual', $is_giftcard );
 	}
 
@@ -52,6 +52,7 @@ function rpgc_cart_fields( ) {
 	global $post;
 
 	$is_giftcard = get_post_meta( $post->ID, '_giftcard', true );
+
 	if ( $is_giftcard == "yes" ) {
 
 		do_action( 'rpgc_before_all_giftcard_fields' );

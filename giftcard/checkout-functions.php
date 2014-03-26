@@ -100,7 +100,7 @@ function rpgc_add_card_data( $cart_item_key, $product_id, $quantity ) {
 
 	$is_giftcard = get_post_meta( $product_id, '_giftcard', true );
 
-	if ( $is_giftcard ) {
+	if ( $is_giftcard == "yes" ) {
 
 		$giftcard_data = array(
 			'To'    	=> 'NA',

@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce - Gift Cards
 Plugin URI: http://wp-ronin.com
 Description: WooCommerce - Gift Cards allows you to offer gift cards to your customer and allow them to place orders using them.
-Version: 1.3.4
+Version: 1.3.4.1
 Author: Ryan Pletcher
 Author URI: http://ryanpletcher.com
 License: GPL2
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 // Plugin version
 if ( ! defined( 'RPWCGC_VERSION' ) )
-	define( 'RPWCGC_VERSION', '1.3.4' );
+	define( 'RPWCGC_VERSION', '1.3.4.1' );
 
 // Plugin Folder Path
 if ( ! defined( 'RPWCGC_PATH' ) )
@@ -95,14 +95,14 @@ function rpgc_woocommerce() {
 	     if($post->post_type == 'rp_shop_giftcard'){
 	          if($post->post_status == 'zerobalance'){
 	               $complete = ' selected=\"selected\"';
-	               $label = '<span id=\"post-status-display\">' . _e( 'Zero Balance', RPWCGC_CORE_TEXT_DOMAIN ) . '</span>';
+	               $label = '<span id=\"post-status-display\">' . _e( 'Zero Balanace', RPWCGC_CORE_TEXT_DOMAIN ) . '</span>';
 	          }
 
 	          echo '
 	          <script>
 	          jQuery(document).ready(function($){
 	               $("select#post_status").append("<option value=\"zerobalance\" '.$complete.'>';
-	               	_e( 'Zero Balance', RPWCGC_CORE_TEXT_DOMAIN );
+	               	_e( 'Zero Balanace', RPWCGC_CORE_TEXT_DOMAIN );
 	           echo '</option>");
 	               $(".misc-pub-section label").append("'.$label.'");
 	          });

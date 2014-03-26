@@ -366,9 +366,8 @@ add_filter( 'woocommerce_get_order_item_totals', 'rpgc_add_order_giftcard');
 function rpgc_update_card( $order_id ) {
 	global $woocommerce;
 
-	$balance = get_post_meta($order_id, 'rpgc_balance', true);
 	// Check if the gift card ballance is 0 and if it is change the post status to zerobalance
-	if( $balance == 0 ) {
+	if( $woocommerce->session->giftcard_balance == 0 ) {
 		$my_post = array(
 	    	'ID'           => $woocommerce->session->giftcard_post,
 	    	'post_status'  => 'zerobalance'
@@ -535,9 +534,6 @@ function sendGiftcardEmail ( $giftCard ) {
 		<h4><?php _e( 'Gift Card Number', RPWCGC_CORE_TEXT_DOMAIN ); ?>: <?php echo $giftCard->post_title; ?></h4>
 
 		<?php
-		$expiry_date = get_post_meta( $giftCard->ID, 'rpgc_expiry_date', true);
-
-
 		if ( $expiry_date != "" ) {
 			echo __( 'Expiration Date', RPWCGC_CORE_TEXT_DOMAIN ) . ': ' . get_post_meta( $giftCard->ID, 'rpgc_expiry_date', true);
 		}
