@@ -366,18 +366,18 @@ add_filter( 'woocommerce_get_order_item_totals', 'rpgc_add_order_giftcard');
 function rpgc_update_card( $order_id ) {
 	global $woocommerce;
 
-	// Check if the gift card ballance is 0 and if it is change the post status to zerobalance
-	if( $woocommerce->session->giftcard_balance == 0 ) {
-		$my_post = array(
-	    	'ID'           => $woocommerce->session->giftcard_post,
-	    	'post_status'  => 'zerobalance'
-  		);
-
-		// Update the post into the database
-		  wp_update_post( $my_post );
-	}
-
 	if ( $woocommerce->session->giftcard_post <> '' ) {
+		// Check if the gift card ballance is 0 and if it is change the post status to zerobalance
+		if( $woocommerce->session->giftcard_balance == 0 ) {
+			$my_post = array(
+		    	'ID'           => $woocommerce->session->giftcard_post,
+		    	'post_status'  => 'zerobalance'
+	  		);
+
+			// Update the post into the database
+			  wp_update_post( $my_post );
+		}
+		
 		update_post_meta( $woocommerce->session->giftcard_post, 'rpgc_balance', $woocommerce->session->giftcard_balance ); // Update balance of Giftcard
 		update_post_meta( $order_id, 'rpgc_id', $woocommerce->session->giftcard_id );
 		update_post_meta( $order_id, 'rpgc_payment', $woocommerce->session->giftcard_payment );
@@ -493,7 +493,12 @@ function rpgc_process_giftcard_meta( $post_id, $post ) {
 
 		$mailer        = WC()->mailer();
 		$theMessage 	= sendGiftcardEmail ( $post );
+
+		$theMessage 	= apply_filters( 'rpgc_emailContents', $theMessage );
+
 	  	$email_heading = __( 'New gift card from ', 'woocommerce' ) . $blogname;
+	  	$email_heading = apply_filters( 'rpgc_emailSubject', $email_heading );
+
 	  	echo $mailer->wrap_message( $email_heading, $theMessage );
 
 		$message = ob_get_clean();

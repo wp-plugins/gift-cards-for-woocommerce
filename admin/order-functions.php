@@ -24,6 +24,9 @@ function rpgc_show_giftcard_in_order() {
 	if ( isset( $data['rpgc_id'] ) ) {
 		if ( $data['rpgc_id'][0] <> '' ) {
 		?>
+			</div>
+			<div class="totals_group giftcard_rows_group" style="background-color: #FCFCFC;">
+
 			<h4><?php _e( 'Giftcard Information', RPWCGC_CORE_TEXT_DOMAIN ); ?></h4>
 
 			<ul>
