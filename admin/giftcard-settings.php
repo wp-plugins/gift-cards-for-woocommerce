@@ -49,6 +49,40 @@ if ( ! class_exists( 'RPGC_Settings' ) ) :
 
 				array( 'type' => 'sectionend', 'id' => 'account_registration_options'),
 
+				array( 'title' 		=> __( 'Product Options',  RPWCGC_CORE_TEXT_DOMAIN  ), 'type' => 'title', 'id' => 'giftcard_products_options_title' ),
+
+				array(
+					'name'     => __( 'To', RPWCGC_CORE_TEXT_DOMAIN ),
+					'desc'     => __( 'This is the value that will display before a gift card number.', RPWCGC_CORE_TEXT_DOMAIN ),
+					'id'       => 'woocommerce_giftcard_to',
+					'std'      => 'To', // WooCommerce < 2.0
+					'default'  => 'To', // WooCommerce >= 2.0
+					'type'     => 'text',
+					'desc_tip' =>  true,
+				),
+
+				array(
+					'name'     => __( 'To Email', RPWCGC_CORE_TEXT_DOMAIN ),
+					'desc'     => __( 'This is the value that will display before a gift card number.', RPWCGC_CORE_TEXT_DOMAIN ),
+					'id'       => 'woocommerce_giftcard_toEmail',
+					'std'      => 'Send To', // WooCommerce < 2.0
+					'default'  => 'Send To', // WooCommerce >= 2.0
+					'type'     => 'text',
+					'desc_tip' =>  true,
+				),
+
+				array(
+					'name'     => __( 'Note Option', RPWCGC_CORE_TEXT_DOMAIN ),
+					'desc'     => __( 'This will change the placeholder field for the gift card note.', RPWCGC_CORE_TEXT_DOMAIN ),
+					'id'       => 'woocommerce_giftcard_note',
+					'std'      => 'Enter your note here.', // WooCommerce < 2.0
+					'default'  => 'Enter your note here.', // WooCommerce >= 2.0
+					'type'     => 'text',
+					'desc_tip' =>  true,
+				),
+
+				array( 'type' => 'sectionend', 'id' => 'account_registration_options'),
+
 			));
 
 

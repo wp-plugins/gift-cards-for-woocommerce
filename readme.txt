@@ -28,6 +28,10 @@ Q: I want to be able to do ______ with my gift card but you dont have the featur
 A: You can find more pluins at <a href="http://wp-ronin.com">wp-ronin.com</a>.
 
 == Changelog ==
+= 1.3.6 =
+* ADD: Ability to change placeholder information on products page
+
+
 = 1.3.5 =
 * FIX: Creation of Zerobalance orders created
 * ADD: Ability to resend Gift Card Email
