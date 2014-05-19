@@ -19,7 +19,7 @@ function rpgc_extra_check( $product_type_options ) {
 	$giftcard = array(
 		'giftcard' => array(
 			'id' => '_giftcard',
-			'wrapper_class' => 'show_if_simple',
+			'wrapper_class' => 'show_if_simple show_if_variable',
 			'label' => __( 'Gift Card', RPWCGC_CORE_TEXT_DOMAIN ),
 			'description' => __( 'Make product a gift card.', RPWCGC_CORE_TEXT_DOMAIN )
 		),
@@ -77,3 +77,38 @@ function rpgc_cart_fields( ) {
 	}
 }
 add_action( 'woocommerce_before_add_to_cart_button', 'rpgc_cart_fields' );
+
+
+//  Sets a unique ID for gift cards so that multiple giftcards can be purchased (Might move to the main gift card Plugin)
+function wpr_uniqueID($cart_item_data, $product_id) {
+	$is_giftcard = get_post_meta( $product_id, '_giftcard', true );
+
+	if ( $is_giftcard == "yes" ) {
+
+		$unique_cart_item_key = md5("gc" . microtime().rand());
+		$cart_item_data['unique_key'] = $unique_cart_item_key;
+
+	}
+	
+	return $cart_item_data;
+}
+add_filter('woocommerce_add_cart_item_data','wpr_uniqueID',10,2);
+
+
+
+
+function wpr_change_add_to_cart_button ( $link ) {
+	global $product;
+
+	$is_giftcard = get_post_meta( $product->id, '_giftcard', true );
+	$giftCardText = get_option( "woocommerce_giftcard_button" );
+
+	if ( $is_giftcard == "yes" )
+		$link = '<a href="' . esc_url( $product->get_permalink( $product->id ) ) . '" rel="nofollow" data-product_id="' . esc_attr( $product->id ) . '" data-product_sku="' . esc_attr( $product->get_sku() ) . '" class="button product_type_' . esc_attr( $product->product_type ) . '">' . $giftCardText . '</a>';
+
+	return $link;
+}
+
+
+add_filter( 'woocommerce_loop_add_to_cart_link', 'wpr_change_add_to_cart_button' );
+

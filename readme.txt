@@ -27,10 +27,22 @@ If you have an interest in translating this plugin please let me know.
 Q: I want to be able to do ______ with my gift card but you dont have the feature included.  How can I get that?
 A: You can find more pluins at <a href="http://wp-ronin.com">wp-ronin.com</a>.
 
+Q: How do i create a gift card for my customers to purchase?
+A: You will need to create a product like every other product you sell.  You will need to select the gift card option durring the creation 
+
+Q: The gift card is not sent automaticly when the customer purchases it.  Why not?
+A: This is a feature that is not included in the free version of the gift card.  You can get this option <a href="https://wp-ronin.com/downloads/auto-send-email-woocommerce-gift-cards/">here</a>.
+
+Q: Is there a way to create an option for my customers to specify the value on the gift card?
+A: You can do this with one of my premium plugins that I offer on my site <a href="https://wp-ronin.com">here</a>
+
 == Changelog ==
 = 1.3.6 =
 * ADD: Ability to change placeholder information on products page
-
+* ADD: Ability to add multiple gift cards to the cart
+* ADD: Edit a gift cards already in the cart
+* ADD: Customization of button to buy gift card
+* ADD: Created more Q&A information on Wordpress.org
 
 = 1.3.5 =
 * FIX: Creation of Zerobalance orders created

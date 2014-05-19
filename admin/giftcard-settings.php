@@ -81,6 +81,16 @@ if ( ! class_exists( 'RPGC_Settings' ) ) :
 					'desc_tip' =>  true,
 				),
 
+				array(
+					'name'     => __( 'Gift Card Button Test', RPWCGC_CORE_TEXT_DOMAIN ),
+					'desc'     => __( 'This is the text that will be displayed on the button to customize the information.', RPWCGC_CORE_TEXT_DOMAIN ),
+					'id'       => 'woocommerce_giftcard_button',
+					'std'      => 'Customize', // WooCommerce < 2.0
+					'default'  => 'Customize', // WooCommerce >= 2.0
+					'type'     => 'text',
+					'desc_tip' =>  true,
+				),
+
 				array( 'type' => 'sectionend', 'id' => 'account_registration_options'),
 
 			));

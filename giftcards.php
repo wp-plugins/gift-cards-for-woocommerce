@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 // Plugin version
 if ( ! defined( 'RPWCGC_VERSION' ) )
-	define( 'RPWCGC_VERSION', '1.3.3' );
+	define( 'RPWCGC_VERSION', '1.3.6' );
 
 // Plugin Folder Path
 if ( ! defined( 'RPWCGC_PATH' ) )
