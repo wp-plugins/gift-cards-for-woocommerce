@@ -3,7 +3,7 @@ Contributors: rpletcher
 Tags: woocommerce, gift, gift card, payment, gift certificate, certificate
 Requires at least: 3.0
 Tested up to: 3.8
-Stable tag: 1.3.7
+Stable tag: 1.3.8
 Donate link: https://ryanpletcher.com/donate/
 License: GPLv2 or later
 
@@ -37,6 +37,9 @@ Q: Is there a way to create an option for my customers to specify the value on t
 A: You can do this with one of my premium plugins that I offer on my site <a href="https://wp-ronin.com">here</a>
 
 == Changelog ==
+= 1.3.8 =
+* FIX: Display of Gift Card Payment on receipt
+
 = 1.3.7 =
 * ADD: Ability to change placeholder information on products page
 * ADD: Ability to add multiple gift cards to the cart

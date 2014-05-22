@@ -341,23 +341,28 @@ function rpgc_refund_order( $order_id ) {
 }
 add_action( 'woocommerce_order_status_refunded', 'rpgc_refund_order' );
 
-function rpgc_add_order_giftcard( $total_rows ) {
+function rpgc_add_order_giftcard( $total_rows,$order ) {
 	global $woocommerce;
 
-	$order_id = $woocommerce->session->idForEmail;
+	$return = array();
 
-	$order = new WC_Order( $order_id );
+	$order_id = $order->id;
 
 	$giftCardPayment = get_post_meta( $order_id, 'rpgc_payment');
 
-	$total_rows['rpgc_data'] = array(
-		'label' => __( 'Gift Card Payment:', 'woocommerce' ),
-		'value'	=> woocommerce_price( $giftCardPayment[0] )
-	);
+	if ($giftCardPayment[0] <> 0 ) {
+		$newRow['rpgc_data'] = array(
+			'label' => __( 'Gift Card Payment:', 'woocommerce' ),
+			'value'	=> woocommerce_price( -1 * $giftCardPayment[0] )
+		);
+
+		array_splice($total_rows, 1, 0, $newRow);
+
+	}
 
 	return $total_rows;
 }
-add_filter( 'woocommerce_get_order_item_totals', 'rpgc_add_order_giftcard');
+add_filter( 'woocommerce_get_order_item_totals', 'rpgc_add_order_giftcard', 10, 2);
 
 /**
  * Updates the Gift Card and the order information when the order is processed
@@ -554,7 +559,7 @@ function sendGiftcardEmail ( $giftCard ) {
 
 		<ol>
 			<li><?php _e( 'Shop at', RPWCGC_CORE_TEXT_DOMAIN ); ?> <?php bloginfo( 'name' ); ?></li>
-			<li><?php _e( 'Select \"Pay with a Gift Card\" during checkout.', RPWCGC_CORE_TEXT_DOMAIN ); ?></li>
+			<li><?php _e( 'Select "Pay with a Gift Card" during checkout.', RPWCGC_CORE_TEXT_DOMAIN ); ?></li>
 			<li><?php _e( 'Enter your card number.', RPWCGC_CORE_TEXT_DOMAIN ); ?></li>
 		</ol>
 	</div>
