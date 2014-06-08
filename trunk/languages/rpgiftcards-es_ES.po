@@ -1,0 +1,406 @@
+# Copyright (C) 2014 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: default\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/gift-cards-for-woocommerce\n"
+"POT-Creation-Date: 2014-03-24 16:53:21+00:00\n"
+"PO-Revision-Date: 2014-03-25 18:54-0700\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: WP-Ronin <ryan@wp-ronin.com>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.6.4\n"
+
+#: admin/giftcard-actions.php:58
+msgid "Gift Card Data"
+msgstr "Datos de la tarjeta de regalo"
+
+#: admin/giftcard-actions.php:72
+msgid "Additional Card Options"
+msgstr "Opciones adicionales de la tarjeta"
+
+#: admin/giftcard-actions.php:101
+msgid "Send Gift Card Email"
+msgstr "Enviar Tarjeta de Regalo por Email"
+
+#: admin/giftcard-actions.php:104
+msgid "Regenerate Card Number"
+msgstr "Regenerar Número de tarjeta"
+
+#: admin/giftcard-actions.php:109
+msgid "No additional options available. Zero balance"
+msgstr "No hay opciones adicionales disponibles. Balance cero"
+
+#: admin/giftcard-actions.php:142
+msgid "Gift Card description"
+msgstr "Descripción Tarjeta de Regalo"
+
+#: admin/giftcard-actions.php:144
+msgid "Optionally enter a description for this gift card for your reference."
+msgstr ""
+"Opcionalmente, introduzca una descripción para esta tarjeta de regalo para "
+"su referencia."
+
+#: admin/giftcard-actions.php:148
+msgid "Who are you sending this to?"
+msgstr "¿A quién estás enviando esto?"
+
+#: admin/giftcard-actions.php:153 giftcard/checkout-functions.php:344
+#: giftcard/product-functions.php:64
+msgid "To"
+msgstr "A"
+
+#: admin/giftcard-actions.php:155
+msgid "Who is getting this gift card."
+msgstr "Quién está recibiendo esta tarjeta de regalo."
+
+#: admin/giftcard-actions.php:162
+msgid "Email To"
+msgstr "Correo electrónico para"
+
+#: admin/giftcard-actions.php:164
+msgid "What email should we send this gift card to."
+msgstr "A que email debemos enviar esta tarjeta de regalo."
+
+#: admin/giftcard-actions.php:172
+msgid "From"
+msgstr "Desde"
+
+#: admin/giftcard-actions.php:174
+msgid "Who is sending this gift card."
+msgstr "Quién está enviando esta tarjeta de regalo."
+
+#: admin/giftcard-actions.php:181
+msgid "Email From"
+msgstr "Correo electrónico de"
+
+#: admin/giftcard-actions.php:183
+msgid "What email account is sending this gift card."
+msgstr ""
+"Desde que cuenta de correo electrónico está enviando esta tarjeta de regalo."
+
+#: admin/giftcard-actions.php:189
+msgid "Personalize it"
+msgstr "Personalícela"
+
+#: admin/giftcard-actions.php:194 admin/giftcard-actions.php:534
+msgid "Gift Card Amount"
+msgstr "Importe Tarjeta Regalo"
+
+#: admin/giftcard-actions.php:196
+msgid "Value of the Gift Card."
+msgstr "Valor de la Tarjeta Regalo."
+
+#: admin/giftcard-actions.php:207
+msgid "Gift Card Balance"
+msgstr "Saldo de Tarjeta Regalo"
+
+#: admin/giftcard-actions.php:209
+msgid "Remaining Balance of the Gift Card."
+msgstr "Saldo restante de la Tarjeta Regalo."
+
+#: admin/giftcard-actions.php:220
+msgid "Gift Card Note"
+msgstr "Nota de la Tarjeta Regalo"
+
+#: admin/giftcard-actions.php:221
+msgid "Enter a message to your customer."
+msgstr "Escriba un mensaje a su cliente."
+
+#: admin/giftcard-actions.php:231 admin/giftcard-actions.php:264
+msgid "Expiry date"
+msgstr "Fecha de caducidad"
+
+#: admin/giftcard-actions.php:232
+msgctxt "placeholder"
+msgid "Never expire"
+msgstr "Nunca expira"
+
+#: admin/giftcard-actions.php:233
+msgid "The date this Gift Card will expire, <code>YYYY-MM-DD</code>."
+msgstr "La fecha en que esta Tarjeta Regalo caduca, <code>DD/MM/YYYY</code>."
+
+#: admin/giftcard-actions.php:259
+msgid "Giftcard Number"
+msgstr "Numero Tarjeta de Regalo"
+
+#: admin/giftcard-actions.php:260
+msgid "Giftcard Amount"
+msgstr "Importe Tarjeta Regalo"
+
+#: admin/giftcard-actions.php:261
+msgid "Remaining Balance"
+msgstr "Saldo"
+
+#: admin/giftcard-actions.php:262
+msgid "Buyer"
+msgstr "Comprador"
+
+#: admin/giftcard-actions.php:263
+msgid "Recipient"
+msgstr "Beneficiario"
+
+#: admin/giftcard-actions.php:267
+msgid "Creation Date"
+msgstr "Fecha de creación"
+
+#: admin/giftcard-actions.php:354
+msgid "Gift Card Payment:"
+msgstr "Pago con tarjeta Regalo"
+
+#: admin/giftcard-actions.php:490
+msgid "Gift Card Information"
+msgstr "Información de la tarjeta de regalo"
+
+#: admin/giftcard-actions.php:497
+msgid "New gift card from "
+msgstr "Nueva tarjeta de regalo de"
+
+#: admin/giftcard-actions.php:530
+msgid "Dear"
+msgstr "Querido"
+
+#: admin/giftcard-actions.php:532
+msgid "Gift Card for you! This card can be used for online purchases at"
+msgstr ""
+"Tarjeta de regalo para usted! Esta tarjeta se puede utilizar para compras en "
+"línea en"
+
+#: admin/giftcard-actions.php:535
+msgid "Gift Card Number"
+msgstr "Numero Tarjeta de Regalo"
+
+#: admin/giftcard-actions.php:542
+#, fuzzy
+msgid "Expiration Date"
+msgstr "Fecha de caducidad"
+
+#: admin/giftcard-actions.php:552
+msgid "Using your Gift Card is easy"
+msgstr "El uso de su tarjeta de regalo es fácil"
+
+#: admin/giftcard-actions.php:555
+msgid "Shop at"
+msgstr "Haga sus compras en"
+
+#: admin/giftcard-actions.php:556
+msgid "Select \\\"Pay with a Gift Card\\\" during checkout."
+msgstr ""
+"Seleccione \\\"paga con tarjeta de regalo\\\" durante el proceso de pago."
+
+#: admin/giftcard-actions.php:557
+msgid "Enter your card number."
+msgstr "Introduce su numero de tarjeta aquí."
+
+#: admin/giftcard-settings.php:21 giftcards.php:55
+msgid "Gift Cards"
+msgstr "Tarjetas de regalo"
+
+#: admin/giftcard-settings.php:39
+#, fuzzy
+msgid "Processing Options"
+msgstr "Opciones de proceso"
+
+#: admin/giftcard-settings.php:42
+msgid "Shipping Charge?"
+msgstr "Carga de envío?"
+
+#: admin/giftcard-settings.php:43
+msgid "Allow customers to pay for shipping with their gift card."
+msgstr "Permitir a los clientes pagar el envío con su tarjeta de regalo."
+
+#: admin/giftcard-settings.php:57
+msgid "Premium features available"
+msgstr "Características premium disponibles"
+
+#: admin/giftcard-settings.php:59
+msgid ""
+"You can now add additional functionallity to the gift card plugin using some "
+"of my premium plugins offered through %s.  If you are looking for some "
+"functionality that I have not created let me know and I would be happy to "
+"look into offering it in the future.  I also have a support forum for my "
+"premium plugins and the ones offered on Wordpress.org.  Please let me know "
+"if I can help with anything."
+msgstr ""
+"Ahora puede agregar funcionabilidad adicional para el plugin tarjeta de "
+"regalo usando algunos de mis plugins premium ofrecidos a través de %s. Si "
+"usted está buscando algunas funciones que no he creado hágamelo saber y yo "
+"estaría feliz de mirar en ofrecerlo en el futuro. También tengo un foro de "
+"soporte para mis plugins ofrecidos en Wordpress.org. Por favor, hágamelo "
+"saber si puedo ayudarle con cualquier cosa."
+
+#: admin/order-functions.php:27
+msgid "Giftcard Information"
+msgstr "Información de la Tarjeta de Regalo"
+
+#: admin/order-functions.php:31
+msgid "Gift Card #:"
+msgstr "Tarjeta de regalo #:"
+
+#: admin/order-functions.php:36
+msgid "Payment:"
+msgstr "Pago:"
+
+#: admin/order-functions.php:41
+msgid "Balance remaining:"
+msgstr "Saldo restante:"
+
+#: giftcard/checkout-functions.php:27
+#, fuzzy
+msgid "Have a gift card?"
+msgstr "¿Tiene usted una tarjeta de regalo?"
+
+#: giftcard/checkout-functions.php:30
+#, fuzzy
+msgid "Click here to enter your gift card"
+msgstr "Haga clic aquí para introducir su tarjeta de regalo"
+
+#: giftcard/checkout-functions.php:35 giftcard/product-functions.php:23
+#: giftcards.php:56
+msgid "Gift Card"
+msgstr "Tarjeta de Regalo"
+
+#: giftcard/checkout-functions.php:39
+#, fuzzy
+msgid "Apply Gift card"
+msgstr "Aplicar Tarjeta de Regalo"
+
+#: giftcard/checkout-functions.php:193
+msgid "Gift Card does not have a balance!"
+msgstr "¡Tarjeta de Regalo no tiene saldo!"
+
+#: giftcard/checkout-functions.php:205 giftcard/checkout-functions.php:206
+#: giftcard/checkout-functions.php:223
+msgid "Gift card applied successfully."
+msgstr "La tarjeta de regalo se aplica con éxito."
+
+#: giftcard/checkout-functions.php:227
+msgid "Gift Card has expired!"
+msgstr "¡Tarjeta de Regalo ha caducado!"
+
+#: giftcard/checkout-functions.php:233
+msgid "Gift Card does not exist!"
+msgstr "¡Tarjeta de Regalo no existe!"
+
+#: giftcard/checkout-functions.php:277 giftcard/checkout-functions.php:301
+msgid "Gift Card Payment"
+msgstr "Pago con tarjeta de Regalo"
+
+#: giftcard/checkout-functions.php:278
+msgid "Remove Gift Card"
+msgstr "Retire la tarjeta de regalo"
+
+#: giftcard/checkout-functions.php:324
+msgid "Remaining Gift Card Balance:"
+msgstr "Saldo restante de la tarjeta de regalo:"
+
+#: giftcard/checkout-functions.php:333
+#, fuzzy
+msgid "Gift Card Information:"
+msgstr "Información de la tarjeta de regalo:"
+
+#: giftcard/checkout-functions.php:341
+msgid "Giftcard"
+msgstr "Tarjeta de Regalo"
+
+#: giftcard/checkout-functions.php:343
+msgid "Card"
+msgstr "Tarjeta"
+
+#: giftcard/checkout-functions.php:345 giftcard/product-functions.php:65
+msgid "Send To"
+msgstr "Enviar a"
+
+#: giftcard/checkout-functions.php:346
+msgid "Balance"
+msgstr "Saldo"
+
+#: giftcard/checkout-functions.php:347
+msgid "Note"
+msgstr "Nota"
+
+#: giftcard/checkout-functions.php:348
+msgid "Quantity"
+msgstr "Cantidad"
+
+#: giftcard/product-functions.php:24
+msgid "Make product a gift card."
+msgstr "Haga producto una tarjeta de regalo."
+
+#: giftcard/product-functions.php:61
+msgid "All fields below are optional"
+msgstr "Todos los campos siguientes son opcionales"
+
+#: giftcard/product-functions.php:63
+msgid "Generated from the website."
+msgstr "Creado por la página web."
+
+#: giftcard/product-functions.php:66
+msgid "Enter your note here."
+msgstr "Introduce su nota aquí."
+
+#: giftcards.php:57
+msgctxt "Admin menu name"
+msgid "Gift Cards"
+msgstr "Tarjeta de Regalo"
+
+#: giftcards.php:58
+msgid "Add Gift Card"
+msgstr "Añadir Tarjeta de Regalo"
+
+#: giftcards.php:59
+msgid "Add New Gift Card"
+msgstr "Crear Tarjeta de Regalo nueva"
+
+#: giftcards.php:60
+msgid "Edit"
+msgstr "Editar"
+
+#: giftcards.php:61
+msgid "Edit Gift Card"
+msgstr "Editar Tarjeta de Regalo"
+
+#: giftcards.php:62
+msgid "New Gift Card"
+msgstr "Tarjeta de Regalo nueva"
+
+#: giftcards.php:63
+msgid "View Gift Cards"
+msgstr "Ver Tarjetas de Regalo"
+
+#: giftcards.php:64
+msgid "View Gift Card"
+msgstr "Ver Tarjeta de regalo"
+
+#: giftcards.php:65
+msgid "Search Gift Cards"
+msgstr "Buscar Tarjetas de Regalo"
+
+#: giftcards.php:66
+msgid "No Gift Cards found"
+msgstr "Tarjetas de Regalo no encontrado"
+
+#: giftcards.php:67
+msgid "No Gift Cards found in trash"
+msgstr "Tarjetas de Regalo no encontrado en la papelera"
+
+#: giftcards.php:68
+msgid "Parent Gift Card"
+msgstr "Tarjeta de Regalo padre"
+
+#: giftcards.php:79 giftcards.php:98 giftcards.php:105
+msgid "Zero Balance"
+msgstr "Balance Cero"
+
+#: giftcards.php:84
+msgid "Zero Balance <span class=\"count\">(%s)</span>"
+msgid_plural "Zero Balance <span class=\"count\">(%s)</span>"
+msgstr[0] "Balance Cero <span class=\"count\">(%s)</span>"
+msgstr[1] "Balance Cero <span class=\"count\">(%s)</span>"
+
+#~ msgid "Gift card information"
+#~ msgstr "Información Tarjeta Regalo"
