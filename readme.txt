@@ -2,8 +2,8 @@
 Contributors: rpletcher
 Tags: woocommerce, gift, gift card, payment, gift certificate, certificate
 Requires at least: 3.0
-Tested up to: 3.8
-Stable tag: 1.3.8
+Tested up to: 3.9
+Stable tag: 1.4.1
 Donate link: https://ryanpletcher.com/donate/
 License: GPLv2 or later
 
@@ -37,6 +37,13 @@ Q: Is there a way to create an option for my customers to specify the value on t
 A: You can do this with one of my premium plugins that I offer on my site <a href="https://wp-ronin.com">here</a>
 
 == Changelog ==
+= 1.4 =
+* FIX: Change to a sigleton file format
+* FIX: Paypal calculation
+* ADD: Additional check to see if a gift card has already been applied
+* ADD: Ability to enter gift card on cart page
+* ADD: Additional settings to admin panel
+
 = 1.3.8 =
 * FIX: Display of Gift Card Payment on receipt
 

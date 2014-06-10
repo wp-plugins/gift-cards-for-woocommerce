@@ -34,14 +34,38 @@ if ( ! class_exists( 'RPGC_Settings' ) ) :
 
 			$options = apply_filters( 'woocommerce_giftcard_settings', array(
 
-				
-
 				array( 'title' 		=> __( 'Processing Options',  RPWCGC_CORE_TEXT_DOMAIN  ), 'type' => 'title', 'id' => 'giftcard_processing_options_title' ),
+
+				array(
+					'title'         => __( 'Display on Cart?',  RPWCGC_CORE_TEXT_DOMAIN  ),
+					'desc'          => __( 'Display the giftcard form on the cart page.',  RPWCGC_CORE_TEXT_DOMAIN  ),
+					'id'            => 'woocommerce_enable_giftcard_cartpage',
+					'default'       => 'yes',
+					'type'          => 'checkbox',
+					'autoload'      => false
+				),
+
+				array(
+					'title'         => __( 'Display on Checkout?',  RPWCGC_CORE_TEXT_DOMAIN  ),
+					'desc'          => __( 'Display the giftcard form on the checkout page.',  RPWCGC_CORE_TEXT_DOMAIN  ),
+					'id'            => 'woocommerce_enable_giftcard_checkoutpage',
+					'default'       => 'no',
+					'type'          => 'checkbox',
+					'autoload'      => false
+				),
 
 				array(
 					'title'         => __( 'Shipping Charge?',  RPWCGC_CORE_TEXT_DOMAIN  ),
 					'desc'          => __( 'Allow customers to pay for shipping with their gift card.',  RPWCGC_CORE_TEXT_DOMAIN  ),
 					'id'            => 'woocommerce_enable_giftcard_process',
+					'default'       => 'no',
+					'type'          => 'checkbox',
+					'autoload'      => false
+				),
+				array(
+					'title'         => __( 'Customize Add to Cart?',  RPWCGC_CORE_TEXT_DOMAIN  ),
+					'desc'          => __( 'Change Add to cart label and disable add to cart from product list.',  RPWCGC_CORE_TEXT_DOMAIN  ),
+					'id'            => 'woocommerce_enable_addtocart',
 					'default'       => 'no',
 					'type'          => 'checkbox',
 					'autoload'      => false

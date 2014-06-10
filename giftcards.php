@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce - Gift Cards
 Plugin URI: http://wp-ronin.com
 Description: WooCommerce - Gift Cards allows you to offer gift cards to your customer and allow them to place orders using them.
-Version: 1.3.8
+Version: 1.4.1
 Author: Ryan Pletcher
 Author URI: http://ryanpletcher.com
 License: GPL2
@@ -13,10 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 // Plugin version
 if ( ! defined( 'RPWCGC_VERSION' ) )
-	define( 'RPWCGC_VERSION', '1.3.8' );
+	define( 'RPWCGC_VERSION', '1.4.1' );
 
 // Plugin Folder Path
-if ( ! defined( 'RPWCGC_PATH' ) )
+if ( ! defined( '' ) )
 	define( 'RPWCGC_PATH', plugin_dir_path( __FILE__ ) );
 
 // Plugin Folder URL
@@ -32,21 +32,84 @@ if ( ! defined( 'RPWCGC_CORE_TEXT_DOMAIN' ) )
 	define( 'RPWCGC_CORE_TEXT_DOMAIN', 'rpgiftcards');
 
 
-function rpgc_woocommerce() {
 
-	if ( !class_exists( 'woocommerce' ) )
-		return;
+class WPRWooGiftcards {
+	private static $wpr_wg_instance;
 
-	if ( is_admin() ) {
-		require_once RPWCGC_PATH . 'admin/giftcard-actions.php';
-		require_once RPWCGC_PATH . 'admin/order-functions.php';
+	private function __construct() {
+		global $wpr_woo_giftcard_settings;
+		$wpr_woo_giftcard_settings = get_option( 'wpr_wg_options' );
+
+		add_action( 'init', array( $this, 'rpwcgc_loaddomain' ), 1 );
+		add_action( 'init', array( $this, 'rpgc_create_post_type' ) );
+		add_filter( 'woocommerce_get_settings_pages', array( $this, 'rpgc_add_settings_page'), 10, 1);
+		add_action( 'enqueue_scripts', array( $this, 'load_styes' ) );
+
+		if( is_admin() ) {
+			add_action( 'admin_enqueue_scripts', array( $this, 'load_custom_scripts' ), 99 );
+			
+			// Create all admin functions and pages
+			require_once RPWCGC_PATH . 'admin/giftcard-columns.php';  
+			require_once RPWCGC_PATH . 'admin/giftcard-metabox.php';  
+			require_once RPWCGC_PATH . 'admin/giftcard-functions.php';
+			
+		}
+
+		require_once RPWCGC_PATH . 'giftcard/giftcard-product.php';
+		require_once RPWCGC_PATH . 'giftcard/giftcard-forms.php';
+		require_once RPWCGC_PATH . 'giftcard/giftcard-checkout.php';
+		require_once RPWCGC_PATH . 'giftcard/giftcard-paypal.php';
+		
 	}
 
-	require_once RPWCGC_PATH . 'giftcard/giftcard-functions.php';
-	require_once RPWCGC_PATH . 'giftcard/product-functions.php';
-	require_once RPWCGC_PATH . 'giftcard/checkout-functions.php';
+	/**
+	 * Get the singleton instance of our plugin
+	 * @return class The Instance
+	 * @access public
+	 */
+	public static function getInstance() {
+		if ( !self::$wpr_wg_instance ) {
+			self::$wpr_wg_instance = new WPRWooGiftcards();
+		}
 
-	function rpgc_create_post_type() {
+		return self::$wpr_wg_instance;
+	}
+
+	/**
+	 * Queue up the JavaScript file for the admin page, only on our admin page
+	 * @param  string $hook The current page in the admin
+	 * @return void
+	 * @access public
+	 */
+	public function load_custom_scripts( $hook ) {
+		global $woocommerce;
+
+		if ( 'rp_shop_giftcard' != $hook && 'post-new.php' != $hook && 'post.php' != $hook )
+			return;
+
+		wp_enqueue_style( 'woocommerce_admin_styles', $woocommerce->plugin_url() . '/assets/css/admin.css' );
+		$jquery_version = isset( $wp_scripts->registered['jquery-ui-core']->ver ) ? $wp_scripts->registered['jquery-ui-core']->ver : '1.9.2';
+
+		wp_enqueue_script( 'woocommerce_writepanel' );
+
+		wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'jquery-ui-core' );
+		wp_enqueue_script( 'jquery-ui-datepicker' );
+		
+	}
+	
+	public function load_styes() {
+		wp_register_style( 'wpr_style', RPWCGC_PATH . 'style/style.css', false, RPWCGC_VERSION );
+		wp_enqueue_style( 'wpr_style' );
+	}
+
+	public function rpgc_add_settings_page( $settings ) {
+		$settings[] = include( RPWCGC_PATH . 'admin/giftcard-settings.php' );
+
+		return apply_filters( 'rpgc_setting_classes', $settings );
+	}
+	
+	public function rpgc_create_post_type() {
 		$show_in_menu = current_user_can( 'manage_woocommerce' ) ? 'woocommerce' : true;
 
 		register_post_type( 'rp_shop_giftcard',
@@ -85,53 +148,17 @@ function rpgc_woocommerce() {
 		) );
 		
 	}
-	add_action( 'init', 'rpgc_create_post_type' );
-
-
-	function rp_append_post_status_list(){
-	     global $post;
-	     $complete = '';
-	     $label = '';
-	     if($post->post_type == 'rp_shop_giftcard'){
-	          if($post->post_status == 'zerobalance'){
-	               $complete = ' selected=\"selected\"';
-	               $label = '<span id=\"post-status-display\">' . _e( 'Zero Balanace', RPWCGC_CORE_TEXT_DOMAIN ) . '</span>';
-	          }
-
-	          echo '
-	          <script>
-	          jQuery(document).ready(function($){
-	               $("select#post_status").append("<option value=\"zerobalance\" '.$complete.'>';
-	               	_e( 'Zero Balanace', RPWCGC_CORE_TEXT_DOMAIN );
-	           echo '</option>");
-	               $(".misc-pub-section label").append("'.$label.'");
-	          });
-	          </script>
-	          ';
-	     }
-	}
-	add_action('admin_footer-post.php', 'rp_append_post_status_list');
-
-	/**	
-	 * Add the required scripts to the plugin.
-	 *
-	 */
-	function rpgc_enqueue() {
-		global $woocommerce, $post;
-		$rpgc_url = plugins_url() . '/gift-cards-for-woocommerce';
-		wp_enqueue_style( 'rpgc_style', RPWCGC_URL . '/style/style.css' );
-	}
-	add_action( 'wp_enqueue_scripts', 'rpgc_enqueue' );
-
+	
 	/**
 	 * Load the Text Domain for i18n
 	 * @return void
 	 * @access public
 	 */
 	function rpwcgc_loaddomain() {
-		load_plugin_textdomain( RPWCGC_CORE_TEXT_DOMAIN, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( RPWCGC_CORE_TEXT_DOMAIN, false, 'gift-cards-for-woocommerce/languages/' );
 	}
-	add_action( 'plugins_loaded', 'rpwcgc_loaddomain' );
 
 }
-add_action( 'plugins_loaded', 'rpgc_woocommerce', 30 );
+
+$wpr_woo_gift_loaded = WPRWooGiftcards::getInstance();
+
