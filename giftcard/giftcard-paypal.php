@@ -4,7 +4,7 @@ function rpgc_add_giftcard_to_paypal( $paypal_args ) {
 	global $woocommerce;
 
 	
-	$giftCardPayment = $woocommerce->session->giftcard_payment;
+	$giftCardPayment = WC()->session->giftcard_payment;
 
 	$custom = unserialize($paypal_args["custom"]);
 	$order = new WC_Order( $custom[0] );
@@ -23,6 +23,6 @@ function rpgc_add_giftcard_to_paypal( $paypal_args ) {
 			
 	}
 
-	return $paypal_args;
+	return apply_filters( 'rpgc_send_giftcard_to_paypal', $paypal_args );
 }
 add_filter( 'woocommerce_paypal_args', 'rpgc_add_giftcard_to_paypal');

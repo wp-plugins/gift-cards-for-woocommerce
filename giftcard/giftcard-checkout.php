@@ -24,11 +24,11 @@ function woocommerce_ajax_apply_giftcard($giftcard_code) {
 	if ( ! empty( $_POST['giftcard_code'] ) ) {
 		$giftCardNumber = sanitize_text_field( $_POST['giftcard_code'] );
 
-		if ( ! isset($woocommerce->session->giftcard_id ) ) {
+		if ( ! isset(WC()->session->giftcard_id ) ) {
 
-			$woocommerce->cart->total = $woocommerce->session->giftcard_payment + $woocommerce->cart->total;
+			WC()->cart->total = WC()->session->giftcard_payment + WC()->cart->total;
 
-			unset( $woocommerce->session->giftcard_payment, $woocommerce->session->giftcard_id, $woocommerce->session->giftcard_post, $woocommerce->session->giftcard_balance );
+			unset( WC()->session->giftcard_payment, WC()->session->giftcard_id, WC()->session->giftcard_post, WC()->session->giftcard_balance );
 
 			// Check for Giftcard
 			$giftcard_found = $wpdb->get_var( $wpdb->prepare( "
@@ -39,7 +39,7 @@ function woocommerce_ajax_apply_giftcard($giftcard_code) {
 				AND $wpdb->posts.post_title = '%s'
 			", $giftCardNumber ) );
 
-			$orderTotal = (float) $woocommerce->cart->total;
+			$orderTotal = (float) WC()->cart->total;
 
 			$current_date = date("Y-m-d");
 			$cardExperation = get_post_meta( $giftcard_found, 'rpgc_expiry_date', true );
@@ -56,8 +56,8 @@ function woocommerce_ajax_apply_giftcard($giftcard_code) {
 					if ( is_string( $orderTotal ) )   // Determin if the Value from $orderTotal is a String and convert it
 						$orderTotalCost = (float) $orderTotal;
 
-					$woocommerce->session->giftcard_post = $giftcard_found;
-					$woocommerce->session->giftcard_id = $giftCardNumber;
+					WC()->session->giftcard_post = $giftcard_found;
+					WC()->session->giftcard_id = $giftCardNumber;
 
 
 					if ( $oldGiftcardValue == 0 ) {
@@ -67,12 +67,12 @@ function woocommerce_ajax_apply_giftcard($giftcard_code) {
 					} elseif ( $oldGiftcardValue >= $orderTotal ) {
 						//  Giftcard Balance is more than the order total.
 						//  Subtract the order from the card
-						$woocommerce->session->giftcard_payment = $orderTotal;
+						WC()->session->giftcard_payment = $orderTotal;
 
 						if( get_option( 'woocommerce_enable_giftcard_process' ) == 'no' )
-							$woocommerce->session->giftcard_payment = $woocommerce->session->giftcard_payment - $woocommerce->cart->shipping_total;
+							WC()->session->giftcard_payment = WC()->session->giftcard_payment - WC()->cart->shipping_total;
 
-						$woocommerce->session->giftcard_balance = $oldGiftcardValue - $orderTotal;
+						WC()->session->giftcard_balance = $oldGiftcardValue - $orderTotal;
 						$msg = __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN );
 						wc_add_notice(  __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN ), 'success' );
 
@@ -80,14 +80,14 @@ function woocommerce_ajax_apply_giftcard($giftcard_code) {
 						//  Giftcard Balance is less than the order total.
 						//  Subtract the giftcard from the order total
 						
-						$woocommerce->session->giftcard_payment = $oldGiftcardValue;
-						$woocommerce->session->giftcard_balance = 0;
+						WC()->session->giftcard_payment = $oldGiftcardValue;
+						WC()->session->giftcard_balance = 0;
 						
 						if( get_option( 'woocommerce_enable_giftcard_process' ) == 'no' ) {
-							$cartSubtotal = $orderTotal - $woocommerce->cart->shipping_total;
+							$cartSubtotal = $orderTotal - WC()->cart->shipping_total;
 							if ( $oldGiftcardValue > $cartSubtotal ) {
-								$woocommerce->session->giftcard_balance = $oldGiftcardValue - $cartSubtotal;
-								$woocommerce->session->giftcard_payment = $cartSubtotal;
+								WC()->session->giftcard_balance = $oldGiftcardValue - $cartSubtotal;
+								WC()->session->giftcard_payment = $cartSubtotal;
 							}
 						}
 						wc_add_notice(  __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN ), 'success' );
@@ -129,21 +129,21 @@ function rpgc_order_giftcard( ) {
 		$type = $_GET['remove_giftcards'];
 
 		if ( 1 == $type ) {
-			unset( $woocommerce->session->giftcard_payment, $woocommerce->session->giftcard_id, $woocommerce->session->giftcard_post, $woocommerce->session->giftcard_balance );
+			unset( WC()->session->giftcard_payment, WC()->session->giftcard_id, WC()->session->giftcard_post, WC()->session->giftcard_balance );
 			WC()->cart->calculate_totals();
 		}
 	}
 
-	if ( isset( $woocommerce->session->giftcard_payment ) ) {
-		if ( $woocommerce->session->giftcard_payment > 0 ){
+	if ( isset( WC()->session->giftcard_payment ) ) {
+		if ( WC()->session->giftcard_payment > 0 ){
 
 			$currency_symbol = get_woocommerce_currency_symbol();
-			$price = $woocommerce->session->giftcard_payment;
+			$price = WC()->session->giftcard_payment;
 
-			$gotoPage = $woocommerce->cart->get_checkout_url();
+			$gotoPage = WC()->cart->get_checkout_url();
 
 			if ( is_cart() ) {
-				$gotoPage = $woocommerce->cart->get_cart_url();
+				$gotoPage = WC()->cart->get_cart_url();
 			}
 
 			?>
@@ -151,7 +151,7 @@ function rpgc_order_giftcard( ) {
 			<tr class="giftcard">
 				<th><?php _e( 'Gift Card Payment', RPWCGC_CORE_TEXT_DOMAIN ); ?> </th>
 
-				<td style="font-size:0.85em;"><?php echo woocommerce_price( $price ); ?> <a alt="<?php echo $woocommerce->session->giftcard_id; ?>" href="<?php echo add_query_arg( 'remove_giftcards', '1', $gotoPage ) ?>">[<?php _e( 'Remove Gift Card', RPWCGC_CORE_TEXT_DOMAIN ); ?>]</a></td>
+				<td style="font-size:0.85em;"><?php echo woocommerce_price( $price ); ?> <a alt="<?php echo WC()->session->giftcard_id; ?>" href="<?php echo add_query_arg( 'remove_giftcards', '1', $gotoPage ) ?>">[<?php _e( 'Remove Gift Card', RPWCGC_CORE_TEXT_DOMAIN ); ?>]</a></td>
 			</tr>
 
 			<?php
@@ -169,7 +169,7 @@ add_action( 'woocommerce_cart_totals_before_order_total', 'rpgc_order_giftcard' 
 function subtract_giftcard( $wc_cart ) {
 	global $woocommerce;
 
-	$wc_cart->cart_contents_total = $wc_cart->cart_contents_total - $woocommerce->session->giftcard_payment;
+	$wc_cart->cart_contents_total = $wc_cart->cart_contents_total - WC()->session->giftcard_payment;
 }
 add_action( 'woocommerce_calculate_totals', 'subtract_giftcard' );
 
@@ -197,7 +197,7 @@ function rpgc_add_card_data( $cart_item_key, $product_id, $quantity ) {
 
 		$giftcard_data = apply_filters( 'rpgc_giftcard_data', $giftcard_data, $_POST );
 
-		$woocommerce->cart->cart_contents[$cart_item_key]["variation"] = $giftcard_data;
+		WC()->cart->cart_contents[$cart_item_key]["variation"] = $giftcard_data;
 		return $woocommerce;
 	}
 	
@@ -269,7 +269,7 @@ function rpgc_add_order_giftcard( $total_rows,$order ) {
 	if ($giftCardPayment <> 0 ) {
 		$newRow['rpgc_data'] = array(
 			'label' => __( 'Gift Card Payment:', 'woocommerce' ),
-			'value'	=> woocommerce_price( -1 * $giftCardPayment[0] )
+			'value'	=> woocommerce_price( -1 * $giftCardPayment )
 		);
 
 		if( get_option( 'woocommerce_enable_giftcard_process' ) == 'no' ){
@@ -294,11 +294,11 @@ add_filter( 'woocommerce_get_order_item_totals', 'rpgc_add_order_giftcard', 10, 
 function rpgc_update_card( $order_id ) {
 	global $woocommerce;
 
-	if ( $woocommerce->session->giftcard_post <> '' ) {
+	if ( WC()->session->giftcard_post <> '' ) {
 		// Check if the gift card ballance is 0 and if it is change the post status to zerobalance
-		if( $woocommerce->session->giftcard_balance == 0 ) {
+		if( WC()->session->giftcard_balance == 0 ) {
 			$my_post = array(
-		    	'ID'           => $woocommerce->session->giftcard_post,
+		    	'ID'           => WC()->session->giftcard_post,
 		    	'post_status'  => 'zerobalance'
 	  		);
 
@@ -306,19 +306,19 @@ function rpgc_update_card( $order_id ) {
 			  wp_update_post( $my_post );
 		}
 		
-		update_post_meta( $woocommerce->session->giftcard_post, 'rpgc_balance', $woocommerce->session->giftcard_balance ); // Update balance of Giftcard
-		update_post_meta( $order_id, 'rpgc_id', $woocommerce->session->giftcard_id );
-		update_post_meta( $order_id, 'rpgc_payment', $woocommerce->session->giftcard_payment );
-		update_post_meta( $order_id, 'rpgc_balance', $woocommerce->session->giftcard_balance );
+		update_post_meta( WC()->session->giftcard_post, 'rpgc_balance', WC()->session->giftcard_balance ); // Update balance of Giftcard
+		update_post_meta( $order_id, 'rpgc_id', WC()->session->giftcard_id );
+		update_post_meta( $order_id, 'rpgc_payment', WC()->session->giftcard_payment );
+		update_post_meta( $order_id, 'rpgc_balance', WC()->session->giftcard_balance );
 
-		$woocommerce->session->idForEmail = $order_id;
-		unset( $woocommerce->session->giftcard_id, $woocommerce->session->giftcard_payment, $woocommerce->session->giftcard_post, $woocommerce->session->giftcard_balance );
+		WC()->session->idForEmail = $order_id;
+		unset( WC()->session->giftcard_id, WC()->session->giftcard_payment, WC()->session->giftcard_post, WC()->session->giftcard_balance );
 	}
 
-	if ( isset ( $woocommerce->session->giftcard_data ) ) {
-		update_post_meta( $order_id, 'rpgc_data', $woocommerce->session->giftcard_data );
+	if ( isset ( WC()->session->giftcard_data ) ) {
+		update_post_meta( $order_id, 'rpgc_data', WC()->session->giftcard_data );
 
-		unset( $woocommerce->session->giftcard_data );
+		unset( WC()->session->giftcard_data );
 	}
 
 }
@@ -349,9 +349,9 @@ function wpr_apply_giftcard( $giftCardNumber ) {
 
 	if ( ! empty( $giftCardNumber ) ) {
 
-		$woocommerce->cart->total = $woocommerce->session->giftcard_payment + $woocommerce->cart->total;
+		WC()->cart->total = WC()->session->giftcard_payment + WC()->cart->total;
 
-		unset( $woocommerce->session->giftcard_payment, $woocommerce->session->giftcard_id, $woocommerce->session->giftcard_post, $woocommerce->session->giftcard_balance );
+		unset( WC()->session->giftcard_payment, WC()->session->giftcard_id, WC()->session->giftcard_post, WC()->session->giftcard_balance );
 
 		// Check for Giftcard
 		$giftcard_found = $wpdb->get_var( $wpdb->prepare( "
@@ -362,7 +362,7 @@ function wpr_apply_giftcard( $giftCardNumber ) {
 			AND $wpdb->posts.post_title = '%s'
 		", $giftCardNumber ) );
 
-		$orderTotal = (float) $woocommerce->cart->total;
+		$orderTotal = (float) WC()->cart->total;
 
 		$current_date = date("Y-m-d");
 		$cardExperation = get_post_meta( $giftcard_found, 'rpgc_expiry_date', true );
@@ -379,8 +379,8 @@ function wpr_apply_giftcard( $giftCardNumber ) {
 				if ( is_string( $orderTotal ) )   // Determin if the Value from $orderTotal is a String and convert it
 					$orderTotalCost = (float) $orderTotal;
 
-				$woocommerce->session->giftcard_post = $giftcard_found;
-				$woocommerce->session->giftcard_id = $giftCardNumber;
+				WC()->session->giftcard_post = $giftcard_found;
+				WC()->session->giftcard_id = $giftCardNumber;
 
 
 				if ( $oldGiftcardValue == 0 ) {
@@ -390,13 +390,13 @@ function wpr_apply_giftcard( $giftCardNumber ) {
 				} elseif ( $oldGiftcardValue >= $orderTotal ) {
 					//  Giftcard Balance is more than the order total.
 					//  Subtract the order from the card
-					$woocommerce->session->giftcard_payment = $orderTotal;
+					WC()->session->giftcard_payment = $orderTotal;
 
 					if( get_option( 'woocommerce_enable_giftcard_process' ) == 'no' )
-						$woocommerce->session->giftcard_payment = $woocommerce->session->giftcard_payment - $woocommerce->cart->shipping_total;
+						WC()->session->giftcard_payment = WC()->session->giftcard_payment - WC()->cart->shipping_total;
 
 
-					$woocommerce->session->giftcard_balance = $oldGiftcardValue - $orderTotal;
+					WC()->session->giftcard_balance = $oldGiftcardValue - $orderTotal;
 					$msg = __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN );
 					wc_add_notice(  __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN ), 'success' );
 
@@ -404,14 +404,14 @@ function wpr_apply_giftcard( $giftCardNumber ) {
 					//  Giftcard Balance is less than the order total.
 					//  Subtract the giftcard from the order total
 					
-					$woocommerce->session->giftcard_payment = $oldGiftcardValue;
-					$woocommerce->session->giftcard_balance = 0;
+					WC()->session->giftcard_payment = $oldGiftcardValue;
+					WC()->session->giftcard_balance = 0;
 					
 					if( get_option( 'woocommerce_enable_giftcard_process' ) == 'no' ) {
-						$cartSubtotal = $orderTotal - $woocommerce->cart->shipping_total;
+						$cartSubtotal = $orderTotal - WC()->cart->shipping_total;
 						if ( $oldGiftcardValue > $cartSubtotal ) {
-							$woocommerce->session->giftcard_balance = $oldGiftcardValue - $cartSubtotal;
-							$woocommerce->session->giftcard_payment = $cartSubtotal;
+							WC()->session->giftcard_balance = $oldGiftcardValue - $cartSubtotal;
+							WC()->session->giftcard_payment = $cartSubtotal;
 						}
 					}
 

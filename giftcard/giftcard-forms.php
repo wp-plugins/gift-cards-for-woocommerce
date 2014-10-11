@@ -17,14 +17,7 @@ function rpgc_cart_form() {
 	?>
 		<div class="giftcard" style="float: left;">
 			<label for="giftcard_code" style="display: none;"><?php _e( 'Giftcard', 'woocommerce' ); ?>:</label>
-			<input type="text" name="giftcard_code" class="input-text" id="giftcard_code" value="" placeholder="<?php _e( 'Gift Card', 'woocommerce' ); ?>" style="    border: 1px solid #E0DADF;
-			    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1) inset;
-			    box-sizing: border-box;
-			    float: left;
-			    line-height: 1em;
-			    margin: 0 4px 0 0;
-			    outline: 0 none;
-			    padding: 6px 6px 5px;"/>
+			<input type="text" name="giftcard_code" class="input-text" id="giftcard_code" value="" placeholder="<?php _e( 'Gift Card', 'woocommerce' ); ?>" />
 			<input type="submit" class="button" name="update_cart" value="<?php _e( 'Apply Gift card', 'woocommerce' ); ?>" />
 		</div>
 <?php
@@ -127,8 +120,8 @@ function rpgc_cart_fields( ) {
 	$is_giftcard = get_post_meta( $post->ID, '_giftcard', true );
 	if ( $is_giftcard == 'yes' ) {
 
-		do_action( 'rpgc_before_all_giftcard_fields' );
-
+		do_action( 'rpgc_before_all_giftcard_fields', $post );
+		
 		$rpw_to 		= get_option( 'woocommerce_giftcard_to' );
 		$rpw_toEmail 	= get_option( 'woocommerce_giftcard_toEmail' );
 		$rpw_note 		= get_option( 'woocommerce_giftcard_note' );
@@ -156,5 +149,14 @@ function rpgc_cart_fields( ) {
 	    ';
 	}
 }
-add_action( 'woocommerce_before_add_to_cart_button', 'rpgc_cart_fields' );
+add_action( 'woocommerce_before_add_to_cart_button', 'rpgc_cart_fields' ); //woocommerce_before_add_to_cart_button
 
+function giftcard_is_purchasable( $is_purchasable, $object ) {
+
+    // this is a field added using 'Advance Custom Fields' plugin 
+	$is_giftcard = get_post_meta( $object->id, '_giftcard', true );
+	
+    if( $is_giftcard )
+        return true;
+}
+add_filter('woocommerce_is_purchasable', 'giftcard_is_purchasable', 10, 2);

@@ -74,6 +74,8 @@ function rpgc_meta_box( $post ) {
 
 	<div id="giftcard_options" class="panel woocommerce_options_panel">
 	<?php
+	
+	do_action( 'rpgc_woocommerce_options_before_sender' );
 
 	// Description
 	woocommerce_wp_textarea_input(
@@ -84,6 +86,8 @@ function rpgc_meta_box( $post ) {
 			'description' => __( 'Optionally enter a description for this gift card for your reference.', RPWCGC_CORE_TEXT_DOMAIN ),
 		)
 	);
+	
+	do_action( 'rpgc_woocommerce_options_after_description' );
 
 	echo '<h2>' . __('Who are you sending this to?',  RPWCGC_CORE_TEXT_DOMAIN ) . '</h2>';
 	// To
@@ -123,10 +127,15 @@ function rpgc_meta_box( $post ) {
 			'description' => __( 'What email account is sending this gift card.', RPWCGC_CORE_TEXT_DOMAIN ),
 		)
 	);
+	
+	do_action( 'rpgc_woocommerce_options_after_sender' );
 
 	echo '</div><div class="panel woocommerce_options_panel">';
 
 	echo '<h2>' . __('Personalize it',  RPWCGC_CORE_TEXT_DOMAIN ) . '</h2>';
+	
+	do_action( 'rpgc_woocommerce_options_before_personalize' );
+	
 	// Amount
 	woocommerce_wp_text_input(
 		array(
@@ -177,6 +186,7 @@ function rpgc_meta_box( $post ) {
 	);
 
 	do_action( 'rpgc_woocommerce_options' );
+	do_action( 'rpgc_woocommerce_options_after_personalize' );
 
 
 	echo '</div>';
@@ -213,7 +223,6 @@ function rpgc_options_meta_box( $post ) {
 		
 	}
 
-
 	echo '    </div>';
 	echo '</div>';
 
@@ -222,9 +231,10 @@ function rpgc_options_meta_box( $post ) {
 
 
 function rpgc_info_meta_box( $post ) {
-
+	global $wpdb;
+	
 	$data = get_post_meta( $post->ID );
-
+	
 	echo '<div id="giftcard_regenerate" class="panel woocommerce_options_panel">';
 	echo '    <div class="options_group">';
 		echo '<ul>';
@@ -238,14 +248,24 @@ function rpgc_info_meta_box( $post ) {
 				echo '<li>' . __( 'Balance remaining:', RPWCGC_CORE_TEXT_DOMAIN ) . ' ' . woocommerce_price( $data['rpgc_balance'][0] ) . '</li>';
 
 		echo '</ul>';
-		?>
-		<input type="submit" class="button refund_giftcard tips" name="refund_giftcard" value="Refund Gift Card" data-tip="Return funds back to card."/>
+		
+		// Check for Giftcard
+		$giftcard_found = $wpdb->get_var( $wpdb->prepare( "
+			SELECT $wpdb->posts.ID
+			FROM $wpdb->posts
+			WHERE $wpdb->posts.post_type = 'rp_shop_giftcard'
+			AND $wpdb->posts.post_status = 'publish'
+			AND $wpdb->posts.post_title = '%s'
+		", $data['rpgc_id'][0] ) );
 
-	<?php
+		if ( $giftcard_found ) {
+			echo '<div>';
+				$link = 'post.php?post=' . $giftcard_found . '&action=edit';
+				echo '<a href="' . admin_url( $link ) . '">Access Gift Card</a>';
+			echo '</div>';
+		
+		}
+
 	echo '    </div>';
 	echo '</div>';
-
 }
-
-
-

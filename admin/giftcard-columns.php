@@ -27,7 +27,7 @@ function rpgc_add_columns( $columns ) {
 	$new_columns['comments']	= $columns['comments'];
 	$new_columns['date']		= __( 'Creation Date', RPWCGC_CORE_TEXT_DOMAIN );
 
-	return $new_columns;
+	return  apply_filters( 'rpgc_giftcard_columns', $new_columns);
 }
 add_filter( 'manage_edit-rp_shop_giftcard_columns', 'rpgc_add_columns' );
 

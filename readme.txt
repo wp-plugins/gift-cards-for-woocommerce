@@ -3,7 +3,7 @@ Contributors: rpletcher
 Tags: woocommerce, gift, gift card, payment, gift certificate, certificate
 Requires at least: 3.0
 Tested up to: 3.9
-Stable tag: 1.4.1
+Stable tag: 1.5
 Donate link: https://ryanpletcher.com/donate/
 License: GPLv2 or later
 
@@ -13,30 +13,44 @@ Gift Cards for WooCommerce allows you to create gift cards that your customers p
 
 Gift Cards for WooCommerce is a plugin which allows you to manage and sell gift certificates for your site. You can sell them to your visitors, and accept payments through any of your other payment gateways.  It will then allow your customers to purchase gift card on the site that you will manually create.
 
-You can now add additional functionallity to the gift card plugin using some of my premium plugins offered through <a href="http://wp-ronin.com">wp-ronin.com</a>.  If you are looking for some functionality that I have not created let me know and I would be happy to look into offering it in the future.
+You can now add additional functionality to the gift card plugin using some of my premium plugins offered through <a href="http://wp-ronin.com">wp-ronin.com</a>.  If you are looking for some functionality that I have not created let me know and I would be happy to look into offering it in the future.
 
 If you have an interest in translating this plugin please let me know.
 
 == Installation ==
-1. Install the WooCommerce Gift Cards plugin
+1. Install the WooCommerce Gift Cards plugin (Install and activate <a href="http://wordpress.org/plugins/woocommerce/">Woocommerce</a> first)
 2. Activate the plugin
-3. Create Giftcard Products (Static price only - must set Giftcard as a single product)
+3. Create Gift Card Products (Static price only - must set Giftcard as a single product)
+
 
 == Frequently Asked Questions ==
 
 Q: I want to be able to do ______ with my gift card but you dont have the feature included.  How can I get that?
-A: You can find more pluins at <a href="http://wp-ronin.com">wp-ronin.com</a>.
+A: You can find more plugins at <a href="http://wp-ronin.com">wp-ronin.com</a> that will extend the features of the plugin.
 
 Q: How do i create a gift card for my customers to purchase?
-A: You will need to create a product like every other product you sell.  You will need to select the gift card option durring the creation 
+A: You will need to create a product like every other product you sell.  You will need to select the gift card option during the creation 
 
-Q: The gift card is not sent automaticly when the customer purchases it.  Why not?
+Q: The gift card is not sending automatically when the customer purchases it online.  Why not?
 A: This is a feature that is not included in the free version of the gift card.  You can get this option <a href="https://wp-ronin.com/downloads/auto-send-email-woocommerce-gift-cards/">here</a>.
 
 Q: Is there a way to create an option for my customers to specify the value on the gift card?
 A: You can do this with one of my premium plugins that I offer on my site <a href="https://wp-ronin.com">here</a>
 
+Q: Can I customize the email that is sent out?
+A: Unfortunately that is not a current feature.  The format of the email will match the email format of your site.  I will be looking into making it a feature in the future.
+
 == Changelog ==
+= 1.5 =
+* FIX: Removing array index on gift card variable
+* FIX: Variable refrences
+* ADD: Ability to choose if the gift card is a virtual product or physical product.
+* ADD: Check to ensure that WooCommerce is installed
+* ADD: Filter and Action hooks to numerous locations
+* ADD: Link to Gift card product from the order page
+* UPDATE: Changed $woocommerce variable to WC()
+
+
 = 1.4 =
 * FIX: Change to a sigleton file format
 * FIX: Paypal calculation

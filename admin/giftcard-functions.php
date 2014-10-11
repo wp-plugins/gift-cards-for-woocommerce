@@ -162,18 +162,19 @@ function sendGiftcardEmail ( $giftCard ) {
 
 	<?php
 
-	return ob_get_clean();
+	$return = ob_get_clean();
+	return apply_filters( 'rpgc_email_content_return', $return, $giftCard );
 
 }
 
 function rpgc_res_fromemail($email) {
     $wpfrom = get_option('admin_email');
-    return $wpfrom;
+    return apply_filters( 'rpgc_res_fromemail', $wpfrom);
 }
  
 function rpgc_res_fromname($email){
     $wpfrom = get_option('blogname');
-    return $wpfrom;
+    return apply_filters( 'rpgc_res_fromname', $wpfrom);
 }
 
 /**

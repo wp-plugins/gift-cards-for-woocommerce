@@ -19,7 +19,7 @@ function rpgc_extra_check( $product_type_options ) {
 	// combine the two arrays
 	$product_type_options = array_merge( $giftcard, $product_type_options );
 
-	return $product_type_options;
+	return apply_filters( 'rpgc_extra_check', $product_type_options );
 }
 add_filter( 'product_type_options', 'rpgc_extra_check' );
 
@@ -28,10 +28,12 @@ function rpgc_process_meta( $post_id, $post ) {
 	global $wpdb, $woocommerce, $woocommerce_errors;
 
 	$is_giftcard  = isset( $_POST['_giftcard'] ) ? 'yes' : 'no';
-
 	update_post_meta( $post_id, '_giftcard', $is_giftcard );
 
-	if ( $is_giftcard == "yes" ) {
+	$want_physical = get_option( 'woocommerce_enable_physical' );
+
+	if ( $want_physical == "no" ) {
+
 		update_post_meta( $post_id, '_virtual', $is_giftcard );
 	}
 
@@ -50,7 +52,7 @@ function wpr_uniqueID($cart_item_data, $product_id) {
 
 	}
 	
-	return $cart_item_data;
+	return apply_filters( 'wpr_uniqueID', $cart_item_data, $product_id );
 }
 add_filter('woocommerce_add_cart_item_data','wpr_uniqueID',10,2);
 
@@ -66,7 +68,7 @@ function wpr_change_add_to_cart_button ( $link ) {
 	if ( $is_giftcard == "yes" && get_option( 'woocommerce_enable_addtocart' ) == "yes" )
 		$link = '<a href="' . esc_url( get_permalink( $post->ID ) ) . '" rel="nofollow" data-product_id="' . esc_attr( $post->ID ) . '" data-product_sku="' . esc_attr( $post->ID ) . '" class="button product_type_' . esc_attr( $post->product_type ) . '">' . $giftCardText . '</a>';
 
-	return $link;
+	return  apply_filters( 'wpr_change_add_to_cart_button', $link, $post);
 }
 
 
