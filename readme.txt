@@ -2,12 +2,12 @@
 Contributors: rpletcher
 Tags: woocommerce, gift, gift card, payment, gift certificate, certificate
 Requires at least: 3.0
-Tested up to: 3.9
+Tested up to: 4.0
 Stable tag: 1.5
 Donate link: https://ryanpletcher.com/donate/
 License: GPLv2 or later
 
-Gift Cards for WooCommerce allows you to create gift cards that your customers purchase on your site.
+Gift Cards for WooCommerce allows you to create gift cards that your customers purchase on your site. 
 
 == Description ==
 
