@@ -159,4 +159,4 @@ function giftcard_is_purchasable( $is_purchasable, $object ) {
     if( $is_giftcard )
         return true;
 }
-add_filter('woocommerce_is_purchasable', 'giftcard_is_purchasable', 10, 2);
+//add_filter('woocommerce_is_purchasable', 'giftcard_is_purchasable', 10, 2);
