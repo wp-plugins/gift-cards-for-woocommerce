@@ -132,16 +132,18 @@ function sendGiftcardEmail ( $giftCard ) {
 	?>
 
 	<div class="message">
-		<?php _e( 'Dear', RPWCGC_CORE_TEXT_DOMAIN ); ?> <?php echo get_post_meta( $giftCard->ID, 'rpgc_to', true); ?>,<br /><br />
-			
-		<?php echo get_post_meta( $giftCard->ID, 'rpgc_from', true); ?> has selected a <strong><a href="<?php bloginfo( 'url' ); ?>"><?php bloginfo( 'name' ); ?></a></strong> <?php _e( 'Gift Card for you! This card can be used for online purchases at', RPWCGC_CORE_TEXT_DOMAIN ); ?> <?php bloginfo( 'name' ); ?>. <br />
 
-		<h4><?php _e( 'Gift Card Amount', RPWCGC_CORE_TEXT_DOMAIN ); ?>: <?php echo woocommerce_price( get_post_meta( $giftCard->ID, 'rpgc_balance', true) ); ?></h4>
-		<h4><?php _e( 'Gift Card Number', RPWCGC_CORE_TEXT_DOMAIN ); ?>: <?php echo $giftCard->post_title; ?></h4>
+
+		<?php _e( 'Dear', WPR_CORE_TEXT_DOMAIN ); ?> <?php echo get_post_meta( $giftCard->ID, 'rpgc_to', true); ?>,<br /><br />
+			
+		<?php echo get_post_meta( $giftCard->ID, 'rpgc_from', true); ?> has selected a <strong><a href="<?php bloginfo( 'url' ); ?>"><?php bloginfo( 'name' ); ?></a></strong> <?php _e( 'Gift Card for you! This card can be used for online purchases at', WPR_CORE_TEXT_DOMAIN ); ?> <?php bloginfo( 'name' ); ?>. <br />
+
+		<h4><?php _e( 'Gift Card Amount', WPR_CORE_TEXT_DOMAIN ); ?>: <?php echo woocommerce_price( get_post_meta( $giftCard->ID, 'rpgc_balance', true) ); ?></h4>
+		<h4><?php _e( 'Gift Card Number', WPR_CORE_TEXT_DOMAIN ); ?>: <?php echo $giftCard->post_title; ?></h4>
 
 		<?php
 		if ( $expiry_date != "" ) {
-			echo __( 'Expiration Date', RPWCGC_CORE_TEXT_DOMAIN ) . ': ' . get_post_meta( $giftCard->ID, 'rpgc_expiry_date', true);
+			echo __( 'Expiration Date', WPR_CORE_TEXT_DOMAIN ) . ': ' . get_post_meta( $giftCard->ID, 'rpgc_expiry_date', true);
 		}
 		?>
 	</div>
@@ -151,12 +153,12 @@ function sendGiftcardEmail ( $giftCard ) {
 	</div>
 
 	<div style="padding-top: 10px; border-top: 1px solid #ccc;">
-		<?php _e( 'Using your Gift Card is easy', RPWCGC_CORE_TEXT_DOMAIN ); ?>:
+		<?php _e( 'Using your Gift Card is easy', WPR_CORE_TEXT_DOMAIN ); ?>:
 
 		<ol>
-			<li><?php _e( 'Shop at', RPWCGC_CORE_TEXT_DOMAIN ); ?> <?php bloginfo( 'name' ); ?></li>
-			<li><?php _e( 'Select "Pay with a Gift Card" during checkout.', RPWCGC_CORE_TEXT_DOMAIN ); ?></li>
-			<li><?php _e( 'Enter your card number.', RPWCGC_CORE_TEXT_DOMAIN ); ?></li>
+			<li><?php _e( 'Shop at', WPR_CORE_TEXT_DOMAIN ); ?> <?php bloginfo( 'name' ); ?></li>
+			<li><?php _e( 'Select "Pay with a Gift Card" during checkout.', WPR_CORE_TEXT_DOMAIN ); ?></li>
+			<li><?php _e( 'Enter your card number.', WPR_CORE_TEXT_DOMAIN ); ?></li>
 		</ol>
 	</div>
 

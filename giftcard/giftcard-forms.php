@@ -16,9 +16,9 @@ function rpgc_cart_form() {
 		do_action( 'wpr_before_cart_form' );
 	?>
 		<div class="giftcard" style="float: left;">
-			<label for="giftcard_code" style="display: none;"><?php _e( 'Giftcard', 'woocommerce' ); ?>:</label>
-			<input type="text" name="giftcard_code" class="input-text" id="giftcard_code" value="" placeholder="<?php _e( 'Gift Card', 'woocommerce' ); ?>" />
-			<input type="submit" class="button" name="update_cart" value="<?php _e( 'Apply Gift card', 'woocommerce' ); ?>" />
+			<label for="giftcard_code" style="display: none;"><?php _e( 'Giftcard', WPR_CORE_TEXT_DOMAIN ); ?>:</label>
+			<input type="text" name="giftcard_code" class="input-text" id="giftcard_code" value="" placeholder="<?php _e( 'Gift Card', WPR_CORE_TEXT_DOMAIN ); ?>" />
+			<input type="submit" class="button" name="update_cart" value="<?php _e( 'Apply Gift card', WPR_CORE_TEXT_DOMAIN ); ?>" />
 		</div>
 <?php
 		do_action( 'wpr_after_cart_form' );
@@ -40,21 +40,21 @@ if ( ! function_exists( 'rpgc_checkout_form' ) ) {
 
 		if( get_option( 'woocommerce_enable_giftcard_checkoutpage' ) == 'yes' ){
 
-			$info_message = apply_filters( 'woocommerce_checkout_giftcaard_message', __( 'Have a giftcard?', RPWCGC_CORE_TEXT_DOMAIN ) );
+			$info_message = apply_filters( 'woocommerce_checkout_giftcaard_message', __( 'Have a giftcard?', WPR_CORE_TEXT_DOMAIN ) );
 			do_action( 'wpr_before_checkout_form' );
 
 			?>
 
-			<p class="woocommerce-info"><?php echo $info_message; ?> <a href="#" class="showgiftcard"><?php _e( 'Click here to enter your giftcard', RPWCGC_CORE_TEXT_DOMAIN ); ?></a></p>
+			<p class="woocommerce-info"><?php echo $info_message; ?> <a href="#" class="showgiftcard"><?php _e( 'Click here to enter your giftcard', WPR_CORE_TEXT_DOMAIN ); ?></a></p>
 
 			<form class="checkout_giftcard" method="post" style="display:none">
 
 				<p class="form-row form-row-first">
-					<input type="text" name="giftcard_code" class="input-text" placeholder="<?php _e( 'Gift card', RPWCGC_CORE_TEXT_DOMAIN ); ?>" id="giftcard_code" value="" />
+					<input type="text" name="giftcard_code" class="input-text" placeholder="<?php _e( 'Gift card', WPR_CORE_TEXT_DOMAIN ); ?>" id="giftcard_code" value="" />
 				</p>
 
 				<p class="form-row form-row-last">
-					<input type="submit" class="button" name="apply_giftcard" value="<?php _e( 'Apply Gift card', RPWCGC_CORE_TEXT_DOMAIN ); ?>" />
+					<input type="submit" class="button" name="apply_giftcard" value="<?php _e( 'Apply Gift card', WPR_CORE_TEXT_DOMAIN ); ?>" />
 				</p>
 
 				<div class="clear"></div>
@@ -126,15 +126,15 @@ function rpgc_cart_fields( ) {
 		$rpw_toEmail 	= get_option( 'woocommerce_giftcard_toEmail' );
 		$rpw_note 		= get_option( 'woocommerce_giftcard_note' );
 
-		$rpw_to_check 		= ( $rpw_to <> NULL ? $rpw_to : __('To', RPWCGC_CORE_TEXT_DOMAIN ) );
-		$rpw_toEmail_check 	= ( $rpw_toEmail <> NULL ? $rpw_toEmail : __('To Email', RPWCGC_CORE_TEXT_DOMAIN )  );
-		$rpw_note_check		= ( $rpw_note <> NULL ? $rpw_note : __('Note', RPWCGC_CORE_TEXT_DOMAIN )  );
+		$rpw_to_check 		= ( $rpw_to <> NULL ? $rpw_to : __('To', WPR_CORE_TEXT_DOMAIN ) );
+		$rpw_toEmail_check 	= ( $rpw_toEmail <> NULL ? $rpw_toEmail : __('To Email', WPR_CORE_TEXT_DOMAIN )  );
+		$rpw_note_check		= ( $rpw_note <> NULL ? $rpw_note : __('Note', WPR_CORE_TEXT_DOMAIN )  );
 ?>
 
 		<div>
-			<div class="rpw_product_message"><?php _e('All fields below are optional', RPWCGC_CORE_TEXT_DOMAIN ); ?></div>
+			<div class="rpw_product_message"><?php _e('All fields below are optional', WPR_CORE_TEXT_DOMAIN ); ?></div>
 			<?php  do_action( 'rpgc_before_product_fields' ); ?>
-			<input type="hidden" id="rpgc_description" name="rpgc_description" value="<?php _e('Generated from the website.', RPWCGC_CORE_TEXT_DOMAIN ); ?>" />
+			<input type="hidden" id="rpgc_description" name="rpgc_description" value="<?php _e('Generated from the website.', WPR_CORE_TEXT_DOMAIN ); ?>" />
 			<input name="rpgc_to" id="rpgc_to" class="input-text" placeholder="<?php echo $rpw_to_check; ?>" style="margin-bottom:5px;">
 			<input type="email" name="rpgc_to_email" id="rpgc_to_email" class="input-text" placeholder="<?php echo $rpw_toEmail_check; ?>" style="margin-bottom:5px;">
 			<textarea class="input-text" id="rpgc_note" name="rpgc_note" rows="2" placeholder="<?php echo $rpw_note_check; ?>" style="margin-bottom:5px;"></textarea>

@@ -13,7 +13,7 @@ function rpgc_meta_boxes() {
 
 	add_meta_box(
 		'rpgc-woocommerce-data',
-		__( 'Gift Card Data', RPWCGC_CORE_TEXT_DOMAIN ),
+		__( 'Gift Card Data', WPR_CORE_TEXT_DOMAIN ),
 		'rpgc_meta_box',
 		'rp_shop_giftcard',
 		'normal',
@@ -26,7 +26,7 @@ function rpgc_meta_boxes() {
 		if ( $data['rpgc_id'][0] <> '' )
 			add_meta_box(
 				'rpgc-order-data',
-				__( 'Gift Card Informaiton', RPWCGC_CORE_TEXT_DOMAIN ),
+				__( 'Gift Card Informaiton', WPR_CORE_TEXT_DOMAIN ),
 				'rpgc_info_meta_box',
 				'shop_order',
 				'side',
@@ -39,7 +39,7 @@ function rpgc_meta_boxes() {
 	if ( isset ( $_GET['action'] ) )
 		add_meta_box(
 			'rpgc-more-options',
-			__( 'Additional Card Options', RPWCGC_CORE_TEXT_DOMAIN ),
+			__( 'Additional Card Options', WPR_CORE_TEXT_DOMAIN ),
 			'rpgc_options_meta_box',
 			'rp_shop_giftcard',
 			'side',
@@ -81,31 +81,31 @@ function rpgc_meta_box( $post ) {
 	woocommerce_wp_textarea_input(
 		array(
 			'id' => 'rpgc_description',
-			'label' => __( 'Gift Card description', RPWCGC_CORE_TEXT_DOMAIN ),
+			'label' => __( 'Gift Card description', WPR_CORE_TEXT_DOMAIN ),
 			'placeholder' => '',
-			'description' => __( 'Optionally enter a description for this gift card for your reference.', RPWCGC_CORE_TEXT_DOMAIN ),
+			'description' => __( 'Optionally enter a description for this gift card for your reference.', WPR_CORE_TEXT_DOMAIN ),
 		)
 	);
 	
 	do_action( 'rpgc_woocommerce_options_after_description' );
 
-	echo '<h2>' . __('Who are you sending this to?',  RPWCGC_CORE_TEXT_DOMAIN ) . '</h2>';
+	echo '<h2>' . __('Who are you sending this to?',  WPR_CORE_TEXT_DOMAIN ) . '</h2>';
 	// To
 	woocommerce_wp_text_input(
 		array(
 			'id' => 'rpgc_to',
-			'label' => __( 'To', RPWCGC_CORE_TEXT_DOMAIN ),
+			'label' => __( 'To', WPR_CORE_TEXT_DOMAIN ),
 			'placeholder' => '',
-			'description' => __( 'Who is getting this gift card.', RPWCGC_CORE_TEXT_DOMAIN ),
+			'description' => __( 'Who is getting this gift card.', WPR_CORE_TEXT_DOMAIN ),
 		)
 	);
 	// To Email
 	woocommerce_wp_text_input(
 		array(
 			'id' => 'rpgc_email_to',
-			'label' => __( 'Email To', RPWCGC_CORE_TEXT_DOMAIN ),
+			'label' => __( 'Email To', WPR_CORE_TEXT_DOMAIN ),
 			'placeholder' => '',
-			'description' => __( 'What email should we send this gift card to.', RPWCGC_CORE_TEXT_DOMAIN ),
+			'description' => __( 'What email should we send this gift card to.', WPR_CORE_TEXT_DOMAIN ),
 		)
 	);
 
@@ -113,18 +113,18 @@ function rpgc_meta_box( $post ) {
 	woocommerce_wp_text_input(
 		array(
 			'id' => 'rpgc_from',
-			'label' => __( 'From', RPWCGC_CORE_TEXT_DOMAIN ),
+			'label' => __( 'From', WPR_CORE_TEXT_DOMAIN ),
 			'placeholder' => '',
-			'description' => __( 'Who is sending this gift card.', RPWCGC_CORE_TEXT_DOMAIN ),
+			'description' => __( 'Who is sending this gift card.', WPR_CORE_TEXT_DOMAIN ),
 		)
 	);
 	// From Email
 	woocommerce_wp_text_input(
 		array(
 			'id' => 'rpgc_email_from',
-			'label' => __( 'Email From', RPWCGC_CORE_TEXT_DOMAIN ),
+			'label' => __( 'Email From', WPR_CORE_TEXT_DOMAIN ),
 			'placeholder' => '',
-			'description' => __( 'What email account is sending this gift card.', RPWCGC_CORE_TEXT_DOMAIN ),
+			'description' => __( 'What email account is sending this gift card.', WPR_CORE_TEXT_DOMAIN ),
 		)
 	);
 	
@@ -132,7 +132,7 @@ function rpgc_meta_box( $post ) {
 
 	echo '</div><div class="panel woocommerce_options_panel">';
 
-	echo '<h2>' . __('Personalize it',  RPWCGC_CORE_TEXT_DOMAIN ) . '</h2>';
+	echo '<h2>' . __('Personalize it',  WPR_CORE_TEXT_DOMAIN ) . '</h2>';
 	
 	do_action( 'rpgc_woocommerce_options_before_personalize' );
 	
@@ -140,9 +140,9 @@ function rpgc_meta_box( $post ) {
 	woocommerce_wp_text_input(
 		array(
 			'id'     => 'rpgc_amount',
-			'label'    => __( 'Gift Card Amount', RPWCGC_CORE_TEXT_DOMAIN ),
+			'label'    => __( 'Gift Card Amount', WPR_CORE_TEXT_DOMAIN ),
 			'placeholder'  => '0.00',
-			'description'  => __( 'Value of the Gift Card.', RPWCGC_CORE_TEXT_DOMAIN ),
+			'description'  => __( 'Value of the Gift Card.', WPR_CORE_TEXT_DOMAIN ),
 			'type'    => 'number',
 			'custom_attributes' => array( 'step' => 'any', 'min' => '0' )
 		)
@@ -153,9 +153,9 @@ function rpgc_meta_box( $post ) {
 			woocommerce_wp_text_input(
 				array(
 					'id'    => 'rpgc_balance',
-					'label'    => __( 'Gift Card Balance', RPWCGC_CORE_TEXT_DOMAIN ),
+					'label'    => __( 'Gift Card Balance', WPR_CORE_TEXT_DOMAIN ),
 					'placeholder'  => '0.00',
-					'description'  => __( 'Remaining Balance of the Gift Card.', RPWCGC_CORE_TEXT_DOMAIN ),
+					'description'  => __( 'Remaining Balance of the Gift Card.', WPR_CORE_TEXT_DOMAIN ),
 					'type'    => 'number',
 					'custom_attributes' => array( 'step' => 'any', 'min' => '0' )
 				)
@@ -166,8 +166,8 @@ function rpgc_meta_box( $post ) {
 	woocommerce_wp_textarea_input(
 		array(
 			'id' => 'rpgc_note',
-			'label' => __( 'Gift Card Note', RPWCGC_CORE_TEXT_DOMAIN ),
-			'description' => __( 'Enter a message to your customer.', RPWCGC_CORE_TEXT_DOMAIN ),
+			'label' => __( 'Gift Card Note', WPR_CORE_TEXT_DOMAIN ),
+			'description' => __( 'Enter a message to your customer.', WPR_CORE_TEXT_DOMAIN ),
 			'class' => 'short'
 			
 		)
@@ -177,9 +177,9 @@ function rpgc_meta_box( $post ) {
 	woocommerce_wp_text_input(
 		array(
 			'id' => 'rpgc_expiry_date',
-			'label' => __( 'Expiry date', RPWCGC_CORE_TEXT_DOMAIN ),
-			'placeholder' => _x( 'Never expire', 'placeholder', RPWCGC_CORE_TEXT_DOMAIN ),
-			'description' => __( 'The date this Gift Card will expire, <code>YYYY-MM-DD</code>.', RPWCGC_CORE_TEXT_DOMAIN ),
+			'label' => __( 'Expiry date', WPR_CORE_TEXT_DOMAIN ),
+			'placeholder' => _x( 'Never expire', 'placeholder', WPR_CORE_TEXT_DOMAIN ),
+			'description' => __( 'The date this Gift Card will expire, <code>YYYY-MM-DD</code>.', WPR_CORE_TEXT_DOMAIN ),
 			'class' => 'date-picker, short',
 			'custom_attributes' => array( 'pattern' => "[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" )
 		)
@@ -210,15 +210,15 @@ function rpgc_options_meta_box( $post ) {
 
 	if( $post->post_status <> 'zerobalance' ) {
 		// Regenerate the Card Number
-		woocommerce_wp_checkbox( array( 'id' => 'rpgc_resend_email', 'label' => __( 'Send Gift Card Email', RPWCGC_CORE_TEXT_DOMAIN ) ) );
+		woocommerce_wp_checkbox( array( 'id' => 'rpgc_resend_email', 'label' => __( 'Send Gift Card Email', WPR_CORE_TEXT_DOMAIN ) ) );
 
 		// Regenerate the Card Number
-		woocommerce_wp_checkbox( array( 'id' => 'rpgc_regen_number', 'label' => __( 'Regenerate Card Number', RPWCGC_CORE_TEXT_DOMAIN ) ) );
+		woocommerce_wp_checkbox( array( 'id' => 'rpgc_regen_number', 'label' => __( 'Regenerate Card Number', WPR_CORE_TEXT_DOMAIN ) ) );
 
 		do_action( 'rpgc_add_more_options' );
 
 	} else {
-		_e( 'No additional options available. Zero balance', RPWCGC_CORE_TEXT_DOMAIN );
+		_e( 'No additional options available. Zero balance', WPR_CORE_TEXT_DOMAIN );
 
 		
 	}
@@ -239,13 +239,13 @@ function rpgc_info_meta_box( $post ) {
 	echo '    <div class="options_group">';
 		echo '<ul>';
 			if ( isset( $data['rpgc_id'][0] ) )
-				echo '<li>' . __( 'Gift Card #:', RPWCGC_CORE_TEXT_DOMAIN ) . ' ' . esc_attr( $data['rpgc_id'][0] ) . '</li>';
+				echo '<li>' . __( 'Gift Card #:', WPR_CORE_TEXT_DOMAIN ) . ' ' . esc_attr( $data['rpgc_id'][0] ) . '</li>';
 
 			if ( isset( $data['rpgc_payment'][0] ) )
-				echo '<li>' . __( 'Payment:', RPWCGC_CORE_TEXT_DOMAIN ) . ' ' . woocommerce_price( $data['rpgc_payment'][0] ) . '</li>';
+				echo '<li>' . __( 'Payment:', WPR_CORE_TEXT_DOMAIN ) . ' ' . woocommerce_price( $data['rpgc_payment'][0] ) . '</li>';
 
 			if ( isset( $data['rpgc_balance'][0] ) )
-				echo '<li>' . __( 'Balance remaining:', RPWCGC_CORE_TEXT_DOMAIN ) . ' ' . woocommerce_price( $data['rpgc_balance'][0] ) . '</li>';
+				echo '<li>' . __( 'Balance remaining:', WPR_CORE_TEXT_DOMAIN ) . ' ' . woocommerce_price( $data['rpgc_balance'][0] ) . '</li>';
 
 		echo '</ul>';
 		

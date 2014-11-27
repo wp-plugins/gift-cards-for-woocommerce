@@ -62,7 +62,7 @@ function woocommerce_ajax_apply_giftcard($giftcard_code) {
 
 					if ( $oldGiftcardValue == 0 ) {
 						// Giftcard Entered does not have a balance
-						wc_add_notice( __( 'Gift Card does not have a balance!', RPWCGC_CORE_TEXT_DOMAIN ), 'error' );
+						wc_add_notice( __( 'Gift Card does not have a balance!', WPR_CORE_TEXT_DOMAIN ), 'error' );
 
 					} elseif ( $oldGiftcardValue >= $orderTotal ) {
 						//  Giftcard Balance is more than the order total.
@@ -73,8 +73,8 @@ function woocommerce_ajax_apply_giftcard($giftcard_code) {
 							WC()->session->giftcard_payment = WC()->session->giftcard_payment - WC()->cart->shipping_total;
 
 						WC()->session->giftcard_balance = $oldGiftcardValue - $orderTotal;
-						$msg = __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN );
-						wc_add_notice(  __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN ), 'success' );
+						$msg = __( 'Gift card applied successfully.', WPR_CORE_TEXT_DOMAIN );
+						wc_add_notice(  __( 'Gift card applied successfully.', WPR_CORE_TEXT_DOMAIN ), 'success' );
 
 					} elseif ( $oldGiftcardValue < $orderTotal ) {
 						//  Giftcard Balance is less than the order total.
@@ -90,22 +90,22 @@ function woocommerce_ajax_apply_giftcard($giftcard_code) {
 								WC()->session->giftcard_payment = $cartSubtotal;
 							}
 						}
-						wc_add_notice(  __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN ), 'success' );
+						wc_add_notice(  __( 'Gift card applied successfully.', WPR_CORE_TEXT_DOMAIN ), 'success' );
 
 					}
 				} else {
 					// Giftcard Entered has expired
-					wc_add_notice( __( 'Gift Card has expired!', RPWCGC_CORE_TEXT_DOMAIN ), 'error' );
+					wc_add_notice( __( 'Gift Card has expired!', WPR_CORE_TEXT_DOMAIN ), 'error' );
 
 				}
 			} else {
 				// Giftcard Entered does not exist
-				wc_add_notice( __( 'Gift Card does not exist!', RPWCGC_CORE_TEXT_DOMAIN ), 'error' );
+				wc_add_notice( __( 'Gift Card does not exist!', WPR_CORE_TEXT_DOMAIN ), 'error' );
 
 			}
 		} else {
 			//  You already have a gift card in the cart
-			wc_add_notice( __( 'Gift Card already in the cart!', RPWCGC_CORE_TEXT_DOMAIN ), 'error' );
+			wc_add_notice( __( 'Gift Card already in the cart!', WPR_CORE_TEXT_DOMAIN ), 'error' );
 
 		}
 	}
@@ -149,9 +149,9 @@ function rpgc_order_giftcard( ) {
 			?>
 
 			<tr class="giftcard">
-				<th><?php _e( 'Gift Card Payment', RPWCGC_CORE_TEXT_DOMAIN ); ?> </th>
+				<th><?php _e( 'Gift Card Payment', WPR_CORE_TEXT_DOMAIN ); ?> </th>
 
-				<td style="font-size:0.85em;"><?php echo woocommerce_price( $price ); ?> <a alt="<?php echo WC()->session->giftcard_id; ?>" href="<?php echo add_query_arg( 'remove_giftcards', '1', $gotoPage ) ?>">[<?php _e( 'Remove Gift Card', RPWCGC_CORE_TEXT_DOMAIN ); ?>]</a></td>
+				<td style="font-size:0.85em;"><?php echo woocommerce_price( $price ); ?> <a alt="<?php echo WC()->session->giftcard_id; ?>" href="<?php echo add_query_arg( 'remove_giftcards', '1', $gotoPage ) ?>">[<?php _e( 'Remove Gift Card', WPR_CORE_TEXT_DOMAIN ); ?>]</a></td>
 			</tr>
 
 			<?php
@@ -186,13 +186,13 @@ function rpgc_add_card_data( $cart_item_key, $product_id, $quantity ) {
 			'Note'   	=> 'NA',
 		);
 
-		if ( isset( $_POST['rpgc_to'] ) )
+		if ( isset( $_POST['rpgc_to'] ) && ( $_POST['rpgc_to'] <> '' ) ) 
 			$giftcard_data['To'] = woocommerce_clean( $_POST['rpgc_to'] );
 
-		if ( isset( $_POST['rpgc_to_email'] ) )
+		if ( isset( $_POST['rpgc_to_email'] ) && ( $_POST['rpgc_to_email'] <> '' ) ) 
 			$giftcard_data['To Email'] = woocommerce_clean( $_POST['rpgc_to_email'] );
 
-		if ( isset( $_POST['rpgc_note'] ) )
+		if ( isset( $_POST['rpgc_note'] ) && ( $_POST['rpgc_note'] <> '' ) ) 
 			$giftcard_data['Note'] = woocommerce_clean( $_POST['rpgc_note'] );
 
 		$giftcard_data = apply_filters( 'rpgc_giftcard_data', $giftcard_data, $_POST );
@@ -219,8 +219,10 @@ function rpgc_display_giftcard( $order ) {
 	if( isset( $theIDNum ) ) {
 		if ( $theIDNum <> '' ) {
 		?>
-			<h4><?php _e( 'Remaining Gift Card Balance:', RPWCGC_CORE_TEXT_DOMAIN ); ?><?php echo ' ' . woocommerce_price( $theBalance ); ?> </h4>
+			<h4><?php _e( 'Remaining Gift Card Balance:', WPR_CORE_TEXT_DOMAIN ); ?><?php echo ' ' . woocommerce_price( $theBalance ); ?> </h4>
+
 			<?php
+			do_action('wpr_after_remaining_balance');
 		}
 	}
 
@@ -228,7 +230,7 @@ function rpgc_display_giftcard( $order ) {
 	if( isset( $theGiftCardData ) ) {
 		if ( $theGiftCardData <> '' ) {
 	?>
-			<h4><?php _e( 'Gift Card Information:', RPWCGC_CORE_TEXT_DOMAIN ); ?></h4>
+			<h4><?php _e( 'Gift Card Information:', WPR_CORE_TEXT_DOMAIN ); ?></h4>
 			<?php
 			$i = 1;
 
@@ -236,14 +238,14 @@ function rpgc_display_giftcard( $order ) {
 
 				if ( $i % 2 ) echo '<div style="margin-bottom: 10px;">';
 				echo '<div style="float: left; width: 45%; margin-right: 2%;>';
-				echo '<h6><strong> ' . __('Giftcard',  RPWCGC_CORE_TEXT_DOMAIN ) . ' ' . $i . '</strong></h6>';
+				echo '<h6><strong> ' . __('Giftcard',  WPR_CORE_TEXT_DOMAIN ) . ' ' . $i . '</strong></h6>';
 				echo '<ul style="font-size: 0.85em; list-style: none outside none;">';
-				if ( $giftcard[rpgc_product_num] ) echo '<li>' . __('Card', RPWCGC_CORE_TEXT_DOMAIN) . ': ' . get_the_title( $giftcard[rpgc_product_num] ) . '</li>';
-				if ( $giftcard[rpgc_to] ) echo  '<li>' . __('To',  RPWCGC_CORE_TEXT_DOMAIN ) . ': ' . $giftcard[rpgc_to] . '</li>';
-				if ( $giftcard[rpgc_to_email] ) echo  '<li>' . __('Send To',  RPWCGC_CORE_TEXT_DOMAIN ) . ': ' . $giftcard[rpgc_to_email] . '</li>';
-				if ( $giftcard[rpgc_balance] ) echo  '<li>' . __('Balance',  RPWCGC_CORE_TEXT_DOMAIN ) . ': ' . woocommerce_price( $giftcard[rpgc_balance] ) . '</li>';
-				if ( $giftcard[rpgc_note] ) echo  '<li>' . __('Note',  RPWCGC_CORE_TEXT_DOMAIN ) . ': ' . $giftcard[rpgc_note] . '</li>';
-				if ( $giftcard[rpgc_quantity] ) echo  '<li>' . __('Quantity',  RPWCGC_CORE_TEXT_DOMAIN ) . ': ' . $giftcard[rpgc_quantity] . '</li>';
+				if ( $giftcard[rpgc_product_num] ) echo '<li>' . __('Card', WPR_CORE_TEXT_DOMAIN) . ': ' . get_the_title( $giftcard[rpgc_product_num] ) . '</li>';
+				if ( $giftcard[rpgc_to] ) echo  '<li>' . __('To',  WPR_CORE_TEXT_DOMAIN ) . ': ' . $giftcard[rpgc_to] . '</li>';
+				if ( $giftcard[rpgc_to_email] ) echo  '<li>' . __('Send To',  WPR_CORE_TEXT_DOMAIN ) . ': ' . $giftcard[rpgc_to_email] . '</li>';
+				if ( $giftcard[rpgc_balance] ) echo  '<li>' . __('Balance',  WPR_CORE_TEXT_DOMAIN ) . ': ' . woocommerce_price( $giftcard[rpgc_balance] ) . '</li>';
+				if ( $giftcard[rpgc_note] ) echo  '<li>' . __('Note',  WPR_CORE_TEXT_DOMAIN ) . ': ' . $giftcard[rpgc_note] . '</li>';
+				if ( $giftcard[rpgc_quantity] ) echo  '<li>' . __('Quantity',  WPR_CORE_TEXT_DOMAIN ) . ': ' . $giftcard[rpgc_quantity] . '</li>';
 				echo '</ul>';
 				echo '</div>';
 				if ( !( $i % 2 ) ) echo '</div>';
@@ -268,7 +270,7 @@ function rpgc_add_order_giftcard( $total_rows,$order ) {
 
 	if ($giftCardPayment <> 0 ) {
 		$newRow['rpgc_data'] = array(
-			'label' => __( 'Gift Card Payment:', 'woocommerce' ),
+			'label' => __( 'Gift Card Payment:', WPR_CORE_TEXT_DOMAIN ),
 			'value'	=> woocommerce_price( -1 * $giftCardPayment )
 		);
 
@@ -385,7 +387,7 @@ function wpr_apply_giftcard( $giftCardNumber ) {
 
 				if ( $oldGiftcardValue == 0 ) {
 					// Giftcard Entered does not have a balance
-					wc_add_notice( __( 'Gift Card does not have a balance!', RPWCGC_CORE_TEXT_DOMAIN ), 'error' );
+					wc_add_notice( __( 'Gift Card does not have a balance!', WPR_CORE_TEXT_DOMAIN ), 'error' );
 
 				} elseif ( $oldGiftcardValue >= $orderTotal ) {
 					//  Giftcard Balance is more than the order total.
@@ -397,8 +399,8 @@ function wpr_apply_giftcard( $giftCardNumber ) {
 
 
 					WC()->session->giftcard_balance = $oldGiftcardValue - $orderTotal;
-					$msg = __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN );
-					wc_add_notice(  __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN ), 'success' );
+					$msg = __( 'Gift card applied successfully.', WPR_CORE_TEXT_DOMAIN );
+					wc_add_notice(  __( 'Gift card applied successfully.', WPR_CORE_TEXT_DOMAIN ), 'success' );
 
 				} elseif ( $oldGiftcardValue < $orderTotal ) {
 					//  Giftcard Balance is less than the order total.
@@ -415,17 +417,17 @@ function wpr_apply_giftcard( $giftCardNumber ) {
 						}
 					}
 
-					wc_add_notice(  __( 'Gift card applied successfully.', RPWCGC_CORE_TEXT_DOMAIN ), 'success' );
+					wc_add_notice(  __( 'Gift card applied successfully.', WPR_CORE_TEXT_DOMAIN ), 'success' );
 				}
 			} else {
 				// Giftcard Entered has expired
-				wc_add_notice( __( 'Gift Card has expired!', RPWCGC_CORE_TEXT_DOMAIN ), 'error' );
+				wc_add_notice( __( 'Gift Card has expired!', WPR_CORE_TEXT_DOMAIN ), 'error' );
 
 
 			}
 		} else {
 			// Giftcard Entered does not exist
-			wc_add_notice( __( 'Gift Card does not exist!', RPWCGC_CORE_TEXT_DOMAIN ), 'error' );
+			wc_add_notice( __( 'Gift Card does not exist!', WPR_CORE_TEXT_DOMAIN ), 'error' );
 		}
 	}
 
