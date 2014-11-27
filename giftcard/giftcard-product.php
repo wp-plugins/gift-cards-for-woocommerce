@@ -28,13 +28,16 @@ function rpgc_process_meta( $post_id, $post ) {
 	global $wpdb, $woocommerce, $woocommerce_errors;
 
 	$is_giftcard  = isset( $_POST['_giftcard'] ) ? 'yes' : 'no';
-	update_post_meta( $post_id, '_giftcard', $is_giftcard );
+	
+	if( $is_giftcard == 'yes' ) {
+		update_post_meta( $post_id, '_giftcard', $is_giftcard );
 
-	$want_physical = get_option( 'woocommerce_enable_physical' );
+		$want_physical = get_option( 'woocommerce_enable_physical' );
 
-	if ( $want_physical == "no" ) {
+		if ( $want_physical == "no" ) {
 
-		update_post_meta( $post_id, '_virtual', $is_giftcard );
+			update_post_meta( $post_id, '_virtual', $is_giftcard );
+		}
 	}
 
 }
