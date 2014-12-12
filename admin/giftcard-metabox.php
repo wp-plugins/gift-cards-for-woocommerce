@@ -261,7 +261,7 @@ function rpgc_info_meta_box( $post ) {
 		if ( $giftcard_found ) {
 			echo '<div>';
 				$link = 'post.php?post=' . $giftcard_found . '&action=edit';
-				echo '<a href="' . admin_url( $link ) . '">Access Gift Card</a>';
+				echo '<a href="' . admin_url( $link ) . '">' . __('Access Gift Card', WPR_CORE_TEXT_DOMAIN) . '</a>';
 			echo '</div>';
 		
 		}

@@ -2,8 +2,8 @@
 Contributors: rpletcher
 Tags: woocommerce, gift, gift card, payment, gift certificate, certificate
 Requires at least: 3.0
-Tested up to: 4.0
-Stable tag: 1.6.1
+Tested up to: 4.1
+Stable tag: 1.6.2
 Donate link: https://ryanpletcher.com/donate/
 License: GPLv2 or later
 
@@ -41,6 +41,16 @@ Q: Can I customize the email that is sent out?
 A: Unfortunately that is not a current feature.  The format of the email will match the email format of your site.  I will be looking into making it a feature in the future.
 
 == Changelog ==
+= 1.6.2 =
+* FIX: Gift Card Number Creation for translated sites
+* FIX: Updated localization scripts
+* FIX: Adding gift card to cart procedure
+* FIX: Paypal process
+* ADD: Ability to require customers to enter gift card data
+* ADD: Line for Gift card on the order totals
+
+
+
 = 1.6.1 =
 * FIX: Virtual Product issue
 

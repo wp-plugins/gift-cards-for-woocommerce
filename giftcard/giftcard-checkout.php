@@ -60,6 +60,8 @@ function woocommerce_ajax_apply_giftcard($giftcard_code) {
 					WC()->session->giftcard_id = $giftCardNumber;
 
 
+
+
 					if ( $oldGiftcardValue == 0 ) {
 						// Giftcard Entered does not have a balance
 						wc_add_notice( __( 'Gift Card does not have a balance!', WPR_CORE_TEXT_DOMAIN ), 'error' );
@@ -69,7 +71,7 @@ function woocommerce_ajax_apply_giftcard($giftcard_code) {
 						//  Subtract the order from the card
 						WC()->session->giftcard_payment = $orderTotal;
 
-						if( get_option( 'woocommerce_enable_giftcard_process' ) == 'no' )
+						if( ( get_option( 'woocommerce_enable_giftcard_process' ) == 'no' ) || ( get_option( 'woocommerce_enable_giftcard_process' ) == false ) )
 							WC()->session->giftcard_payment = WC()->session->giftcard_payment - WC()->cart->shipping_total;
 
 						WC()->session->giftcard_balance = $oldGiftcardValue - $orderTotal;
@@ -83,7 +85,7 @@ function woocommerce_ajax_apply_giftcard($giftcard_code) {
 						WC()->session->giftcard_payment = $oldGiftcardValue;
 						WC()->session->giftcard_balance = 0;
 						
-						if( get_option( 'woocommerce_enable_giftcard_process' ) == 'no' ) {
+						if( ( get_option( 'woocommerce_enable_giftcard_process' ) == 'no' ) || ( get_option( 'woocommerce_enable_giftcard_process' ) == false ) ) {
 							$cartSubtotal = $orderTotal - WC()->cart->shipping_total;
 							if ( $oldGiftcardValue > $cartSubtotal ) {
 								WC()->session->giftcard_balance = $oldGiftcardValue - $cartSubtotal;
@@ -204,6 +206,27 @@ function rpgc_add_card_data( $cart_item_key, $product_id, $quantity ) {
 }
 add_action( 'woocommerce_add_to_cart', 'rpgc_add_card_data', 10, 3 );
 
+function wpr_validate_form_complete( $passed, $product_id, $quantity, $variation_id = '', $variations= '' ) {
+
+	$passed = true;
+
+	$is_giftcard = get_post_meta( $product_id, '_giftcard', true );
+	$is_required_field_giftcard = get_option( 'woocommerce_enable_giftcard_info_requirements' );
+
+	if ( ( $is_giftcard == "yes" ) && ( $is_required_field_giftcard == "yes" ) ) {
+
+		if ( $_POST["rpgc_to"] == '' ) { $passed = false; }
+		if ( $_POST["rpgc_to_email"] == '' ) { $passed = false; }
+
+		if ( $passed == false ) {
+	        wc_add_notice( __( 'Please complete form.', WPR_CORE_TEXT_DOMAIN ), 'error' );
+		}
+	}
+	
+    return $passed;
+
+}
+add_filter( 'woocommerce_add_to_cart_validation', 'wpr_validate_form_complete', 10, 5 );
 
 /**
  * Displays the giftcard data on the order thank you page
@@ -324,11 +347,8 @@ function rpgc_update_card( $order_id ) {
 	}
 
 }
-add_action( 'woocommerce_order_status_pending', 'rpgc_update_card' );
-add_action( 'woocommerce_order_status_on-hold', 'rpgc_update_card' );
-add_action( 'woocommerce_order_status_completed', 'rpgc_update_card' );
-add_action( 'woocommerce_order_status_processing', 'rpgc_update_card' );
-
+add_action( 'woocommerce_payment_complete', 'rpgc_update_card' );
+add_action( 'woocommerce_thankyou_paypal', 'rpgc_update_card' );
 
 function wpr_update_cart ( $cart_updated ) {
 	// Add Discount
@@ -430,9 +450,6 @@ function wpr_apply_giftcard( $giftCardNumber ) {
 			wc_add_notice( __( 'Gift Card does not exist!', WPR_CORE_TEXT_DOMAIN ), 'error' );
 		}
 	}
-
-	//wc_print_notices();
-
 
 }
 

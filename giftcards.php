@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce - Gift Cards
 Plugin URI: http://wp-ronin.com
 Description: WooCommerce - Gift Cards allows you to offer gift cards to your customer and allow them to place orders using them.
-Version: 1.6.1
+Version: 1.6.2
 Author: WP Ronin
 Author URI: http://wp-ronin.com
 License: GPL2
@@ -43,7 +43,7 @@ class WPRWooGiftcards {
      */
     private function setup_constants() {
 
-		define( 'RPWCGC_VERSION', '1.6.1' );
+		define( 'RPWCGC_VERSION', '1.6.2' );
 
 		// Plugin Folder Path
 		define( 'RPWCGC_PATH', plugin_dir_path( __FILE__ ) );
@@ -226,30 +226,6 @@ class WPRWooGiftcards {
 		</div>
 		<?php
 	}
-/*
-	public function wpr_register_settings() {
-		// creates our settings in the options table
-		
-		register_setting('wpr_options', 'wpr_options' );
-		register_setting('wpr_options', 'wpr_license_key', array( $this, 'wpr_sanitize_license' ) );
-	}
-
-	/**
-	 * Sanatize the liscense key being provided
-	 * @param  string $new The License key provided
-	 * @return string      Sanitized license key
-	 *
-	public function wpr_sanitize_license( $new ) {
-
-		//var_dump( $new ); 
-		$keys = get_option( 'wpr_license_key' );
-		$old = trim( $keys["auto"] );
-
-		if( $old && $old != $new ) {
-			delete_option( 'wpr_auto_license_status' ); // new license has been entered, so must reactivate
-		}
-		return $new;
-	}*/
 
 }
 

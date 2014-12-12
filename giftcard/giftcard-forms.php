@@ -129,7 +129,7 @@ function rpgc_cart_fields( ) {
 		$rpw_to_check 		= ( $rpw_to <> NULL ? $rpw_to : __('To', WPR_CORE_TEXT_DOMAIN ) );
 		$rpw_toEmail_check 	= ( $rpw_toEmail <> NULL ? $rpw_toEmail : __('To Email', WPR_CORE_TEXT_DOMAIN )  );
 		$rpw_note_check		= ( $rpw_note <> NULL ? $rpw_note : __('Note', WPR_CORE_TEXT_DOMAIN )  );
-?>
+		?>
 
 		<div>
 			<div class="rpw_product_message"><?php _e('All fields below are optional', WPR_CORE_TEXT_DOMAIN ); ?></div>
@@ -151,12 +151,7 @@ function rpgc_cart_fields( ) {
 }
 add_action( 'woocommerce_before_add_to_cart_button', 'rpgc_cart_fields' ); //woocommerce_before_add_to_cart_button
 
-function giftcard_is_purchasable( $is_purchasable, $object ) {
 
-    // this is a field added using 'Advance Custom Fields' plugin 
-	$is_giftcard = get_post_meta( $object->id, '_giftcard', true );
-	
-    if( $is_giftcard )
-        return true;
-}
-//add_filter('woocommerce_is_purchasable', 'giftcard_is_purchasable', 10, 2);
+
+
+
