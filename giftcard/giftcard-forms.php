@@ -118,6 +118,8 @@ function rpgc_cart_fields( ) {
 	global $post;
 
 	$is_giftcard = get_post_meta( $post->ID, '_giftcard', true );
+	$is_required_field_giftcard = get_option( 'woocommerce_enable_giftcard_info_requirements' );
+
 	if ( $is_giftcard == 'yes' ) {
 
 		do_action( 'rpgc_before_all_giftcard_fields', $post );
@@ -132,7 +134,12 @@ function rpgc_cart_fields( ) {
 		?>
 
 		<div>
-			<div class="rpw_product_message"><?php _e('All fields below are optional', WPR_CORE_TEXT_DOMAIN ); ?></div>
+			<?php if ( $is_required_field_giftcard == "yes" ) { ?>
+				<div class="rpw_product_message"><?php _e('All fields below are required', WPR_CORE_TEXT_DOMAIN ); ?></div>
+			<?php } else { ?>
+				<div class="rpw_product_message"><?php _e('All fields below are optional', WPR_CORE_TEXT_DOMAIN ); ?></div>
+			<?php } ?>
+
 			<?php  do_action( 'rpgc_before_product_fields' ); ?>
 			<input type="hidden" id="rpgc_description" name="rpgc_description" value="<?php _e('Generated from the website.', WPR_CORE_TEXT_DOMAIN ); ?>" />
 			<input name="rpgc_to" id="rpgc_to" class="input-text" placeholder="<?php echo $rpw_to_check; ?>" style="margin-bottom:5px;">
