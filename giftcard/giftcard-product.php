@@ -11,8 +11,8 @@ function rpgc_extra_check( $product_type_options ) {
 		'giftcard' => array(
 			'id' => '_giftcard',
 			'wrapper_class' => 'show_if_simple show_if_variable',
-			'label' => __( 'Gift Card', RPWCGC_CORE_TEXT_DOMAIN ),
-			'description' => __( 'Make product a gift card.', RPWCGC_CORE_TEXT_DOMAIN )
+			'label' => __( 'Gift Card', WPR_CORE_TEXT_DOMAIN ),
+			'description' => __( 'Make product a gift card.', WPR_CORE_TEXT_DOMAIN )
 		),
 	);
 
@@ -28,13 +28,16 @@ function rpgc_process_meta( $post_id, $post ) {
 	global $wpdb, $woocommerce, $woocommerce_errors;
 
 	$is_giftcard  = isset( $_POST['_giftcard'] ) ? 'yes' : 'no';
-	update_post_meta( $post_id, '_giftcard', $is_giftcard );
+	
+	if( $is_giftcard == 'yes' ) {
+		update_post_meta( $post_id, '_giftcard', $is_giftcard );
 
-	$want_physical = get_option( 'woocommerce_enable_physical' );
+		$want_physical = get_option( 'woocommerce_enable_physical' );
 
-	if ( $want_physical == "no" ) {
+		if ( $want_physical == "no" ) {
 
-		update_post_meta( $post_id, '_virtual', $is_giftcard );
+			update_post_meta( $post_id, '_virtual', $is_giftcard );
+		}
 	}
 
 }

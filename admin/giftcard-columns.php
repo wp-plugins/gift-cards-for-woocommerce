@@ -17,15 +17,15 @@ function rpgc_add_columns( $columns ) {
 
 	//all of your columns will be added before the actions column on the Giftcard page
 
-	$new_columns["title"]		= __( 'Giftcard Number', RPWCGC_CORE_TEXT_DOMAIN );
-	$new_columns["amount"]		= __( 'Giftcard Amount', RPWCGC_CORE_TEXT_DOMAIN );
-	$new_columns["balance"]		= __( 'Remaining Balance', RPWCGC_CORE_TEXT_DOMAIN );
-	$new_columns["buyer"]		= __( 'Buyer', RPWCGC_CORE_TEXT_DOMAIN );
-	$new_columns["recipient"]	= __( 'Recipient', RPWCGC_CORE_TEXT_DOMAIN );
-	$new_columns["expiry_date"]	= __( 'Expiry date', RPWCGC_CORE_TEXT_DOMAIN );
+	$new_columns["title"]		= __( 'Giftcard Number', WPR_CORE_TEXT_DOMAIN );
+	$new_columns["amount"]		= __( 'Giftcard Amount', WPR_CORE_TEXT_DOMAIN );
+	$new_columns["balance"]		= __( 'Remaining Balance', WPR_CORE_TEXT_DOMAIN );
+	$new_columns["buyer"]		= __( 'Buyer', WPR_CORE_TEXT_DOMAIN );
+	$new_columns["recipient"]	= __( 'Recipient', WPR_CORE_TEXT_DOMAIN );
+	$new_columns["expiry_date"]	= __( 'Expiry date', WPR_CORE_TEXT_DOMAIN );
 
 	$new_columns['comments']	= $columns['comments'];
-	$new_columns['date']		= __( 'Creation Date', RPWCGC_CORE_TEXT_DOMAIN );
+	$new_columns['date']		= __( 'Creation Date', WPR_CORE_TEXT_DOMAIN );
 
 	return  apply_filters( 'rpgc_giftcard_columns', $new_columns);
 }
