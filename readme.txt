@@ -3,7 +3,7 @@ Contributors: rpletcher
 Tags: woocommerce, gift, gift card, payment, gift certificate, certificate
 Requires at least: 3.0
 Tested up to: 4.1
-Stable tag: 1.6.2
+Stable tag: 1.6.3
 Donate link: https://ryanpletcher.com/donate/
 License: GPLv2 or later
 
@@ -41,15 +41,22 @@ Q: Can I customize the email that is sent out?
 A: Unfortunately that is not a current feature.  The format of the email will match the email format of your site.  I will be looking into making it a feature in the future.
 
 == Changelog ==
-= 1.6.2 =
+= 1.6.3 =
+* ADD: Sales price added
+* ADD: Ability to add multiple settings pages
+* ADD: Function look for Gift Card Values
+* FIX: On cart update gift card recalculated
+* FIX: Fixed quantity display
+* FIX: Number generation for site not using english
+* FIX: Expiration reporting on emails
+
+= 1.6.2 
 * FIX: Gift Card Number Creation for translated sites
 * FIX: Updated localization scripts
 * FIX: Adding gift card to cart procedure
 * FIX: Paypal process
 * ADD: Ability to require customers to enter gift card data
 * ADD: Line for Gift card on the order totals
-
-
 
 = 1.6.1 =
 * FIX: Virtual Product issue
@@ -156,7 +163,12 @@ A: Unfortunately that is not a current feature.  The format of the email will ma
 * Initial Release
 
 == Screenshots ==
-None at this time
+1. Gift card added to WooCommerce settings panel.
+2. Check mark to make a product a gift card
+3. Option to show field on check out for gift card
+4. Gift card option closed
+5. Products that are set to gift card will have extra fields
+6. Gift card value added to totals
 
 == Upgrade Notice ==
 If you have premium plugins installed on your site you will want to download and reinstall the plugin.  Once you complete this ensure that your License is entered on the settings page.  Updates will be possible through the plugin page in the future with a valid license.

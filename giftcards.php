@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce - Gift Cards
 Plugin URI: http://wp-ronin.com
 Description: WooCommerce - Gift Cards allows you to offer gift cards to your customer and allow them to place orders using them.
-Version: 1.6.2
+Version: 1.6.3
 Author: WP Ronin
 Author URI: http://wp-ronin.com
 License: GPL2
@@ -43,7 +43,7 @@ class WPRWooGiftcards {
      */
     private function setup_constants() {
 
-		define( 'RPWCGC_VERSION', '1.6.2' );
+		define( 'RPWCGC_VERSION', '1.6.3' );
 
 		// Plugin Folder Path
 		define( 'RPWCGC_PATH', plugin_dir_path( __FILE__ ) );
@@ -87,6 +87,9 @@ class WPRWooGiftcards {
 		require_once RPWCGC_PATH . 'giftcard/giftcard-paypal.php';
 		require_once RPWCGC_PATH . 'giftcard/giftcard-shortcodes.php';
 
+		require_once RPWCGC_PATH . 'giftcard/giftcard-functions.php';
+		require_once RPWCGC_PATH . 'giftcard/giftcard-meta.php';
+
     }
 
 
@@ -97,20 +100,6 @@ class WPRWooGiftcards {
      * @since       1.0.0
      * @return      void
      *
-     * @todo        The hooks listed in this section are a guideline, and
-     *              may or may not be relevant to your particular extension.
-     *              Please remove any unnecessary lines, and refer to the
-     *              WordPress codex and EDD documentation for additional
-     *              information on the included hooks.
-     *
-     *              This method should be used to add any filters or actions
-     *              that are necessary to the core of your extension only.
-     *              Hooks that are relevant to meta boxes, widgets and
-     *              the like can be placed in their respective files.
-     *
-     *              IMPORTANT! If you are releasing your extension as a
-     *              commercial extension in the EDD store, DO NOT remove
-     *              the license check!
      */
     private function hooks() {
 

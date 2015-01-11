@@ -23,41 +23,39 @@ function rpgc_process_giftcard_meta( $post_id, $post ) {
 	// Ensure gift card code is correctly formatted
 	$wpdb->update( $wpdb->posts, array( 'post_title' => $post->post_title ), array( 'ID' => $post_id ) );
 
-	// Check for duplicate giftcards
-	$giftcard_found = $wpdb->get_var( $wpdb->prepare( "
-		SELECT $wpdb->posts.ID
-		FROM $wpdb->posts
-		WHERE $wpdb->posts.post_type = 'rp_shop_giftcard'
-		AND $wpdb->posts.post_status = 'publish'
-		AND $wpdb->posts.post_title = '%s'
-	", $post->post_title ) );
+	if ( wpr_get_giftcard_by_code( $post->post_title ) ) {
+		$newNumber = apply_filters( 'rpgc_regen_number', rpgc_generate_number());
+
+		$wpdb->update( $wpdb->posts, array( 'post_title' => $newNumber ), array( 'ID' => $post_id ) );
+		$wpdb->update( $wpdb->posts, array( 'post_name' => $newNumber ), array( 'ID' => $post_id ) );
+	}
 
 	if ( isset( $_POST['rpgc_description'] ) ) {
-		$description = woocommerce_clean( $_POST['rpgc_description'] );
+		$description 	= woocommerce_clean( $_POST['rpgc_description'] );
 		update_post_meta( $post_id, 'rpgc_description', $description );
 	}
 	if ( isset( $_POST['rpgc_to'] ) ) {
-		$to    = woocommerce_clean( $_POST['rpgc_to'] );
+		$to    			= woocommerce_clean( $_POST['rpgc_to'] );
 		update_post_meta( $post_id, 'rpgc_to', $to );
 	}
 	if ( isset( $_POST['rpgc_email_to'] ) ) {
-		$toEmail  = woocommerce_clean( $_POST['rpgc_email_to'] );
+		$toEmail  		= woocommerce_clean( $_POST['rpgc_email_to'] );
 		update_post_meta( $post_id, 'rpgc_email_to', $toEmail );
 	}
 	if ( isset( $_POST['rpgc_from'] ) ) {
-		$from    = woocommerce_clean( $_POST['rpgc_from'] );
+		$from 			= woocommerce_clean( $_POST['rpgc_from'] );
 		update_post_meta( $post_id, 'rpgc_from', $from );
 	}
 	if ( isset( $_POST['rpgc_email_from'] ) ) {
-		$fromEmail  = woocommerce_clean( $_POST['rpgc_email_from'] );
+		$fromEmail 		= woocommerce_clean( $_POST['rpgc_email_from'] );
 		update_post_meta( $post_id, 'rpgc_email_from', $fromEmail );
 	}
 	if ( isset( $_POST['rpgc_amount'] ) ) {
-		$amount   = woocommerce_clean( $_POST['rpgc_amount'] );
+		$amount 		= woocommerce_clean( $_POST['rpgc_amount'] );
 		update_post_meta( $post_id, 'rpgc_amount', $amount );
 
 		if ( ! isset( $_POST['rpgc_balance'] ) ) {
-			$balance   = woocommerce_clean( $_POST['rpgc_amount'] );
+			$balance 	= woocommerce_clean( $_POST['rpgc_amount'] );
 			update_post_meta( $post_id, 'rpgc_balance', $balance );
 			$sendTheEmail = 1;
 		}
@@ -87,27 +85,27 @@ function rpgc_process_giftcard_meta( $post_id, $post ) {
 	}
 
 	if( ( ( $sendTheEmail == 1 ) && ( $balance <> 0 ) ) || isset( $_POST['rpgc_resend_email'] ) ) {
-		$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
-		$subject = apply_filters( 'woocommerce_email_subject_gift_card', sprintf( '[%s] %s', $blogname, __( 'Gift Card Information', WPR_CORE_TEXT_DOMAIN ) ), $post->post_title );
-		$sendEmail = get_bloginfo( 'admin_email' );
+		$blogname 		= wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
+		$subject 		= apply_filters( 'woocommerce_email_subject_gift_card', sprintf( '[%s] %s', $blogname, __( 'Gift Card Information', WPR_CORE_TEXT_DOMAIN ) ), $post->post_title );
+		$sendEmail 		= get_bloginfo( 'admin_email' );
 
 		ob_start();
 
-		$mailer        = WC()->mailer();
+		$mailer 		= WC()->mailer();
 		$theMessage 	= sendGiftcardEmail ( $post );
 
 		$theMessage 	= apply_filters( 'rpgc_emailContents', $theMessage );
 
-	  	$email_heading = __( 'New gift card from ', WPR_CORE_TEXT_DOMAIN ) . $blogname;
-	  	$email_heading = apply_filters( 'rpgc_emailSubject', $email_heading );
+	  	$email_heading 	= __( 'New gift card from ', WPR_CORE_TEXT_DOMAIN ) . $blogname;
+	  	$email_heading 	= apply_filters( 'rpgc_emailSubject', $email_heading );
 
 	  	echo $mailer->wrap_message( $email_heading, $theMessage );
 
-		$message = ob_get_clean();
+		$message 		= ob_get_clean();
 		//	CC, BCC, additional headers
-		$headers = "From: " . $sendEmail . "\r\n" . " Reply-To: " . $sendEmail . "\r\n" . " Content-Type: text/html\r\n";
+		$headers 		= "From: " . $sendEmail . "\r\n" . " Reply-To: " . $sendEmail . "\r\n" . " Content-Type: text/html\r\n";
 		// Attachments
-		$attachments = apply_filters('woocommerce_email_attachments', '', 'gift_card', $post->post_title);
+		$attachments 	= apply_filters('woocommerce_email_attachments', '', 'gift_card', $post->post_title);
 
 		// Send the mail
 		add_filter('wp_mail_from', 'rpgc_res_fromemail');
@@ -127,23 +125,24 @@ function rpgc_process_giftcard_meta( $post_id, $post ) {
 add_action( 'save_post', 'rpgc_process_giftcard_meta', 20, 2 );
 
 function sendGiftcardEmail ( $giftCard ) {
-
+	$expiry_date = wpr_get_giftcard_expiration( $giftCard->ID );
+	$date_format = get_option('date_format');
 	ob_start();
 	?>
 
 	<div class="message">
 
 
-		<?php _e( 'Dear', WPR_CORE_TEXT_DOMAIN ); ?> <?php echo get_post_meta( $giftCard->ID, 'rpgc_to', true); ?>,<br /><br />
+		<?php _e( 'Dear', WPR_CORE_TEXT_DOMAIN ); ?> <?php echo wpr_get_giftcard_to( $giftCard->ID ); ?>,<br /><br />
 			
-		<?php echo get_post_meta( $giftCard->ID, 'rpgc_from', true); ?> <?php _e('has selected a', WPR_CORE_TEXT_DOMAIN ); ?> <strong><a href="<?php bloginfo( 'url' ); ?>"><?php bloginfo( 'name' ); ?></a></strong> <?php _e( 'Gift Card for you! This card can be used for online purchases at', WPR_CORE_TEXT_DOMAIN ); ?> <?php bloginfo( 'name' ); ?>. <br />
+		<?php echo wpr_get_giftcard_from( $giftCard->ID ); ?> <?php _e('has selected a', WPR_CORE_TEXT_DOMAIN ); ?> <strong><a href="<?php bloginfo( 'url' ); ?>"><?php bloginfo( 'name' ); ?></a></strong> <?php _e( 'Gift Card for you! This card can be used for online purchases at', WPR_CORE_TEXT_DOMAIN ); ?> <?php bloginfo( 'name' ); ?>. <br />
 
-		<h4><?php _e( 'Gift Card Amount', WPR_CORE_TEXT_DOMAIN ); ?>: <?php echo woocommerce_price( get_post_meta( $giftCard->ID, 'rpgc_balance', true) ); ?></h4>
+		<h4><?php _e( 'Gift Card Amount', WPR_CORE_TEXT_DOMAIN ); ?>: <?php echo woocommerce_price( wpr_get_giftcard_balance( $giftCard->ID ) ); ?></h4>
 		<h4><?php _e( 'Gift Card Number', WPR_CORE_TEXT_DOMAIN ); ?>: <?php echo $giftCard->post_title; ?></h4>
 
 		<?php
 		if ( $expiry_date != "" ) {
-			echo __( 'Expiration Date', WPR_CORE_TEXT_DOMAIN ) . ': ' . get_post_meta( $giftCard->ID, 'rpgc_expiry_date', true);
+			echo __( 'Expiration Date', WPR_CORE_TEXT_DOMAIN ) . ': ' . date_i18n( get_option( 'date_format' ), strtotime( $expiry_date ) );
 		}
 		?>
 	</div>
@@ -185,12 +184,14 @@ function rpgc_res_fromname($email){
  */
 function rpgc_create_number( $data , $postarr ) {
 	
-	if ( ( $data['post_type'] == 'rp_shop_giftcard' ) && ( $_POST["original_publish"] == "Publish" ) ) {
+	if( isset ( $_POST['original_publish'] ) ) {
+		if ( ( $data['post_type'] == 'rp_shop_giftcard' ) && ( $_POST['original_publish'] == "Publish" ) ) {
 
-		$myNumber = rpgc_generate_number( );		
-		
-		$data['post_title'] = $myNumber;
-		$data['post_name'] = $myNumber;
+			$myNumber = rpgc_generate_number( );		
+			
+			$data['post_title'] = $myNumber;
+			$data['post_name'] = $myNumber;
+		}
 	}
 
 	return apply_filters('rpgc_create_number', $data);
@@ -213,26 +214,16 @@ function rpgc_refund_order( $order_id ) {
 
 	$order = new WC_Order( $order_id );
 
-	$total = $order->get_order_total();
-	$giftCardNumber = get_post_meta( $order_id, 'rpgc_id' );
+	$giftCard_id = get_post_meta( $order_id, 'rpgc_id' );
 
-	// Check for Giftcard
-	$giftcard_found = $wpdb->get_var( $wpdb->prepare( "
-		SELECT $wpdb->posts.ID
-		FROM $wpdb->posts
-		WHERE $wpdb->posts.post_type = 'rp_shop_giftcard'
-		AND $wpdb->posts.post_status = 'publish'
-		AND $wpdb->posts.post_title = '%s'
-	", $giftCardNumber ) );
+	if ( $giftCard_id ) {
 
-	if ( $giftcard_found ) {
-
-		$oldBalance = get_post_meta( $giftcard_found, 'rpgc_balance', true );
+		$oldBalance = wpr_get_giftcard_balance( $giftCard_id );
 		$refundAmount = get_post_meta( $order_id, 'rpgc_payment', true );
 
 		$giftcard_balance = (float) $oldBalance + (float) $refundAmount;
 
-		update_post_meta( $giftcard_found, 'rpgc_balance', $giftcard_balance ); // Update balance of Giftcard
+		update_post_meta( $giftCard_id, 'rpgc_balance', $giftcard_balance ); // Update balance of Giftcard
 	}
 }
 add_action( 'woocommerce_order_status_refunded', 'rpgc_refund_order' );
@@ -240,7 +231,7 @@ add_action( 'woocommerce_order_status_refunded', 'rpgc_refund_order' );
 
 function wpr_display_giftcard_on_order ( $order_id ) {
 	
-	$giftPayment = get_post_meta( $order_id, 'rpgc_payment', true );
+	$giftPayment = wpr_get_order_card_payment( $order_id );
 
 	if( $giftPayment > 0 ) {
 		?>

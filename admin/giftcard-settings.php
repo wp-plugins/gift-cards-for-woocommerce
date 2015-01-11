@@ -23,7 +23,6 @@ class RPGC_Settings extends WC_Settings_Page {
 		add_action( 'woocommerce_settings_save_' . $this->id, array( $this, 'save' ) );
 		add_action( 'woocommerce_sections_' . $this->id, array( $this, 'output_sections' ) );
 
-		
 		add_action( 'woocommerce_admin_field_addon_settings', array( $this, 'addon_setting' ) );
 	}
 
@@ -35,11 +34,11 @@ class RPGC_Settings extends WC_Settings_Page {
 	 */
 	public function get_sections() {
 
-		$sections = array(
-			''          => __( 'Gift Card Options', WPR_CORE_TEXT_DOMAIN ),
-			'extensions' => __( 'Premium Extensions', WPR_CORE_TEXT_DOMAIN )
-		);
+		$sections = apply_filters( 'woocommerce_add_section_giftcard', array( '' => __( 'Gift Card Options', WPR_CORE_TEXT_DOMAIN ) ) );
 
+		$premium = array( 'extensions' => __( 'Premium Extensions', WPR_CORE_TEXT_DOMAIN ) );
+
+		$sections = array_merge($sections, $premium);
 
 		return apply_filters( 'woocommerce_get_sections_' . $this->id, $sections );
 	}
@@ -208,7 +207,7 @@ class RPGC_Settings extends WC_Settings_Page {
 
 			); // End pages settings
 		}
-		return $options;
+		return apply_filters ('get_giftcard_settings', $options, $current_section );
 	}
 
 

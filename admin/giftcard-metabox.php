@@ -202,8 +202,7 @@ function rpgc_meta_box( $post ) {
 function rpgc_options_meta_box( $post ) {
 	global $woocommerce;
 
-	wp_nonce_field( 'woocommerce_save_data', 'woocommerce_meta_nonce' );
-	
+	wp_nonce_field( 'woocommerce_save_data', 'woocommerce_meta_nonce' );	
 	
 	echo '<div id="giftcard_regenerate" class="panel woocommerce_options_panel">';
 	echo '    <div class="options_group">';
@@ -234,29 +233,26 @@ function rpgc_info_meta_box( $post ) {
 	global $wpdb;
 	
 	$data = get_post_meta( $post->ID );
+
+	$orderCardNumber 	= wpr_get_order_card_number( $post->ID );
+	$orderCardBalance 	= wpr_get_order_card_balance( $post->ID );
+	$orderCardPayment 	= wpr_get_order_card_payment( $post->ID );
 	
 	echo '<div id="giftcard_regenerate" class="panel woocommerce_options_panel">';
 	echo '    <div class="options_group">';
 		echo '<ul>';
-			if ( isset( $data['rpgc_id'][0] ) )
-				echo '<li>' . __( 'Gift Card #:', WPR_CORE_TEXT_DOMAIN ) . ' ' . esc_attr( $data['rpgc_id'][0] ) . '</li>';
+			if ( isset( $orderCardNumber ) )
+				echo '<li>' . __( 'Gift Card #:', WPR_CORE_TEXT_DOMAIN ) . ' ' . esc_attr( $orderCardNumber ) . '</li>';
 
-			if ( isset( $data['rpgc_payment'][0] ) )
-				echo '<li>' . __( 'Payment:', WPR_CORE_TEXT_DOMAIN ) . ' ' . woocommerce_price( $data['rpgc_payment'][0] ) . '</li>';
+			if ( isset( $orderCardPayment ) )
+				echo '<li>' . __( 'Payment:', WPR_CORE_TEXT_DOMAIN ) . ' ' . woocommerce_price( $orderCardPayment ) . '</li>';
 
-			if ( isset( $data['rpgc_balance'][0] ) )
-				echo '<li>' . __( 'Balance remaining:', WPR_CORE_TEXT_DOMAIN ) . ' ' . woocommerce_price( $data['rpgc_balance'][0] ) . '</li>';
+			if ( isset( $orderCardBalance ) )
+				echo '<li>' . __( 'Balance remaining:', WPR_CORE_TEXT_DOMAIN ) . ' ' . woocommerce_price( $orderCardBalance ) . '</li>';
 
 		echo '</ul>';
-		
-		// Check for Giftcard
-		$giftcard_found = $wpdb->get_var( $wpdb->prepare( "
-			SELECT $wpdb->posts.ID
-			FROM $wpdb->posts
-			WHERE $wpdb->posts.post_type = 'rp_shop_giftcard'
-			AND $wpdb->posts.post_status = 'publish'
-			AND $wpdb->posts.post_title = '%s'
-		", $data['rpgc_id'][0] ) );
+
+		$giftcard_found = wpr_get_giftcard_by_code( $orderCardNumber );
 
 		if ( $giftcard_found ) {
 			echo '<div>';
