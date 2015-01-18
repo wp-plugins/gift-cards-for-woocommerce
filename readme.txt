@@ -41,6 +41,9 @@ Q: Can I customize the email that is sent out?
 A: Unfortunately that is not a current feature.  The format of the email will match the email format of your site.  I will be looking into making it a feature in the future.
 
 == Changelog ==
+= 1.6.4 =
+* FIX: Card number creation function, limit to one number generation
+
 = 1.6.3 =
 * ADD: Sales price added
 * ADD: Ability to add multiple settings pages
