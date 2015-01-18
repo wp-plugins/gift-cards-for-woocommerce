@@ -23,13 +23,6 @@ function rpgc_process_giftcard_meta( $post_id, $post ) {
 	// Ensure gift card code is correctly formatted
 	$wpdb->update( $wpdb->posts, array( 'post_title' => $post->post_title ), array( 'ID' => $post_id ) );
 
-	if ( wpr_get_giftcard_by_code( $post->post_title ) ) {
-		$newNumber = apply_filters( 'rpgc_regen_number', rpgc_generate_number());
-
-		$wpdb->update( $wpdb->posts, array( 'post_title' => $newNumber ), array( 'ID' => $post_id ) );
-		$wpdb->update( $wpdb->posts, array( 'post_name' => $newNumber ), array( 'ID' => $post_id ) );
-	}
-
 	if ( isset( $_POST['rpgc_description'] ) ) {
 		$description 	= woocommerce_clean( $_POST['rpgc_description'] );
 		update_post_meta( $post_id, 'rpgc_description', $description );
@@ -187,7 +180,7 @@ function rpgc_create_number( $data , $postarr ) {
 	if( isset ( $_POST['original_publish'] ) ) {
 		if ( ( $data['post_type'] == 'rp_shop_giftcard' ) && ( $_POST['original_publish'] == "Publish" ) ) {
 
-			$myNumber = rpgc_generate_number( );		
+			$myNumber = rpgc_generate_number();		
 			
 			$data['post_title'] = $myNumber;
 			$data['post_name'] = $myNumber;
