@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce - Gift Cards
 Plugin URI: http://wp-ronin.com
 Description: WooCommerce - Gift Cards allows you to offer gift cards to your customer and allow them to place orders using them.
-Version: 1.6.4
+Version: 1.6.5
 Author: WP Ronin
 Author URI: http://wp-ronin.com
 License: GPL2
@@ -43,7 +43,7 @@ class WPRWooGiftcards {
      */
     private function setup_constants() {
 
-		define( 'RPWCGC_VERSION', '1.6.4' );
+		define( 'RPWCGC_VERSION', '1.6.5' );
 
 		// Plugin Folder Path
 		define( 'RPWCGC_PATH', plugin_dir_path( __FILE__ ) );
@@ -53,9 +53,6 @@ class WPRWooGiftcards {
 
 		// Plugin Root File
 		define( 'RPWCGC_FILE', plugin_basename( __FILE__ )  );
-
-		// Plugin Text Domian
-		define( 'WPR_CORE_TEXT_DOMAIN', 'rpgiftcards');
 		
 		if ( ! defined( 'WPR_STORE_URL' ) )
 			// Premium Plugin Store
@@ -161,31 +158,34 @@ class WPRWooGiftcards {
 		register_post_type( 'rp_shop_giftcard',
 			array(
 				'labels' => array(
-					'name'      			=> __( 'Gift Cards', WPR_CORE_TEXT_DOMAIN ),
-					'singular_name'			=> __( 'Gift Card', WPR_CORE_TEXT_DOMAIN ),
-					'menu_name'    			=> _x( 'Gift Cards', 'Admin menu name', WPR_CORE_TEXT_DOMAIN ),
-					'add_new'     			=> __( 'Add Gift Card', WPR_CORE_TEXT_DOMAIN ),
-					'add_new_item'    		=> __( 'Add New Gift Card', WPR_CORE_TEXT_DOMAIN ),
-					'edit'      			=> __( 'Edit', WPR_CORE_TEXT_DOMAIN ),
-					'edit_item'    			=> __( 'Edit Gift Card', WPR_CORE_TEXT_DOMAIN ),
-					'new_item'     			=> __( 'New Gift Card', WPR_CORE_TEXT_DOMAIN ),
-					'view'      			=> __( 'View Gift Cards', WPR_CORE_TEXT_DOMAIN ),
-					'view_item'    			=> __( 'View Gift Card', WPR_CORE_TEXT_DOMAIN ),
-					'search_items'    		=> __( 'Search Gift Cards', WPR_CORE_TEXT_DOMAIN ),
-					'not_found'    			=> __( 'No Gift Cards found', WPR_CORE_TEXT_DOMAIN ),
-					'not_found_in_trash'	=> __( 'No Gift Cards found in trash', WPR_CORE_TEXT_DOMAIN ),
-					'parent'     			=> __( 'Parent Gift Card', WPR_CORE_TEXT_DOMAIN )
+					'name'      			=> __( 'Gift Cards', 'rpgiftcards' ),
+					'singular_name'			=> __( 'Gift Card', 'rpgiftcards' ),
+					'menu_name'    			=> _x( 'Gift Cards', 'Admin menu name', 'rpgiftcards' ),
+					'add_new'     			=> __( 'Add Gift Card', 'rpgiftcards' ),
+					'add_new_item'    		=> __( 'Add New Gift Card', 'rpgiftcards' ),
+					'edit'      			=> __( 'Edit', 'rpgiftcards' ),
+					'edit_item'    			=> __( 'Edit Gift Card', 'rpgiftcards' ),
+					'new_item'     			=> __( 'New Gift Card', 'rpgiftcards' ),
+					'view'      			=> __( 'View Gift Cards', 'rpgiftcards' ),
+					'view_item'    			=> __( 'View Gift Card', 'rpgiftcards' ),
+					'search_items'    		=> __( 'Search Gift Cards', 'rpgiftcards' ),
+					'not_found'    			=> __( 'No Gift Cards found', 'rpgiftcards' ),
+					'not_found_in_trash'	=> __( 'No Gift Cards found in trash', 'rpgiftcards' ),
+					'parent'     			=> __( 'Parent Gift Card', 'rpgiftcards' )
 					),
-				'public'  		=> true,
-				'has_archive' 	=> true,
-				'show_in_menu'  => $show_in_menu,
-				'hierarchical' 	=> false,
-				'supports'   	=> array( 'title', 'comments' )
+
+				'public'  				=> true,
+				'has_archive' 			=> true,
+				'publicly_queryable'	=> false,
+				'exclude_from_search'	=> false,
+				'show_in_menu' 	 		=> $show_in_menu,
+				'hierarchical' 			=> false,
+				'supports'   			=> array( 'title', 'comments' )
 			)
 		);
 	
 		register_post_status( 'zerobalance', array(
-			'label'                     => __( 'Zero Balance', WPR_CORE_TEXT_DOMAIN ),
+			'label'                     => __( 'Zero Balance', 'rpgiftcards' ),
 			'public'                    => true,
 			'exclude_from_search'       => false,
 			'show_in_admin_all_list'    => true,
@@ -201,7 +201,7 @@ class WPRWooGiftcards {
 	 * @access public
 	 */
 	public function rpwcgc_loaddomain() {
-		load_plugin_textdomain( WPR_CORE_TEXT_DOMAIN, false, 'gift-cards-for-woocommerce/languages/' );
+		load_plugin_textdomain( 'rpgiftcards', false, 'gift-cards-for-woocommerce/languages/' );
 	}
 
 	/**
@@ -211,7 +211,7 @@ class WPRWooGiftcards {
 	public function no_woo_nag() {
 		?>
 		<div class="updated">
-			<p><?php printf( __( 'WooCommerce - Gift Cards requires that you have WooCommerce Installed and Activated. <a href="%s">Activate Now</a>.', WPR_CORE_TEXT_DOMAIN ), admin_url( 'plugins.php' ) ); ?></p>
+			<p><?php printf( __( 'WooCommerce - Gift Cards requires that you have WooCommerce Installed and Activated. <a href="%s">Activate Now</a>.', 'rpgiftcards' ), admin_url( 'plugins.php' ) ); ?></p>
 		</div>
 		<?php
 	}

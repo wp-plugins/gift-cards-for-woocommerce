@@ -16,7 +16,7 @@ class RPGC_Settings extends WC_Settings_Page {
 	 */
 	public function __construct() {
 		$this->id    = 'giftcard';
-		$this->label = __( 'Gift Cards',  WPR_CORE_TEXT_DOMAIN  );
+		$this->label = __( 'Gift Cards',  'rpgiftcards'  );
 
 		add_filter( 'woocommerce_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
 		add_action( 'woocommerce_settings_' . $this->id, array( $this, 'output' ) );
@@ -34,9 +34,9 @@ class RPGC_Settings extends WC_Settings_Page {
 	 */
 	public function get_sections() {
 
-		$sections = apply_filters( 'woocommerce_add_section_giftcard', array( '' => __( 'Gift Card Options', WPR_CORE_TEXT_DOMAIN ) ) );
+		$sections = apply_filters( 'woocommerce_add_section_giftcard', array( '' => __( 'Gift Card Options', 'rpgiftcards' ) ) );
 
-		$premium = array( 'extensions' => __( 'Premium Extensions', WPR_CORE_TEXT_DOMAIN ) );
+		$premium = array( 'extensions' => __( 'Premium Extensions', 'rpgiftcards' ) );
 
 		$sections = array_merge($sections, $premium);
 
@@ -94,15 +94,16 @@ class RPGC_Settings extends WC_Settings_Page {
 	 * @return array
 	 */
 	public function get_settings( $current_section = '' ) {
+		$options = '';
 		if( $current_section == '' ) {
 
 			$options = apply_filters( 'woocommerce_giftcard_settings', array(
 
-				array( 'title' 		=> __( 'Processing Options',  WPR_CORE_TEXT_DOMAIN  ), 'type' => 'title', 'id' => 'giftcard_processing_options_title' ),
+				array( 'title' 		=> __( 'Processing Options',  'rpgiftcards'  ), 'type' => 'title', 'id' => 'giftcard_processing_options_title' ),
 
 				array(
-					'title'         => __( 'Display on Cart?',  WPR_CORE_TEXT_DOMAIN  ),
-					'desc'          => __( 'Display the giftcard form on the cart page.',  WPR_CORE_TEXT_DOMAIN  ),
+					'title'         => __( 'Display on Cart?',  'rpgiftcards'  ),
+					'desc'          => __( 'Display the giftcard form on the cart page.',  'rpgiftcards'  ),
 					'id'            => 'woocommerce_enable_giftcard_cartpage',
 					'default'       => 'no',
 					'type'          => 'checkbox',
@@ -110,8 +111,8 @@ class RPGC_Settings extends WC_Settings_Page {
 				),
 
 				array(
-					'title'         => __( 'Display on Checkout?',  WPR_CORE_TEXT_DOMAIN  ),
-					'desc'          => __( 'Display the giftcard form on the checkout page.',  WPR_CORE_TEXT_DOMAIN  ),
+					'title'         => __( 'Display on Checkout?',  'rpgiftcards'  ),
+					'desc'          => __( 'Display the giftcard form on the checkout page.',  'rpgiftcards'  ),
 					'id'            => 'woocommerce_enable_giftcard_checkoutpage',
 					'default'       => 'yes',
 					'type'          => 'checkbox',
@@ -119,32 +120,32 @@ class RPGC_Settings extends WC_Settings_Page {
 				),
 
 				array(
-					'title'         => __( 'Shipping Charge?',  WPR_CORE_TEXT_DOMAIN  ),
-					'desc'          => __( 'Allow customers to pay for shipping with their gift card.',  WPR_CORE_TEXT_DOMAIN  ),
+					'title'         => __( 'Shipping Charge?',  'rpgiftcards'  ),
+					'desc'          => __( 'Allow customers to pay for shipping with their gift card.',  'rpgiftcards'  ),
 					'id'            => 'woocommerce_enable_giftcard_process',
 					'default'       => 'no',
 					'type'          => 'checkbox',
 					'autoload'      => true
 				),
 				array(
-					'title'         => __( 'Require Recipient Information?',  WPR_CORE_TEXT_DOMAIN  ),
-					'desc'          => __( 'Requires that your customers enter a name and email when purchasing a Gift Card.',  WPR_CORE_TEXT_DOMAIN  ),
+					'title'         => __( 'Require Recipient Information?',  'rpgiftcards'  ),
+					'desc'          => __( 'Requires that your customers enter a name and email when purchasing a Gift Card.',  'rpgiftcards'  ),
 					'id'            => 'woocommerce_enable_giftcard_info_requirements',
 					'default'       => 'no',
 					'type'          => 'checkbox',
 					'autoload'      => true
 				),
 				array(
-					'title'         => __( 'Customize Add to Cart?',  WPR_CORE_TEXT_DOMAIN  ),
-					'desc'          => __( 'Change Add to cart label and disable add to cart from product list.',  WPR_CORE_TEXT_DOMAIN  ),
+					'title'         => __( 'Customize Add to Cart?',  'rpgiftcards'  ),
+					'desc'          => __( 'Change Add to cart label and disable add to cart from product list.',  'rpgiftcards'  ),
 					'id'            => 'woocommerce_enable_addtocart',
 					'default'       => 'no',
 					'type'          => 'checkbox',
 					'autoload'      => false
 				),
 				array(
-					'title'         => __( 'Physical Card?',  WPR_CORE_TEXT_DOMAIN  ),
-					'desc'          => __( 'Select this if you would like to offer physical gift cards.',  WPR_CORE_TEXT_DOMAIN  ),
+					'title'         => __( 'Physical Card?',  'rpgiftcards'  ),
+					'desc'          => __( 'Select this if you would like to offer physical gift cards.',  'rpgiftcards'  ),
 					'id'            => 'woocommerce_enable_physical',
 					'default'       => 'no',
 					'type'          => 'checkbox',
@@ -153,11 +154,11 @@ class RPGC_Settings extends WC_Settings_Page {
 
 				array( 'type' => 'sectionend', 'id' => 'account_registration_options'),
 
-				array( 'title' 		=> __( 'Product Options',  WPR_CORE_TEXT_DOMAIN  ), 'type' => 'title', 'id' => 'giftcard_products_options_title' ),
+				array( 'title' 		=> __( 'Product Options',  'rpgiftcards'  ), 'type' => 'title', 'id' => 'giftcard_products_options_title' ),
 
 				array(
-					'name'     => __( 'To', WPR_CORE_TEXT_DOMAIN ),
-					'desc'     => __( 'This is the value that will display before a gift card number.', WPR_CORE_TEXT_DOMAIN ),
+					'name'     => __( 'To', 'rpgiftcards' ),
+					'desc'     => __( 'This is the value that will display before a gift card number.', 'rpgiftcards' ),
 					'id'       => 'woocommerce_giftcard_to',
 					'std'      => 'To', // WooCommerce < 2.0
 					'default'  => 'To', // WooCommerce >= 2.0
@@ -166,8 +167,8 @@ class RPGC_Settings extends WC_Settings_Page {
 				),
 
 				array(
-					'name'     => __( 'To Email', WPR_CORE_TEXT_DOMAIN ),
-					'desc'     => __( 'This is the value that will display before a gift card number.', WPR_CORE_TEXT_DOMAIN ),
+					'name'     => __( 'To Email', 'rpgiftcards' ),
+					'desc'     => __( 'This is the value that will display before a gift card number.', 'rpgiftcards' ),
 					'id'       => 'woocommerce_giftcard_toEmail',
 					'std'      => 'Send To', // WooCommerce < 2.0
 					'default'  => 'Send To', // WooCommerce >= 2.0
@@ -176,8 +177,8 @@ class RPGC_Settings extends WC_Settings_Page {
 				),
 
 				array(
-					'name'     => __( 'Note Option', WPR_CORE_TEXT_DOMAIN ),
-					'desc'     => __( 'This will change the placeholder field for the gift card note.', WPR_CORE_TEXT_DOMAIN ),
+					'name'     => __( 'Note Option', 'rpgiftcards' ),
+					'desc'     => __( 'This will change the placeholder field for the gift card note.', 'rpgiftcards' ),
 					'id'       => 'woocommerce_giftcard_note',
 					'std'      => 'Enter your note here.', // WooCommerce < 2.0
 					'default'  => 'Enter your note here.', // WooCommerce >= 2.0
@@ -186,8 +187,8 @@ class RPGC_Settings extends WC_Settings_Page {
 				),
 
 				array(
-					'name'     => __( 'Gift Card Button Test', WPR_CORE_TEXT_DOMAIN ),
-					'desc'     => __( 'This is the text that will be displayed on the button to customize the information.', WPR_CORE_TEXT_DOMAIN ),
+					'name'     => __( 'Gift Card Button Test', 'rpgiftcards' ),
+					'desc'     => __( 'This is the text that will be displayed on the button to customize the information.', 'rpgiftcards' ),
 					'id'       => 'woocommerce_giftcard_button',
 					'std'      => 'Customize', // WooCommerce < 2.0
 					'default'  => 'Customize', // WooCommerce >= 2.0
@@ -198,7 +199,7 @@ class RPGC_Settings extends WC_Settings_Page {
 				array( 'type' => 'sectionend', 'id' => 'account_registration_options'),
 
 			));
-		} else {
+		} else if( $current_section == 'extensions') {
 
 			$options = array( 
 				array( 'type' 	=> 'sectionend', 'id' => 'giftcard_extensions' ),
@@ -222,7 +223,7 @@ class RPGC_Settings extends WC_Settings_Page {
 		if( defined( 'WPR_GC_PRO_TEXT' ) ||defined( 'RPWCGC_AUTO_CORE_TEXT_DOMAIN' ) || defined( 'WPR_CP_CORE_TEXT_DOMAIN' ) || defined( 'RPWCGC_CN_CORE_TEXT_DOMAIN' ) ) { 
 			register_setting( 'wpr-options', 'wpr_options' );
 			?>
-			<h3><?php _e('Activate Extensions', WPR_CORE_TEXT_DOMAIN ); ?></h3> 
+			<h3><?php _e('Activate Extensions', 'rpgiftcards' ); ?></h3> 
 			<table>
 			<?php do_action( 'wpr_add_license_field' ); ?>
 			</table>
@@ -230,9 +231,9 @@ class RPGC_Settings extends WC_Settings_Page {
 		
 		<?php } ?>
 		
-		<h3><?php _e(' Premium features available', WPR_CORE_TEXT_DOMAIN ); ?></h3>
+		<h3><?php _e(' Premium features available', 'rpgiftcards' ); ?></h3>
 		<p>
-		<?php _e( 'You can now add additional functionallity to the gift card plugin using some of my premium plugins offered through', WPR_CORE_TEXT_DOMAIN ); ?> <a href="wp-ronin.com">wp-ronin.com</a>.
+		<?php _e( 'You can now add additional functionallity to the gift card plugin using some of my premium plugins offered through', 'rpgiftcards' ); ?> <a href="wp-ronin.com">wp-ronin.com</a>.
 		</p>
 		<br class="clear" />
 		<div class='wc_addons_wrap' style="margin-top:10px;">
@@ -243,41 +244,41 @@ class RPGC_Settings extends WC_Settings_Page {
 			$addons = array();
 
 			if( ! defined( 'WPR_GC_PRO_TEXT' ) ) {
-				$addons[$i]["title"] = __('Woocommerce Giftcards Pro', WPR_CORE_TEXT_DOMAIN );
+				$addons[$i]["title"] = __('Woocommerce Giftcards Pro', 'rpgiftcards' );
 				$addons[$i]["image"] = "";
-				$addons[$i]["excerpt"] = __( 'Get all the added features of the Pro gift card addon in this one package.', WPR_CORE_TEXT_DOMAIN );
+				$addons[$i]["excerpt"] = __( 'Get all the added features of the Pro gift card addon in this one package.', 'rpgiftcards' );
 				$addons[$i]["link"] = "https://wp-ronin.com/downloads/";
 				$i++;
 			}
 
 			if( ! defined( 'WPR_CP_CORE_TEXT_DOMAIN' ) ) {
-				$addons[$i]["title"] = __('Custom Price', WPR_CORE_TEXT_DOMAIN );
+				$addons[$i]["title"] = __('Custom Price', 'rpgiftcards' );
 				$addons[$i]["image"] = "";
-				$addons[$i]["excerpt"] = __( 'Dont want to have to create multiple products to offer Gift Cards on your site.  Use this plugin to create a single product that allows your customers to put in the price.  Select 10 – 10000000 it wont matter.', WPR_CORE_TEXT_DOMAIN );
+				$addons[$i]["excerpt"] = __( 'Dont want to have to create multiple products to offer Gift Cards on your site.  Use this plugin to create a single product that allows your customers to put in the price.  Select 10 – 10000000 it wont matter.', 'rpgiftcards' );
 				$addons[$i]["link"] = "https://wp-ronin.com/downloads/woocommerce-gift-cards-custom-price/";
 				$i++;
 			}
 
 			if( ! defined( 'RPWCGC_CN_CORE_TEXT_DOMAIN' ) ) {
-				$addons[$i]["title"] = __( 'Customize Card Number', WPR_CORE_TEXT_DOMAIN );
+				$addons[$i]["title"] = __( 'Customize Card Number', 'rpgiftcards' );
 				$addons[$i]["image"] = "";
-				$addons[$i]["excerpt"] = __( 'Want to be able to customize the gift card number when it is created, this plugin will do it.', WPR_CORE_TEXT_DOMAIN );
+				$addons[$i]["excerpt"] = __( 'Want to be able to customize the gift card number when it is created, this plugin will do it.', 'rpgiftcards' );
 				$addons[$i]["link"] = "https://wp-ronin.com/downloads/woocommerce-gift-cards-customize-gift-card/";
 				$i++;
 			}
 
 			if( ! defined( 'RPWCGC_AUTO_CORE_TEXT_DOMAIN' ) ) {
-				$addons[$i]["title"] = __( 'Auto Send Card', WPR_CORE_TEXT_DOMAIN );
+				$addons[$i]["title"] = __( 'Auto Send Card', 'rpgiftcards' );
 				$addons[$i]["image"] = "";
-				$addons[$i]["excerpt"] = __( 'Save time creating gift cards by using this plugin.  Enable it and customers will have their gift card sent out directly upon purchase or payment.', WPR_CORE_TEXT_DOMAIN );
+				$addons[$i]["excerpt"] = __( 'Save time creating gift cards by using this plugin.  Enable it and customers will have their gift card sent out directly upon purchase or payment.', 'rpgiftcards' );
 				$addons[$i]["link"] = "https://wp-ronin.com/downloads/auto-send-email-woocommerce-gift-cards/";
 				$i++;
 			}
 		
 			if( ! ( defined( 'RPWCGC_AUTO_CORE_TEXT_DOMAIN' ) && defined( 'WPR_CP_CORE_TEXT_DOMAIN' ) && defined( 'RPWCGC_CN_CORE_TEXT_DOMAIN' ) ) ) {
-				$addons[$i]["title"] = __( 'Bundle Package', WPR_CORE_TEXT_DOMAIN );
+				$addons[$i]["title"] = __( 'Bundle Package', 'rpgiftcards' );
 				$addons[$i]["image"] = "";
-				$addons[$i]["excerpt"] = __( 'Want to add all the plugins I have created to extend Woocommerce Gift Cards this is the right product to choose.', WPR_CORE_TEXT_DOMAIN );
+				$addons[$i]["excerpt"] = __( 'Want to add all the plugins I have created to extend Woocommerce Gift Cards this is the right product to choose.', 'rpgiftcards' );
 				$addons[$i]["link"] = "https://wp-ronin.com/downloads/gift-card-premium-upgrade/";
 				$i++;
 			}			

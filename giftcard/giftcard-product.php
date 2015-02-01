@@ -11,8 +11,8 @@ function rpgc_extra_check( $product_type_options ) {
 		'giftcard' => array(
 			'id' => '_giftcard',
 			'wrapper_class' => 'show_if_simple show_if_variable',
-			'label' => __( 'Gift Card', WPR_CORE_TEXT_DOMAIN ),
-			'description' => __( 'Make product a gift card.', WPR_CORE_TEXT_DOMAIN )
+			'label' => __( 'Gift Card', 'rpgiftcards' ),
+			'description' => __( 'Make product a gift card.', 'rpgiftcards' )
 		),
 	);
 

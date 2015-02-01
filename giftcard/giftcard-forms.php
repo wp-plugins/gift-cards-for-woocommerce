@@ -16,9 +16,9 @@ function rpgc_cart_form() {
 		
 		?>
 		<div class="giftcard" style="float: left;">
-			<label for="giftcard_code" style="display: none;"><?php _e( 'Giftcard', WPR_CORE_TEXT_DOMAIN ); ?>:</label>
-			<input type="text" name="giftcard_code" class="input-text" id="giftcard_code" value="" placeholder="<?php _e( 'Gift Card', WPR_CORE_TEXT_DOMAIN ); ?>" />
-			<input type="submit" class="button" name="update_cart" value="<?php _e( 'Apply Gift card', WPR_CORE_TEXT_DOMAIN ); ?>" />
+			<label for="giftcard_code" style="display: none;"><?php _e( 'Giftcard', 'rpgiftcards' ); ?>:</label>
+			<input type="text" name="giftcard_code" class="input-text" id="giftcard_code" value="" placeholder="<?php _e( 'Gift Card', 'rpgiftcards' ); ?>" />
+			<input type="submit" class="button" name="update_cart" value="<?php _e( 'Apply Gift card', 'rpgiftcards' ); ?>" />
 		</div>
 <?php
 		do_action( 'wpr_after_cart_form' );
@@ -49,21 +49,21 @@ if ( ! function_exists( 'rpgc_checkout_form' ) ) {
 
 		if( get_option( 'woocommerce_enable_giftcard_checkoutpage' ) == 'yes' ){
 
-			$info_message = apply_filters( 'woocommerce_checkout_giftcaard_message', __( 'Have a giftcard?', WPR_CORE_TEXT_DOMAIN ) );
+			$info_message = apply_filters( 'woocommerce_checkout_giftcaard_message', __( 'Have a giftcard?', 'rpgiftcards' ) );
 			do_action( 'wpr_before_checkout_form' );
 
 			?>
 
-			<p class="woocommerce-info"><?php echo $info_message; ?> <a href="#" class="showgiftcard"><?php _e( 'Click here to enter your giftcard', WPR_CORE_TEXT_DOMAIN ); ?></a></p>
+			<p class="woocommerce-info"><?php echo $info_message; ?> <a href="#" class="showgiftcard"><?php _e( 'Click here to enter your giftcard', 'rpgiftcards' ); ?></a></p>
 
 			<form class="checkout_giftcard" method="post" style="display:none">
 
 				<p class="form-row form-row-first">
-					<input type="text" name="giftcard_code" class="input-text" placeholder="<?php _e( 'Gift card', WPR_CORE_TEXT_DOMAIN ); ?>" id="giftcard_code" value="" />
+					<input type="text" name="giftcard_code" class="input-text" placeholder="<?php _e( 'Gift card', 'rpgiftcards' ); ?>" id="giftcard_code" value="" />
 				</p>
 
 				<p class="form-row form-row-last">
-					<input type="submit" class="button" name="apply_giftcard" value="<?php _e( 'Apply Gift card', WPR_CORE_TEXT_DOMAIN ); ?>" />
+					<input type="submit" class="button" name="apply_giftcard" value="<?php _e( 'Apply Gift card', 'rpgiftcards' ); ?>" />
 				</p>
 
 				<div class="clear"></div>
@@ -137,20 +137,20 @@ function rpgc_cart_fields( ) {
 		$rpw_toEmail 	= get_option( 'woocommerce_giftcard_toEmail' );
 		$rpw_note 		= get_option( 'woocommerce_giftcard_note' );
 
-		$rpw_to_check 		= ( $rpw_to <> NULL ? $rpw_to : __('To', WPR_CORE_TEXT_DOMAIN ) );
-		$rpw_toEmail_check 	= ( $rpw_toEmail <> NULL ? $rpw_toEmail : __('To Email', WPR_CORE_TEXT_DOMAIN )  );
-		$rpw_note_check		= ( $rpw_note <> NULL ? $rpw_note : __('Note', WPR_CORE_TEXT_DOMAIN )  );
+		$rpw_to_check 		= ( $rpw_to <> NULL ? $rpw_to : __('To', 'rpgiftcards' ) );
+		$rpw_toEmail_check 	= ( $rpw_toEmail <> NULL ? $rpw_toEmail : __('To Email', 'rpgiftcards' )  );
+		$rpw_note_check		= ( $rpw_note <> NULL ? $rpw_note : __('Note', 'rpgiftcards' )  );
 		?>
 
 		<div>
 			<?php if ( $is_required_field_giftcard == "yes" ) { ?>
-				<div class="rpw_product_message"><?php _e('All fields below are required', WPR_CORE_TEXT_DOMAIN ); ?></div>
+				<div class="rpw_product_message"><?php _e('All fields below are required', 'rpgiftcards' ); ?></div>
 			<?php } else { ?>
-				<div class="rpw_product_message"><?php _e('All fields below are optional', WPR_CORE_TEXT_DOMAIN ); ?></div>
+				<div class="rpw_product_message"><?php _e('All fields below are optional', 'rpgiftcards' ); ?></div>
 			<?php } ?>
 
 			<?php  do_action( 'rpgc_before_product_fields' ); ?>
-			<input type="hidden" id="rpgc_description" name="rpgc_description" value="<?php _e('Generated from the website.', WPR_CORE_TEXT_DOMAIN ); ?>" />
+			<input type="hidden" id="rpgc_description" name="rpgc_description" value="<?php _e('Generated from the website.', 'rpgiftcards' ); ?>" />
 			<input name="rpgc_to" id="rpgc_to" class="input-text" placeholder="<?php echo $rpw_to_check; ?>" style="margin-bottom:5px;">
 			<input type="email" name="rpgc_to_email" id="rpgc_to_email" class="input-text" placeholder="<?php echo $rpw_toEmail_check; ?>" style="margin-bottom:5px;">
 			<textarea class="input-text" id="rpgc_note" name="rpgc_note" rows="2" placeholder="<?php echo $rpw_note_check; ?>" style="margin-bottom:5px;"></textarea>
@@ -165,9 +165,6 @@ function rpgc_cart_fields( ) {
 	    ';
 	}
 }
-add_action( 'woocommerce_before_add_to_cart_button', 'rpgc_cart_fields' ); //woocommerce_before_add_to_cart_button
-
-
-
+add_action( 'woocommerce_before_add_to_cart_button', 'rpgc_cart_fields' ); //woocommerce_before_add_to_cart_buttons
 
 
