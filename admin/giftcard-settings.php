@@ -220,7 +220,7 @@ class RPGC_Settings extends WC_Settings_Page {
 	 */
 	public function addon_setting() {
 		
-		if( defined( 'WPR_GC_PRO_TEXT' ) ||defined( 'RPWCGC_AUTO_CORE_TEXT_DOMAIN' ) || defined( 'WPR_CP_CORE_TEXT_DOMAIN' ) || defined( 'RPWCGC_CN_CORE_TEXT_DOMAIN' ) ) { 
+		if( $this->activatedPlugins() ) {
 			register_setting( 'wpr-options', 'wpr_options' );
 			?>
 			<h3><?php _e('Activate Extensions', 'rpgiftcards' ); ?></h3> 
@@ -243,7 +243,7 @@ class RPGC_Settings extends WC_Settings_Page {
 			$i = 0;
 			$addons = array();
 
-			if( ! defined( 'WPR_GC_PRO_TEXT' ) ) {
+			if( ! class_exists( 'WPRWG_GiftCards_Pro' ) ) {
 				$addons[$i]["title"] = __('Woocommerce Giftcards Pro', 'rpgiftcards' );
 				$addons[$i]["image"] = "";
 				$addons[$i]["excerpt"] = __( 'Get all the added features of the Pro gift card addon in this one package.', 'rpgiftcards' );
@@ -251,7 +251,7 @@ class RPGC_Settings extends WC_Settings_Page {
 				$i++;
 			}
 
-			if( ! defined( 'WPR_CP_CORE_TEXT_DOMAIN' ) ) {
+			if( ! class_exists( 'WPRWG_Custom_Price' ) ) {
 				$addons[$i]["title"] = __('Custom Price', 'rpgiftcards' );
 				$addons[$i]["image"] = "";
 				$addons[$i]["excerpt"] = __( 'Dont want to have to create multiple products to offer Gift Cards on your site.  Use this plugin to create a single product that allows your customers to put in the price.  Select 10 – 10000000 it wont matter.', 'rpgiftcards' );
@@ -259,7 +259,7 @@ class RPGC_Settings extends WC_Settings_Page {
 				$i++;
 			}
 
-			if( ! defined( 'RPWCGC_CN_CORE_TEXT_DOMAIN' ) ) {
+			if( ! class_exists( 'WPRWG_Custom_Number' ) ) {
 				$addons[$i]["title"] = __( 'Customize Card Number', 'rpgiftcards' );
 				$addons[$i]["image"] = "";
 				$addons[$i]["excerpt"] = __( 'Want to be able to customize the gift card number when it is created, this plugin will do it.', 'rpgiftcards' );
@@ -267,7 +267,7 @@ class RPGC_Settings extends WC_Settings_Page {
 				$i++;
 			}
 
-			if( ! defined( 'RPWCGC_AUTO_CORE_TEXT_DOMAIN' ) ) {
+			if( ! class_exists( 'WPRWG_Auto_Send' ) ) {
 				$addons[$i]["title"] = __( 'Auto Send Card', 'rpgiftcards' );
 				$addons[$i]["image"] = "";
 				$addons[$i]["excerpt"] = __( 'Save time creating gift cards by using this plugin.  Enable it and customers will have their gift card sent out directly upon purchase or payment.', 'rpgiftcards' );
@@ -275,14 +275,13 @@ class RPGC_Settings extends WC_Settings_Page {
 				$i++;
 			}
 		
-			if( ! ( defined( 'RPWCGC_AUTO_CORE_TEXT_DOMAIN' ) && defined( 'WPR_CP_CORE_TEXT_DOMAIN' ) && defined( 'RPWCGC_CN_CORE_TEXT_DOMAIN' ) ) ) {
-				$addons[$i]["title"] = __( 'Bundle Package', 'rpgiftcards' );
+			if( ! class_exists( 'WPRWG_CSV_Importer' ) ) {
+				$addons[$i]["title"] = __( 'CSV Importer', 'rpgiftcards' );
 				$addons[$i]["image"] = "";
-				$addons[$i]["excerpt"] = __( 'Want to add all the plugins I have created to extend Woocommerce Gift Cards this is the right product to choose.', 'rpgiftcards' );
-				$addons[$i]["link"] = "https://wp-ronin.com/downloads/gift-card-premium-upgrade/";
+				$addons[$i]["excerpt"] = __( 'Import large number of gift cards with this extention. Use our supplied .', 'rpgiftcards' );
+				$addons[$i]["link"] = "https://wp-ronin.com/downloads/csvimporter/";
 				$i++;
-			}			
-
+			}
 			
 			foreach ( $addons as $addon ) {
 				echo '<li class="product" style="float:left; margin:0 1em 1em 0 !important; padding:0; vertical-align:top; width:300px;">';
@@ -301,6 +300,19 @@ class RPGC_Settings extends WC_Settings_Page {
 		</div>
 		<?php
 	}
+
+	public function activatedPlugins() {
+
+		if( defined( 'WPR_GC_PRO_TEXT' ) || defined( 'RPWCGC_AUTO_CORE_TEXT_DOMAIN' ) || defined( 'WPR_CP_CORE_TEXT_DOMAIN' ) || defined( 'RPWCGC_CN_CORE_TEXT_DOMAIN' ) )
+			return true;
+
+		if( defined( 'WPR_GC_ACTIVE_PLUGIN' ) )
+			return true;
+
+		return false;
+
+	}
+
 
 }
 

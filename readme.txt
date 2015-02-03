@@ -3,7 +3,7 @@ Contributors: rpletcher
 Tags: woocommerce, gift, gift card, payment, gift certificate, certificate
 Requires at least: 3.0
 Tested up to: 4.1
-Stable tag: 1.6.5
+Stable tag: 1.6.6
 Donate link: https://ryanpletcher.com/donate/
 License: GPLv2 or later
 
@@ -42,8 +42,11 @@ A: Unfortunately that is not a current feature.  The format of the email will ma
 
 == Changelog ==
 = 1.6.5 =
+* UPDATE: Updating how options page functions for premium plugins
+
+= 1.6.5 =
 * FIX: Updating gift card post type for more security
-* UPDATE; Changed Text Domain from contact to actual text domain
+* UPDATE: Changed Text Domain from contact to actual text domain
 
 = 1.6.4 =
 * FIX: Card number creation function, limit to one number generation
