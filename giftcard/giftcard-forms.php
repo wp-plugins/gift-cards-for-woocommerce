@@ -10,8 +10,8 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 function rpgc_cart_form() {
-
-	if( get_option( 'woocommerce_enable_giftcard_cartpage' ) == 'yes' ){
+	
+	if( get_option( 'woocommerce_enable_giftcard_cartpage' ) == "yes" ) {
 		do_action( 'wpr_before_cart_form' );
 		
 		?>
@@ -25,7 +25,7 @@ function rpgc_cart_form() {
 	}
 
 }
-add_action( 'woocommerce_proceed_to_checkout', 'rpgc_cart_form', -10 );
+add_action( 'woocommerce_proceed_to_checkout', 'rpgc_cart_form' );
 
 
 function apply_cart_giftcard( ) {

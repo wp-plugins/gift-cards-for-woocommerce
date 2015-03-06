@@ -80,10 +80,10 @@ function rpgc_meta_box( $post ) {
 	// Description
 	woocommerce_wp_textarea_input(
 		array(
-			'id' => 'rpgc_description',
-			'label' => __( 'Gift Card description', 'rpgiftcards' ),
-			'placeholder' => '',
-			'description' => __( 'Optionally enter a description for this gift card for your reference.', 'rpgiftcards' ),
+			'id' 			=> 'rpgc_description',
+			'label'			=> __( 'Gift Card description', 'rpgiftcards' ),
+			'placeholder' 	=> '',
+			'description' 	=> __( 'Optionally enter a description for this gift card for your reference.', 'rpgiftcards' ),
 		)
 	);
 	
@@ -93,38 +93,40 @@ function rpgc_meta_box( $post ) {
 	// To
 	woocommerce_wp_text_input(
 		array(
-			'id' => 'rpgc_to',
-			'label' => __( 'To', 'rpgiftcards' ),
-			'placeholder' => '',
-			'description' => __( 'Who is getting this gift card.', 'rpgiftcards' ),
+			'id' 			=> 'rpgc_to',
+			'label' 		=> __( 'To', 'rpgiftcards' ),
+			'placeholder' 	=> '',
+			'description' 	=> __( 'Who is getting this gift card.', 'rpgiftcards' ),
 		)
 	);
 	// To Email
 	woocommerce_wp_text_input(
 		array(
-			'id' => 'rpgc_email_to',
-			'label' => __( 'Email To', 'rpgiftcards' ),
-			'placeholder' => '',
-			'description' => __( 'What email should we send this gift card to.', 'rpgiftcards' ),
+			'id' 			=> 'rpgc_email_to',
+			'type' 			=> 'email',
+			'label' 		=> __( 'Email To', 'rpgiftcards' ),
+			'placeholder' 	=> '',
+			'description' 	=> __( 'What email should we send this gift card to.', 'rpgiftcards' ),
 		)
 	);
 
 	// From
 	woocommerce_wp_text_input(
 		array(
-			'id' => 'rpgc_from',
-			'label' => __( 'From', 'rpgiftcards' ),
-			'placeholder' => '',
-			'description' => __( 'Who is sending this gift card.', 'rpgiftcards' ),
+			'id' 			=> 'rpgc_from',
+			'label' 		=> __( 'From', 'rpgiftcards' ),
+			'placeholder' 	=> '',
+			'description' 	=> __( 'Who is sending this gift card.', 'rpgiftcards' ),
 		)
 	);
 	// From Email
 	woocommerce_wp_text_input(
 		array(
-			'id' => 'rpgc_email_from',
-			'label' => __( 'Email From', 'rpgiftcards' ),
-			'placeholder' => '',
-			'description' => __( 'What email account is sending this gift card.', 'rpgiftcards' ),
+			'id' 			=> 'rpgc_email_from',
+			'type'	 		=> 'email',
+			'label' 		=> __( 'Email From', 'rpgiftcards' ),
+			'placeholder' 	=> '',
+			'description' 	=> __( 'What email account is sending this gift card.', 'rpgiftcards' ),
 		)
 	);
 	
@@ -139,12 +141,12 @@ function rpgc_meta_box( $post ) {
 	// Amount
 	woocommerce_wp_text_input(
 		array(
-			'id'     => 'rpgc_amount',
-			'label'    => __( 'Gift Card Amount', 'rpgiftcards' ),
-			'placeholder'  => '0.00',
-			'description'  => __( 'Value of the Gift Card.', 'rpgiftcards' ),
-			'type'    => 'number',
-			'custom_attributes' => array( 'step' => 'any', 'min' => '0' )
+			'id'     					=> 'rpgc_amount',
+			'label'   					=> __( 'Gift Card Amount', 'rpgiftcards' ),
+			'placeholder'  				=> '0.00',
+			'description'  				=> __( 'Value of the Gift Card.', 'rpgiftcards' ),
+			'type'    					=> 'number',
+			'custom_attributes' 		=> array( 'step' => 'any', 'min' => '0' )
 		)
 	);
 	if ( isset( $_GET['action']  ) ) {
@@ -152,11 +154,11 @@ function rpgc_meta_box( $post ) {
 			// Remaining Balance
 			woocommerce_wp_text_input(
 				array(
-					'id'    => 'rpgc_balance',
-					'label'    => __( 'Gift Card Balance', 'rpgiftcards' ),
-					'placeholder'  => '0.00',
-					'description'  => __( 'Remaining Balance of the Gift Card.', 'rpgiftcards' ),
-					'type'    => 'number',
+					'id'    			=> 'rpgc_balance',
+					'label'    			=> __( 'Gift Card Balance', 'rpgiftcards' ),
+					'placeholder'  		=> '0.00',
+					'description'  		=> __( 'Remaining Balance of the Gift Card.', 'rpgiftcards' ),
+					'type'    			=> 'number',
 					'custom_attributes' => array( 'step' => 'any', 'min' => '0' )
 				)
 			);
@@ -165,10 +167,10 @@ function rpgc_meta_box( $post ) {
 	// Notes
 	woocommerce_wp_textarea_input(
 		array(
-			'id' => 'rpgc_note',
-			'label' => __( 'Gift Card Note', 'rpgiftcards' ),
-			'description' => __( 'Enter a message to your customer.', 'rpgiftcards' ),
-			'class' => 'short'
+			'id' 						=> 'rpgc_note',
+			'label' 					=> __( 'Gift Card Note', 'rpgiftcards' ),
+			'description' 				=> __( 'Enter a message to your customer.', 'rpgiftcards' ),
+			'class' 					=> 'short'
 			
 		)
 	);
@@ -176,12 +178,12 @@ function rpgc_meta_box( $post ) {
 	// Expiry date
 	woocommerce_wp_text_input(
 		array(
-			'id' => 'rpgc_expiry_date',
-			'label' => __( 'Expiry date', 'rpgiftcards' ),
-			'placeholder' => _x( 'Never expire', 'placeholder', 'rpgiftcards' ),
-			'description' => __( 'The date this Gift Card will expire, <code>YYYY-MM-DD</code>.', 'rpgiftcards' ),
-			'class' => 'date-picker, short',
-			'custom_attributes' => array( 'pattern' => "[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" )
+			'id' 						=> 'rpgc_expiry_date',
+			'label' 					=> __( 'Expiry date', 'rpgiftcards' ),
+			'placeholder' 				=> _x( 'Never expire', 'placeholder', 'rpgiftcards' ),
+			'description' 				=> __( 'The date this Gift Card will expire, <code>YYYY-MM-DD</code>.', 'rpgiftcards' ),
+			'class' 					=> 'date-picker, short',
+			'custom_attributes' 		=> array( 'pattern' => "[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" )
 		)
 	);
 
@@ -237,6 +239,7 @@ function rpgc_info_meta_box( $post ) {
 	$orderCardNumber 	= wpr_get_order_card_number( $post->ID );
 	$orderCardBalance 	= wpr_get_order_card_balance( $post->ID );
 	$orderCardPayment 	= wpr_get_order_card_payment( $post->ID );
+	$isAlreadyRefunded	= wpr_get_order_refund_status( $post->ID );
 	
 	echo '<div id="giftcard_regenerate" class="panel woocommerce_options_panel">';
 	echo '    <div class="options_group">';
@@ -258,6 +261,8 @@ function rpgc_info_meta_box( $post ) {
 			echo '<div>';
 				$link = 'post.php?post=' . $giftcard_found . '&action=edit';
 				echo '<a href="' . admin_url( $link ) . '">' . __('Access Gift Card', 'rpgiftcards') . '</a>';
+				if( isset( $isAlreadyRefunded ) )
+					echo  '<br /><span style="color: #dd0000;">' . __( 'Gift card refunded ', 'rpgiftcards' ) . ' ' . woocommerce_price( $orderCardPayment ) . '</span>';
 			echo '</div>';
 		
 		}
@@ -265,3 +270,53 @@ function rpgc_info_meta_box( $post ) {
 	echo '    </div>';
 	echo '</div>';
 }
+
+function wpr_giftcard_usage_data( $post ) {
+
+	$giftcardIDs = get_post_meta( $post->ID, 'wpr_existingOrders_id', true );
+
+	if( ! empty($giftcardIDs) ) {
+	?>
+
+		<div id="giftcard_sidebar" style="position: absolute; top:50px; right:76px; padding:15px; background: #fff;">
+		
+									
+			<h2 style="margin: 0;">
+				<span><?php _e( 'Card Usage Details', 'rpgiftcards' ); ?></span>
+			</h2>
+
+
+			<?php 
+			foreach ($giftcardIDs as $giftID ) { 
+
+				$giftcardPayment = wpr_get_order_card_payment( $post->ID );
+				$giftcarBalance = wpr_get_order_card_balance( $post->ID );
+				$giftcarBalance -= $giftcardPayment;
+				$orederLink = admin_url( 'edit.php?post_type=download&page=edd-payment-history&view=view-order-details&id=' . $giftID );
+
+			?>
+
+				<div class="edd-admin-box-inside">
+					<p>
+						<strong><?php _e( 'Order Number:', 'rpgiftcards' ); ?></strong>&nbsp;
+						<span><a href="<?php echo $orederLink; ?>"><?php echo esc_attr( $giftID ); ?></a></span>
+						<br />
+						<strong><?php _e( 'Amount Used:', 'rpgiftcards' ); ?></strong>&nbsp;
+						<span><?php echo edd_format_giftcard_rate( 0, $giftcardPayment ); ?></span>
+						<br />
+						<strong><?php _e( 'Card Balance After Order:', 'rpgiftcards' ); ?></strong>&nbsp;
+						<span><?php echo edd_format_giftcard_rate( 0, $giftcarBalance ); ?></span>
+					</p>
+				</div>
+
+			<?php } ?>
+
+		</div>
+		<?php
+	}
+}
+
+//add_action ('edd_giftcard_sidebar', 'edd_giftcard_usage_data', 10, 1 );
+
+
+

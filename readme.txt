@@ -41,8 +41,17 @@ Q: Can I customize the email that is sent out?
 A: Unfortunately that is not a current feature.  The format of the email will match the email format of your site.  I will be looking into making it a feature in the future.
 
 == Changelog ==
-= 1.6.5 =
+= 1.6.6 =
 * UPDATE: Updating how options page functions for premium plugins
+* UPDATE: Optimized gift card calculation
+* UPDATE: Checking for WooCommerce as an active Plugins
+* FIX: Gift Card reporting on all purchase
+* FIX: Prevent Gift Cards from being used on Gift Card Purchase
+* FIX: Made text domain name actual value rather than constant
+* ADD: Refunded amount notice back to the gift card
+* ADD: Area to show all orders gift card was used on
+* ADD: Gift Card Details to cart Display
+* ADD: Ability to select what can be used on Gift card (Shipping, Tax, Fees)
 
 = 1.6.5 =
 * FIX: Updating gift card post type for more security

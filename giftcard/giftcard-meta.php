@@ -180,6 +180,13 @@ function wpr_get_order_card_payment ( $order_id = null ) {
 
 	return apply_filters( 'wpr_get_order_card_payment', $payment, $order_id );
 }
+
+function wpr_get_order_refund_status ( $order_id = null ) {
+	$refunded = get_post_meta( $order_id, 'rpgc_refunded', true );
+
+	return apply_filters( 'wpr_get_order_refund_status', $refunded, $order_id );
+}
+
 	
 
 

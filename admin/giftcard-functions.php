@@ -209,13 +209,11 @@ function rpgc_generate_number( ) {
  *
  */
 function rpgc_refund_order( $order_id ) {
-	global $woocommerce, $wpdb;
+	
+	$giftCard_id = get_post_meta( $order_id, 'rpgc_id', true );
+	$giftCard_refunded = get_post_meta( $order_id, 'rpgc_refunded', true );
 
-	$order = new WC_Order( $order_id );
-
-	$giftCard_id = get_post_meta( $order_id, 'rpgc_id' );
-
-	if ( $giftCard_id ) {
+	if ( $giftCard_id  && ! ( $giftCard_refunded == 'yes' ) ) {
 
 		$oldBalance = wpr_get_giftcard_balance( $giftCard_id );
 		$refundAmount = get_post_meta( $order_id, 'rpgc_payment', true );
@@ -223,10 +221,12 @@ function rpgc_refund_order( $order_id ) {
 		$giftcard_balance = (float) $oldBalance + (float) $refundAmount;
 
 		update_post_meta( $giftCard_id, 'rpgc_balance', $giftcard_balance ); // Update balance of Giftcard
+		update_post_meta( $order_id, 'rpgc_refunded', 'yes' ); // prevents multiple refunds of Giftcard
 	}
 }
 add_action( 'woocommerce_order_status_refunded', 'rpgc_refund_order' );
-
+add_action( 'woocommerce_order_status_pending_to_cancelled', 'rpgc_refund_order' );
+add_action( 'woocommerce_order_status_on-hold_to_cancelled', 'rpgc_refund_order' );
 
 function wpr_display_giftcard_on_order ( $order_id ) {
 	
@@ -245,5 +245,3 @@ function wpr_display_giftcard_on_order ( $order_id ) {
 
 }
 add_action ( 'woocommerce_admin_order_totals_after_discount', 'wpr_display_giftcard_on_order' );
-
-

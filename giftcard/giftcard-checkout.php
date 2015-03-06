@@ -97,17 +97,6 @@ function woocommerce_apply_giftcard($giftcard_code) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 /**
  * Function to add the giftcard data to the cart display on both the card page and the checkout page WC()->session->giftcard_balance
  *
@@ -128,7 +117,6 @@ function rpgc_order_giftcard( ) {
 		if ( WC()->session->giftcard_post ){
 
 			$currency_symbol = get_woocommerce_currency_symbol();
-			//$price = WC()->session->giftcard_payment;
 
 			$price = WC()->session->giftcard_payment;
 
@@ -159,64 +147,71 @@ add_action( 'woocommerce_cart_totals_before_order_total', 'rpgc_order_giftcard' 
  *
  */
 function subtract_giftcard( $wc_cart ) {
-	$giftcard_id = WC()->session->giftcard_post;
+	$giftcard_id 	= WC()->session->giftcard_post;
+	$cart 			= WC()->session->cart;
 
 	if ( isset( $giftcard_id ) ) {
-		$balance = wpr_get_giftcard_balance( WC()->session->giftcard_post );
-		$whenToProcess = get_option('woocommerce_enable_giftcard_process');
+		$balance = wpr_get_giftcard_balance( $giftcard_id );
 
-		if ( $whenToProcess == 'no' ) {
-			if ( $wc_cart->cart_contents_total > $balance ) {
-				$wc_cart->cart_contents_total = $wc_cart->cart_contents_total - $balance;
-				WC()->session->giftcard_payment = $balance;
-			} else {
-				WC()->session->giftcard_payment = $wc_cart->cart_contents_total;
-				$wc_cart->cart_contents_total = 0;
-			}
-		} else {
-			$myTotal 		= $wc_cart->cart_contents_total;
-			$myShipping 	= $wc_cart->shipping_total;
-			$myTax			= $wc_cart->tax_total;
-			$grandTotal		= $myTotal + $myShipping + $myTax;
-			
-			if ( $grandTotal > $balance ) {
-				
-				WC()->session->giftcard_payment = $balance;
+		$charge_shipping 	= get_option('woocommerce_enable_giftcard_charge_shipping');
+		$charge_tax 		= get_option('woocommerce_enable_giftcard_charge_tax');
+		$charge_fee 		= get_option('woocommerce_enable_giftcard_charge_fee');
+		//$charge_giftcard 	= get_option('woocommerce_enable_giftcard_charge_giftcard');
+		$exclude_product 	= array( ); //get_option('exclude_product_ids');
 
-				if( $myTax > $balance ){
-					$wc_cart->tax_total = $wc_cart->tax_total - $balance;
-					$balance = 0;
+		$giftcardPayment = 0;
+
+		foreach( $cart as $key => $product ) {
+
+			if( ! in_array( $product['product_id'], $exclude_product ) ) {
+
+				if( $charge_tax == 'yes' ){
+					$giftcardPayment += $product['line_total'];
+					$giftcardPayment += $product['line_tax'];
 				} else {
-					$wc_cart->tax_total = 0;
-					$balance = $balance - $myTax;
+					$giftcardPayment += $product['line_total'];
 				}
-
-				if( $myShipping > $balance ){
-					$wc_cart->shipping_total = $wc_cart->shipping_total - $balance;
-					$balance = 0;
-				} else {
-					$wc_cart->shipping_total = 0;
-					$balance = $balance - $myShipping;
-				}
-
-				if( $myTotal > $balance ){
-					$wc_cart->cart_contents_total = $wc_cart->cart_contents_total - $balance;
-					$balance = 0;
-				} else {
-					$wc_cart->cart_contents_total = 0;
-					$balance = $balance - $myTotal;
-				}
-
-			} else {
-				WC()->session->giftcard_payment = $myTotal + $myShipping + $myTax;
-				$wc_cart->cart_contents_total 	= 0;
-				$wc_cart->shipping_total 		= 0;
-				$wc_cart->tax_total 			= 0;
 			}
 		}
+		
+
+		if( $charge_shipping == 'yes' )
+			$giftcardPayment += WC()->session->shipping_tax_total;
+			
+
+		if( $charge_tax == "yes" )
+			$giftcardPayment += WC()->session->shipping_total;
+
+
+		if( $charge_fee == "yes" )
+			$giftcardPayment += WC()->session->fee_total;
+
+
+		if ( $giftcardPayment <= $balance ) {
+			WC()->session->giftcard_payment = $giftcardPayment;
+			WC()->session->discount_cart = $giftcardPayment;
+
+		} else {
+			WC()->session->giftcard_payment = $balance;
+			WC()->session->discount_cart = $balance;
+		}
+		
 	}
 }
-add_action( 'woocommerce_calculate_totals', 'subtract_giftcard' );
+add_action( 'woocommerce_calculate_totals', 'subtract_giftcard' ); //woocommerce_calculate_totals   //woocommerce_cart_updated
+
+function wpr_applydiscount( $total ) {
+	$giftcard_id 	= WC()->session->giftcard_post;
+	
+	if ( isset( $giftcard_id ) ) {
+		$total -= WC()->session->discount_cart;
+	}
+	
+	return $total;
+}
+add_filter( 'woocommerce_calculated_total', 'wpr_applydiscount', 10, 1 );
+
+
 
 function rpgc_add_card_data( $cart_item_key, $product_id, $quantity ) {
 	global $woocommerce, $post;
@@ -276,9 +271,7 @@ add_filter( 'woocommerce_add_to_cart_validation', 'wpr_validate_form_complete', 
  *
  */
 function rpgc_display_giftcard( $order ) {
-	global $woocommerce;
 
-	
 	$theIDNum =  get_post_meta( $order->id, 'rpgc_id', true );
 	$theBalance = get_post_meta( $order->id, 'rpgc_balance', true );
 
@@ -363,15 +356,20 @@ function rpgc_update_card( $order_id ) {
 	global $woocommerce;
 
 	$giftCard_id = WC()->session->giftcard_post;
-
 	if ( $giftCard_id <> '' ) {
 		$newBalance = wpr_get_giftcard_balance( $giftCard_id ) - WC()->session->giftcard_payment;
 
 		// Check if the gift card ballance is 0 and if it is change the post status to zerobalance
 		if( wpr_get_giftcard_balance( $giftCard_id ) == 0 )
 			wpr_update_giftcard_status( $giftCard_id, 'zerobalance' );
-		
+
+
+		$giftCard_IDs = get_post_meta ( $giftCard_id, 'wpr_existingOrders_id', true );
+		$giftCard_IDs[] = $order_id;
+
+
 		update_post_meta( $giftCard_id, 'rpgc_balance', $newBalance ); // Update balance of Giftcard
+		update_post_meta( $giftCard_id, 'wpr_existingOrders_id', $giftCard_IDs ); // Saves order id to gifctard post
 		update_post_meta( $order_id, 'rpgc_id', $giftCard_id );
 		update_post_meta( $order_id, 'rpgc_payment', WC()->session->giftcard_payment );
 		update_post_meta( $order_id, 'rpgc_balance', $newBalance );
@@ -387,7 +385,48 @@ function rpgc_update_card( $order_id ) {
 	}
 
 }
-add_action( 'woocommerce_payment_complete', 'rpgc_update_card' );
-add_action( 'woocommerce_thankyou_paypal', 'rpgc_update_card' );
+add_action( 'woocommerce_checkout_order_processed', 'rpgc_update_card' );
+//add_action( 'woocommerce_thankyou_paypal', 'rpgc_update_card' );
+
+
+
+
+
+function wpr_display_giftcard_in_cart() {
+	$cart = WC()->session->cart;
+	$gift = 0;
+	$card = array();
+
+	foreach( $cart as $key => $product ) {
+
+		if( wpr_is_giftcard($product['product_id'] ) )
+				$card[] = $product;
+
+	}
+
+	if( ! empty( $card ) ) {
+		echo '<h6>Gift Cards In Cart</h6>';
+		echo '<table width="100%" class="shop_table cart">';
+		echo '<thead>';
+		echo '<tr><td>' . __( 'Gift Card' ) . '</td><td>' . __( 'Name', 'rpgiftcards' ) . '</td><td>' . __( 'Email', 'rpgiftcards' ) . '</td><td>' . __( 'Price', 'rpgiftcards' ) . '</td><td>' . __( 'Note', 'rpgiftcards' ) . '</td></tr>';
+		echo '</thead>';
+		foreach( $card as $key => $information ) {
+			
+			if( wpr_is_giftcard($information['product_id'] ) ){
+				$gift += 1;
+
+				echo '<tr style="font-size: 0.8em">';
+					echo '<td>Gift Card ' . $gift . '</td>';
+					echo '<td>' . $information["variation"]["To"] . '</td>';
+					echo '<td>' . $information["variation"]["To Email"] . '</td>';
+					echo '<td>' . woocommerce_price( $information["line_total"] ) . '</td>';
+					echo '<td>' . $information["variation"]["Note"] . '</td>';
+				echo '</tr>';
+			}
+		}
+		echo '</table>';
+	}
+}
+add_action( 'woocommerce_after_cart_table', 'wpr_display_giftcard_in_cart' );
 
 

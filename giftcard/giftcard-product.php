@@ -61,15 +61,14 @@ add_filter('woocommerce_add_cart_item_data','wpr_uniqueID',10,2);
 
 
 
-
+///EDIT THIS TO INCLUDE IF CUSTOME PRICE IS ENABLED TO MAKE IT A CUSTOMIZE 
+///MAKE a function that will do the checks with a filter at the end to allow for custom price enabled
 function wpr_change_add_to_cart_button ( $link ) {
 	global $post;
 
 	
 
-	$is_giftcard = get_post_meta( $post->ID, '_giftcard', true );
-	
-	if ( $is_giftcard == "yes" && get_option( 'woocommerce_enable_addtocart' ) == "yes" ) {
+	if ( preventAddToCart( $post->ID ) ) {
 		$giftCard_button = get_option( "woocommerce_giftcard_button" );
 
 		if( $giftCard_button <> '' ){
@@ -84,3 +83,15 @@ function wpr_change_add_to_cart_button ( $link ) {
 	return  apply_filters( 'wpr_change_add_to_cart_button', $link, $post);
 }
 add_filter( 'woocommerce_loop_add_to_cart_link', 'wpr_change_add_to_cart_button' );
+
+
+function preventAddToCart( $id ){
+	$return = false;
+	$is_giftcard = get_post_meta( $id, '_giftcard', true );
+
+	if ( $is_giftcard == "yes" && get_option( 'woocommerce_enable_addtocart' ) == "yes" )
+		$return = true;
+
+	return apply_filters( 'wpr_preventAddToCart', $return, $id );
+}
+

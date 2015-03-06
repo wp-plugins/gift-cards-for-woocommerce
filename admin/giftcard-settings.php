@@ -24,6 +24,7 @@ class RPGC_Settings extends WC_Settings_Page {
 		add_action( 'woocommerce_sections_' . $this->id, array( $this, 'output_sections' ) );
 
 		add_action( 'woocommerce_admin_field_addon_settings', array( $this, 'addon_setting' ) );
+		add_action( 'woocommerce_admin_field_excludeProduct', array( $this, 'excludeProducts' ) );
 	}
 
 
@@ -119,14 +120,7 @@ class RPGC_Settings extends WC_Settings_Page {
 					'autoload'      => false
 				),
 
-				array(
-					'title'         => __( 'Shipping Charge?',  'rpgiftcards'  ),
-					'desc'          => __( 'Allow customers to pay for shipping with their gift card.',  'rpgiftcards'  ),
-					'id'            => 'woocommerce_enable_giftcard_process',
-					'default'       => 'no',
-					'type'          => 'checkbox',
-					'autoload'      => true
-				),
+
 				array(
 					'title'         => __( 'Require Recipient Information?',  'rpgiftcards'  ),
 					'desc'          => __( 'Requires that your customers enter a name and email when purchasing a Gift Card.',  'rpgiftcards'  ),
@@ -152,7 +146,50 @@ class RPGC_Settings extends WC_Settings_Page {
 					'autoload'      => false
 				),
 
+
 				array( 'type' => 'sectionend', 'id' => 'account_registration_options'),
+
+				array( 'title' 		=> __( 'Gift Card Uses',  'rpgiftcards'  ), 'type' => 'title', 'id' => 'giftcard_products_title' ),
+
+				array(
+					'title'         => __( 'Shipping',  'rpgiftcards'  ),
+					'desc'          => __( 'Allow customers to pay for shipping with their gift card.',  'rpgiftcards'  ),
+					'id'            => 'woocommerce_enable_giftcard_charge_shipping',
+					'default'       => 'no',
+					'type'          => 'checkbox',
+					'autoload'      => true
+				),
+
+				array(
+					'title'         => __( 'Tax',  'rpgiftcards'  ),
+					'desc'          => __( 'Allow customers to pay for tax with their gift card.',  'rpgiftcards'  ),
+					'id'            => 'woocommerce_enable_giftcard_charge_tax',
+					'default'       => 'no',
+					'type'          => 'checkbox',
+					'autoload'      => true
+				),
+
+				array(
+					'title'         => __( 'Fee',  'rpgiftcards'  ),
+					'desc'          => __( 'Allow customers to pay for fees with their gift card.',  'rpgiftcards'  ),
+					'id'            => 'woocommerce_enable_giftcard_charge_fee',
+					'default'       => 'no',
+					'type'          => 'checkbox',
+					'autoload'      => true
+				),
+
+				/*array(
+					'title'         => __( 'Other Gift Cards',  'rpgiftcards'  ),
+					'desc'          => __( 'Allow customers to pay for gift cards with their existing gift card.',  'rpgiftcards'  ),
+					'id'            => 'woocommerce_enable_giftcard_charge_giftcard',
+					'default'       => 'yes',
+					'type'          => 'checkbox',
+					'autoload'      => true
+				),*/
+
+				//array( 'type' => 'excludeProduct' ),
+
+				array( 'type' => 'sectionend', 'id' => 'product_giftcard_options'),
 
 				array( 'title' 		=> __( 'Product Options',  'rpgiftcards'  ), 'type' => 'title', 'id' => 'giftcard_products_options_title' ),
 
@@ -313,6 +350,33 @@ class RPGC_Settings extends WC_Settings_Page {
 
 	}
 
+
+	public function excludeProducts() {
+		?>
+			<tr valign="top" class="">
+				<th class="titledesc" scope="row">
+					<?php _e( 'Exclude products', 'rpgiftcards' ); ?>
+					<img class="help_tip" data-tip='<?php _e( 'Products which gift cards can not be used on', 'rpgiftcards' ); ?>' src="<?php echo WC()->plugin_url(); ?>/assets/images/help.png" height="16" width="16" />
+				</th>
+					<td class="forminp forminp-checkbox">
+					<fieldset>
+						<input type="hidden" class="wc-product-search" data-multiple="true" style="width: 50%;" name="exclude_product_ids" data-placeholder="<?php _e( 'Search for a product&hellip;', 'rpgiftcards' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-selected="<?php
+							$product_ids = array_filter( array_map( 'absint', explode( ',', get_option( 'exclude_product_ids' ) ) ) );
+							$json_ids    = array();
+
+							foreach ( $product_ids as $product_id ) {
+								$product = wc_get_product( $product_id );
+								$json_ids[ $product_id ] = wp_kses_post( $product->get_formatted_name() );
+							}
+
+							echo esc_attr( json_encode( $json_ids ) );
+						?>" value="<?php echo implode( ',', array_keys( $json_ids ) ); ?>" />
+					</fieldset>
+				</td>
+			</tr>
+		<?php
+
+	}
 
 }
 
