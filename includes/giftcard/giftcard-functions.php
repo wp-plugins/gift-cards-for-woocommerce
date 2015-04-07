@@ -1,5 +1,14 @@
 <?php 
+/**
+ * Gift Card Accessing Functions
+ *
+ * @package     Gift-Cards-for-Woocommerce
+ * @copyright   Copyright (c) 2014, Ryan Pletcher
+ *
+ */
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Get Giftcard

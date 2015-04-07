@@ -1,10 +1,10 @@
 <?php
 /**
- * Checkout giftcard form
+ * Gift Card Forms Functions
  *
- * @author 		WooThemes
- * @package 	WooCommerce/Templates
- * @version     1.6.4
+ * @package     Gift-Cards-for-Woocommerce
+ * @copyright   Copyright (c) 2014, Ryan Pletcher
+ *
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -141,6 +141,7 @@ function rpgc_cart_fields( ) {
 		$rpw_to_check 		= ( $rpw_to <> NULL ? $rpw_to : __('To', 'rpgiftcards' ) );
 		$rpw_toEmail_check 	= ( $rpw_toEmail <> NULL ? $rpw_toEmail : __('To Email', 'rpgiftcards' )  );
 		$rpw_note_check		= ( $rpw_note <> NULL ? $rpw_note : __('Note', 'rpgiftcards' )  );
+
 		?>
 
 		<div>
@@ -166,6 +167,6 @@ function rpgc_cart_fields( ) {
 	    ';
 	}
 }
-add_action( 'woocommerce_before_add_to_cart_button', 'rpgc_cart_fields' ); //woocommerce_before_add_to_cart_buttons
+add_action( 'woocommerce_before_add_to_cart_button', 'rpgc_cart_fields' );
 
 

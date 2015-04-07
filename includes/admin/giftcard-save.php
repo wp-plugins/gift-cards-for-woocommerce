@@ -1,6 +1,24 @@
 <?php
+/**
+ * Gift Card Save Functions
+ *
+ * @package     Gift-Cards-for-Woocommerce
+ * @copyright   Copyright (c) 2014, Ryan Pletcher
+ *
+ */
 
-	
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+
+
+
+
+
+
+
+
+
 /**
  */
 function rpgc_process_giftcard_meta( $post_id, $post ) {
@@ -19,7 +37,6 @@ function rpgc_process_giftcard_meta( $post_id, $post ) {
 	$expiry_date   		= '';
 	$sendTheEmail  		= 0;
 
-	
 	// Ensure gift card code is correctly formatted
 	$wpdb->update( $wpdb->posts, array( 'post_title' => $post->post_title ), array( 'ID' => $post_id ) );
 
@@ -196,6 +213,25 @@ function rpgc_create_number( $data , $postarr ) {
 	return apply_filters('rpgc_create_number', $data);
 }
 add_filter( 'wp_insert_post_data' , 'rpgc_create_number' , 10, 2 );
+
+
+function rpgc_email_content_return( $email ) {
+	$customEmail = get_option( 'woocommerce_enable_giftcard_custom_message' );
+
+	if ($customEmail <> '' ) {
+		$customEmail .= '<div>';
+		$customEmial .= '<h4>' . __( 'Gift Card Amount', 'rpgiftcards' ) . ': ' . woocommerce_price( wpr_get_giftcard_balance( $giftCard->ID ) ) . '</h4>';
+		$customEmail .= '<h4>' . __( 'Gift Card Number', 'rpgiftcards' ) . ': ' . $giftCard->post_title . '</h4>';
+		$customEmail .= '</div>';
+		
+		return $customEmail;
+
+	}
+	
+	return $email;
+}
+
+
 
 
 function rpgc_generate_number( ) {

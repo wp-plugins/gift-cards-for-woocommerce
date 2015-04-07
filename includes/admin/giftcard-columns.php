@@ -1,6 +1,9 @@
 <?php
 /**
- * Admin functions for the rp_shop_giftcard post type.
+ * Gift Card Admin Columns Functions
+ *
+ * @package     Gift-Cards-for-Woocommerce
+ * @copyright   Copyright (c) 2014, Ryan Pletcher
  *
  */
 

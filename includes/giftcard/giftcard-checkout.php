@@ -1,12 +1,10 @@
 <?php
 /**
- * Product Functions
+ * Gift Card Checkout Functions
  *
- * @package     Woocommerce
- * @subpackage  Giftcards
+ * @package     Gift-Cards-for-Woocommerce
  * @copyright   Copyright (c) 2014, Ryan Pletcher
- * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.3
+ *
  */
 
 // Exit if accessed directly
@@ -251,7 +249,8 @@ function wpr_validate_form_complete( $passed, $product_id, $quantity, $variation
 	$is_giftcard = get_post_meta( $product_id, '_giftcard', true );
 	$is_required_field_giftcard = get_option( 'woocommerce_enable_giftcard_info_requirements' );
 
-	if ( ( $is_giftcard == "yes" ) && ( $is_required_field_giftcard == "yes" ) ) {
+	
+	if ( ( $is_giftcard == "yes" ) && ( $is_required_field_giftcard == "yes" )  ) {
 
 		if ( $_POST["rpgc_to"] == '' ) { $passed = false; }
 		if ( $_POST["rpgc_to_email"] == '' ) { $passed = false; }
@@ -408,7 +407,7 @@ function wpr_display_giftcard_in_cart() {
 		echo '<h6>Gift Cards In Cart</h6>';
 		echo '<table width="100%" class="shop_table cart">';
 		echo '<thead>';
-		echo '<tr><td>' . __( 'Gift Card' ) . '</td><td>' . __( 'Name', 'rpgiftcards' ) . '</td><td>' . __( 'Email', 'rpgiftcards' ) . '</td><td>' . __( 'Price', 'rpgiftcards' ) . '</td><td>' . __( 'Note', 'rpgiftcards' ) . '</td></tr>';
+		echo '<tr><td>' . __( 'Gift Card', 'rpgiftcards' ) . '</td><td>' . __( 'Name', 'rpgiftcards' ) . '</td><td>' . __( 'Email', 'rpgiftcards' ) . '</td><td>' . __( 'Price', 'rpgiftcards' ) . '</td><td>' . __( 'Note', 'rpgiftcards' ) . '</td></tr>';
 		echo '</thead>';
 		foreach( $card as $key => $information ) {
 			

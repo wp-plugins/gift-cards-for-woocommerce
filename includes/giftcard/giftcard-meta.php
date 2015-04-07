@@ -1,6 +1,14 @@
 <?php
+/**
+ * Gift Card Pull Meta Functions
+ *
+ * @package     Gift-Cards-for-Woocommerce
+ * @copyright   Copyright (c) 2014, Ryan Pletcher
+ *
+ */
 
-
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Updates a giftcard's status from one status to another.

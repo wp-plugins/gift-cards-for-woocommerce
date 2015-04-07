@@ -1,4 +1,15 @@
 <?php
+/**
+ * Gift Card Paypal Functions
+ *
+ * @package     Gift-Cards-for-Woocommerce
+ * @copyright   Copyright (c) 2014, Ryan Pletcher
+ *
+ */
+
+
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 function rpgc_add_giftcard_to_paypal( $paypal_args ) {
 	global $woocommerce;

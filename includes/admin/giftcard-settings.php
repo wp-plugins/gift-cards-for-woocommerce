@@ -1,6 +1,9 @@
 <?php
 /**
- * WooCommerce Gift Card Settings
+ * Gift Card Admin Functions
+ *
+ * @package     Gift-Cards-for-Woocommerce
+ * @copyright   Copyright (c) 2014, Ryan Pletcher
  *
  */
 
@@ -177,7 +180,6 @@ class RPGC_Settings extends WC_Settings_Page {
 					'type'          => 'checkbox',
 					'autoload'      => true
 				),
-
 				/*array(
 					'title'         => __( 'Other Gift Cards',  'rpgiftcards'  ),
 					'desc'          => __( 'Allow customers to pay for gift cards with their existing gift card.',  'rpgiftcards'  ),
@@ -189,7 +191,21 @@ class RPGC_Settings extends WC_Settings_Page {
 
 				//array( 'type' => 'excludeProduct' ),
 
-				array( 'type' => 'sectionend', 'id' => 'product_giftcard_options'),
+				/*array( 'type' => 'sectionend', 'id' => 'uses_giftcard_options'),
+
+				array( 'title' 		=> __( 'Gift Card Email',  'rpgiftcards'  ), 'type' => 'title', 'id' => 'giftcard_email_title' ),
+
+				array(
+					'title'         => __( 'Email Message',  'rpgiftcards'  ),
+					'desc'          => __( 'Change the email message that gets sent withyour gift card.',  'rpgiftcards'  ),
+					'id'            => 'woocommerce_enable_giftcard_custom_message',
+					'default'       => '',
+					'css'     		=> 'width:100%; height: 65px;',
+					'type'          => 'textarea',
+					'autoload'      => true
+				),*/
+
+				array( 'type' => 'sectionend', 'id' => 'email_giftcard_options'),
 
 				array( 'title' 		=> __( 'Product Options',  'rpgiftcards'  ), 'type' => 'title', 'id' => 'giftcard_products_options_title' ),
 
