@@ -3,7 +3,7 @@ Contributors: rpletcher
 Tags: woocommerce, gift, gift card, payment, gift certificate, certificate
 Requires at least: 3.0
 Tested up to: 4.1
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 Donate link: https://ryanpletcher.com/donate/
 License: GPLv2 or later
 
@@ -43,6 +43,9 @@ A: Unfortunately that is not a current feature.  The format of the email will ma
 == Changelog ==
 = 1.7.1 =
 * FIX: Positioning of gift card field for cart
+* FIX: Gift Card Metabox Creation
+* UPDATE: File Structure of plugin
+* ADD: Gift card usage display on gift card page
 
 = 1.7.0 =
 * UPDATE: Updating how options page functions for premium plugins
@@ -193,4 +196,6 @@ A: Unfortunately that is not a current feature.  The format of the email will ma
 6. Gift card value added to totals
 
 == Upgrade Notice ==
+Next Update: Simple Email message and instruction Editor and more.
+
 If you have premium plugins installed on your site you will want to download and reinstall the plugin.  Once you complete this ensure that your License is entered on the settings page.  Updates will be possible through the plugin page in the future with a valid license.
