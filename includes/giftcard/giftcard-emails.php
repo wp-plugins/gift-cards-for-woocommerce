@@ -34,7 +34,7 @@ class WPR_Giftcard_Email {
 
 	  	$email_heading 	= __( 'New gift card from ', 'rpgiftcards' ) . $blogname;
 	  	$email_heading 	= apply_filters( 'rpgc_emailSubject', $email_heading );
-	  	$toEmail		= 'ryan.pletcher@gmail.com'; //wpr_get_giftcard_to_email( $post->ID );
+	  	$toEmail		= wpr_get_giftcard_to_email( $post->ID );
 
 	  	echo $mailer->wrap_message( $email_heading, $theMessage );
 
