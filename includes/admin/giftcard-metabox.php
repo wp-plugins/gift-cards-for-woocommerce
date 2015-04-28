@@ -38,19 +38,21 @@ class WPR_Gift_Card_Meta {
 	 */
 	public function save( $post_id ) {
 	
+		global $post, $wpdb;
 		/*
 		 * We need to verify this came from the our screen and with proper authorization,
 		 * because save_post can be triggered at other times.
 		 */
 
 		// Check if our nonce is set.
-		if ( ! isset( $_POST['wpr_giftcards_inner_custom_box_nonce'] ) )
+		if ( ! isset( $_POST['woocommerce_giftcard_nonce'] ) )
 			return $post_id;
 
-		$nonce = $_POST['wpr_giftcards_inner_custom_box_nonce'];
+
+		$nonce = $_POST['woocommerce_giftcard_nonce'];
 
 		// Verify that the nonce is valid.
-		if ( ! wp_verify_nonce( $nonce, 'wpr_giftcards_inner_custom_box' ) )
+		if ( ! wp_verify_nonce( $nonce, 'woocommerce_save_data' ) )
 			return $post_id;
 
 		// If this is an autosave, our form has not been submitted,
@@ -72,11 +74,91 @@ class WPR_Gift_Card_Meta {
 
 		/* OK, its safe for us to save the data now. */
 
-		// Sanitize the user input.
-		$mydata = sanitize_text_field( $_POST['wpr_giftcards_new_field'] );
+		$description  		= '';
+		$to     			= '';
+		$toEmail   			= '';
+		$from     			= '';
+		$fromEmail   		= '';
+		$sendto_from   		= '';
+		$sendautomaticly 	= '';
+		$amount    			= '';
+		$balance   			= '';
+		$note    			= '';
+		$expiry_date   		= '';
+		$sendTheEmail  		= 0;
 
-		// Update the meta field.
-		update_post_meta( $post_id, '_my_meta_value_key', $mydata );
+		
+		// Ensure gift card code is correctly formatted
+		//$wpdb->update( $wpdb->posts, array( 'post_title' => $post->post_title ), array( 'ID' => $post_id ) );
+
+		if ( wpr_get_giftcard_by_code( $post->post_title ) ) {
+			$newNumber = apply_filters( 'rpgc_regen_number', rpgc_generate_number());
+
+			$wpdb->update( $wpdb->posts, array( 'post_title' => $newNumber ), array( 'ID' => $post_id ) );
+			$wpdb->update( $wpdb->posts, array( 'post_name' => $newNumber ), array( 'ID' => $post_id ) );
+		}
+
+		if ( isset( $_POST['rpgc_description'] ) ) {
+			$description 	= woocommerce_clean( $_POST['rpgc_description'] );
+			update_post_meta( $post_id, 'rpgc_description', $description );
+		}
+		if ( isset( $_POST['rpgc_to'] ) ) {
+			$to    			= woocommerce_clean( $_POST['rpgc_to'] );
+			update_post_meta( $post_id, 'rpgc_to', $to );
+		}
+		if ( isset( $_POST['rpgc_email_to'] ) ) {
+			$toEmail  		= woocommerce_clean( $_POST['rpgc_email_to'] );
+			update_post_meta( $post_id, 'rpgc_email_to', $toEmail );
+		}
+		if ( isset( $_POST['rpgc_from'] ) ) {
+			$from 			= woocommerce_clean( $_POST['rpgc_from'] );
+			update_post_meta( $post_id, 'rpgc_from', $from );
+		}
+		if ( isset( $_POST['rpgc_email_from'] ) ) {
+			$fromEmail 		= woocommerce_clean( $_POST['rpgc_email_from'] );
+			update_post_meta( $post_id, 'rpgc_email_from', $fromEmail );
+		}
+		if ( isset( $_POST['rpgc_amount'] ) ) {
+			$amount 		= woocommerce_clean( $_POST['rpgc_amount'] );
+			update_post_meta( $post_id, 'rpgc_amount', $amount );
+
+			if ( ! isset( $_POST['rpgc_balance'] ) ) {
+				$balance 	= woocommerce_clean( $_POST['rpgc_amount'] );
+				update_post_meta( $post_id, 'rpgc_balance', $balance );
+				$sendTheEmail = 1;
+			}
+		}
+		if ( isset( $_POST['rpgc_balance'] ) ) {
+			$balance   = woocommerce_clean( $_POST['rpgc_balance'] );
+			update_post_meta( $post_id, 'rpgc_balance', $balance );
+		}
+		if ( isset( $_POST['rpgc_note'] ) ) {
+			$note   = woocommerce_clean( $_POST['rpgc_note'] );
+			update_post_meta( $post_id, 'rpgc_note', $note );
+		}
+		if ( isset( $_POST['rpgc_expiry_date'] ) ) {
+			$expiry_date = woocommerce_clean( $_POST['rpgc_expiry_date'] );
+			update_post_meta( $post_id, 'rpgc_expiry_date', $expiry_date );
+		} else {
+			$expiry_date = '';
+		}
+
+		if ( isset( $_POST['rpgc_regen_number'] ) ) {
+			$newNumber = apply_filters( 'rpgc_regen_number', rpgc_generate_number());
+
+			$wpdb->update( $wpdb->posts, array( 'post_title' => $newNumber ), array( 'ID' => $post_id ) );
+			$wpdb->update( $wpdb->posts, array( 'post_name' => $newNumber ), array( 'ID' => $post_id ) );
+
+		}
+
+		if( ( ( $sendTheEmail == 1 ) && ( $balance <> 0 ) ) || isset( $_POST['rpgc_resend_email'] ) ) {
+			WPR_Giftcard_Email::sendEmail( $post );
+		}
+
+		/* Deprecated - same hook name as in the meta */
+		do_action( 'woocommerce_rpgc_options' );
+		do_action( 'woocommerce_rpgc_options_save' );
+
 	}
 
 
@@ -149,7 +231,7 @@ class WPR_Gift_Card_Meta {
 	public function rpgc_meta_box( $post ) {
 		global $woocommerce;
 
-		wp_nonce_field( 'woocommerce_save_data', 'woocommerce_meta_nonce' );
+		wp_nonce_field( 'woocommerce_save_data', 'woocommerce_giftcard_nonce' );
 		?>
 		<style type="text/css">
 			#edit-slug-box, #minor-publishing-actions { display:none }
