@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce - Gift Cards
  * Plugin URI: http://wp-ronin.com
  * Description: WooCommerce - Gift Cards allows you to offer gift cards to your customer and allow them to place orders using them.
- * Version: 1.7.3
+ * Version: 1.7.4
  * Author: WP Ronin
  * Author URI: http://wp-ronin.com
  * License: GPL2
@@ -69,20 +69,20 @@ if( !class_exists( 'WPRWooGiftcards' ) ) {
          */
         private function setup_constants() {
             // Plugin version
-        define( 'RPWCGC_VERSION', '1.7.3' );
+            define( 'RPWCGC_VERSION', '1.7.4' );
 
-        // Plugin Folder Path
-        define( 'RPWCGC_DIR', plugin_dir_path( __FILE__ ) );
+            // Plugin Folder Path
+            define( 'RPWCGC_DIR', plugin_dir_path( __FILE__ ) );
 
-        // Plugin Folder URL
-        define( 'RPWCGC_URL', plugins_url( 'gift-cards-for-woocommerce', 'giftcards.php' ) );
+            // Plugin Folder URL
+            define( 'RPWCGC_URL', plugins_url( 'gift-cards-for-woocommerce', 'giftcards.php' ) );
 
-        // Plugin Root File
-        define( 'RPWCGC_FILE', plugin_basename( __FILE__ )  );
-        
-        if ( ! defined( 'WPR_STORE_URL' ) )
-            // Premium Plugin Store
-            define( 'WPR_STORE_URL', 'https://wp-ronin.com' );
+            // Plugin Root File
+            define( 'RPWCGC_FILE', plugin_basename( __FILE__ )  );
+            
+            if ( ! defined( 'WPR_STORE_URL' ) )
+                // Premium Plugin Store
+                define( 'WPR_STORE_URL', 'https://wp-ronin.com' );
         }
 
 
@@ -98,7 +98,7 @@ if( !class_exists( 'WPRWooGiftcards' ) ) {
             require_once RPWCGC_DIR . 'includes/scripts.php';
             require_once RPWCGC_DIR . 'includes/functions.php';
             require_once RPWCGC_DIR . 'includes/post-type.php';
-
+            
             // Include scripts
             if( is_admin() ) {
                 // Create all admin functions and pages
@@ -106,6 +106,8 @@ if( !class_exists( 'WPRWooGiftcards' ) ) {
                 require_once RPWCGC_DIR . 'includes/admin/giftcard-metabox.php';  
                 require_once RPWCGC_DIR . 'includes/admin/giftcard-save.php';
             }
+
+            
 
             require_once RPWCGC_DIR . 'includes/giftcard/giftcard-product.php';
             require_once RPWCGC_DIR . 'includes/giftcard/giftcard-forms.php';
@@ -139,13 +141,6 @@ if( !class_exists( 'WPRWooGiftcards' ) ) {
             add_filter( 'woocommerce_get_settings_pages', array( $this, 'rpgc_add_settings_page'), 10, 1);
             add_action( 'enqueue_scripts', array( $this, 'load_styes' ) );
 
-            
-
-            if( is_admin() ) {
-                //add_action( 'admin_enqueue_scripts', array( $this, 'load_custom_scripts' ), 99 );
-                    
-            }
-
         }
 
 
@@ -158,22 +153,21 @@ if( !class_exists( 'WPRWooGiftcards' ) ) {
          */
         public function load_textdomain() {
             // Set filter for language directory
-            $lang_dir = RPWCGC_DIR . '/languages/';
+            $lang_dir = RPWCGC_DIR . 'languages/';
             $lang_dir = apply_filters( 'giftcards_for_woocommerce_languages_directory', $lang_dir );
 
             // Traditional WordPress plugin locale filter
-            $locale = apply_filters( 'plugin_locale', get_locale(), 'gift-cards-for-woocommerce' );
-            $mofile = sprintf( '%1$s-%2$s.mo', 'gift-cards-for-woocommerce', $locale );
+            $locale = apply_filters( 'plugin_locale', get_locale(), 'rpgiftcards' );
+            $mofile = sprintf( '%1$s-%2$s.mo', 'rpgiftcards', $locale );
 
             // Setup paths to current locale file
             $mofile_local   = $lang_dir . $mofile;
 
             if( file_exists( $mofile_local ) ) {
-                
-                load_textdomain( 'gift-cards-for-woocommerce', $mofile_local );
+                load_textdomain( 'rpgiftcards', $mofile_local );
             } else {
                 // Load the default language files
-                load_plugin_textdomain( 'gift-cards-for-woocommerce', false, $lang_dir );
+                load_plugin_textdomain( 'rpgiftcards', false, $lang_dir );
             }
         }
 
