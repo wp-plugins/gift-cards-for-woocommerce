@@ -87,16 +87,17 @@ class WPR_Gift_Card_Meta {
 		$expiry_date   		= '';
 		$sendTheEmail  		= 0;
 
-		
+		//var_dump( $post );
+		//die();
 		// Ensure gift card code is correctly formatted
 		//$wpdb->update( $wpdb->posts, array( 'post_title' => $post->post_title ), array( 'ID' => $post_id ) );
 
-		if ( wpr_get_giftcard_by_code( $post->post_title ) ) {
+		/*if ( wpr_get_giftcard_by_code( $post->post_title ) ) {
 			$newNumber = apply_filters( 'rpgc_regen_number', rpgc_generate_number());
 
 			$wpdb->update( $wpdb->posts, array( 'post_title' => $newNumber ), array( 'ID' => $post_id ) );
 			$wpdb->update( $wpdb->posts, array( 'post_name' => $newNumber ), array( 'ID' => $post_id ) );
-		}
+		}*/
 
 		if ( isset( $_POST['rpgc_description'] ) ) {
 			$description 	= woocommerce_clean( $_POST['rpgc_description'] );
@@ -144,11 +145,12 @@ class WPR_Gift_Card_Meta {
 		}
 
 		if ( isset( $_POST['rpgc_regen_number'] ) ) {
-			$newNumber = apply_filters( 'rpgc_regen_number', rpgc_generate_number());
+			if ( $_POST['rpgc_regen_number'] == 'yes' ){
+				$newNumber = apply_filters( 'rpgc_regen_number', rpgc_generate_number());
 
-			$wpdb->update( $wpdb->posts, array( 'post_title' => $newNumber ), array( 'ID' => $post_id ) );
-			$wpdb->update( $wpdb->posts, array( 'post_name' => $newNumber ), array( 'ID' => $post_id ) );
-
+				$wpdb->update( $wpdb->posts, array( 'post_title' => $newNumber ), array( 'ID' => $post_id ) );
+				$wpdb->update( $wpdb->posts, array( 'post_name' => $newNumber ), array( 'ID' => $post_id ) );
+			}
 		}
 
 		if( ( ( $sendTheEmail == 1 ) && ( $balance <> 0 ) ) || isset( $_POST['rpgc_resend_email'] ) ) {
