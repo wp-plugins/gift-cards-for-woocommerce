@@ -1,0 +1,697 @@
+# Copyright (C) 2015 WooCommerce - Gift Cards
+# This file is distributed under the same license as the WooCommerce - Gift Cards package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce - Gift Cards 1.7.5\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/gift-cards-for-"
+"woocommerce\n"
+"POT-Creation-Date: 2015-05-14 05:22:45+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: giftcards.php:213
+msgid "activate it"
+msgstr ""
+
+#: giftcards.php:216
+msgid "install it"
+msgstr ""
+
+#: giftcards.php:219
+msgid " requires WooCommerce! Please %s to continue!"
+msgstr ""
+
+#: includes/admin/giftcard-columns.php:23
+msgid "Giftcard Number"
+msgstr ""
+
+#: includes/admin/giftcard-columns.php:24
+msgid "Giftcard Amount"
+msgstr ""
+
+#: includes/admin/giftcard-columns.php:25
+#: includes/giftcard/giftcard-shortcodes.php:61
+msgid "Remaining Balance"
+msgstr ""
+
+#: includes/admin/giftcard-columns.php:26
+msgid "Buyer"
+msgstr ""
+
+#: includes/admin/giftcard-columns.php:27
+msgid "Recipient"
+msgstr ""
+
+#: includes/admin/giftcard-columns.php:28
+#: includes/admin/giftcard-metabox.php:354
+msgid "Expiry date"
+msgstr ""
+
+#: includes/admin/giftcard-columns.php:31
+msgid "Creation Date"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:177
+msgid "Gift Card Data"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:190
+msgid "Gift Card Informaiton"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:203
+msgid "Additional Card Options"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:212
+msgid "Card Usage Data"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:256
+msgid "Gift Card description"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:258
+msgid "Optionally enter a description for this gift card for your reference."
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:264
+msgid "Who are you sending this to?"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:269
+#: includes/admin/giftcard-settings.php:213
+#: includes/giftcard/giftcard-checkout.php:302
+#: includes/giftcard/giftcard-forms.php:141
+msgid "To"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:271
+msgid "Who is getting this gift card."
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:279
+msgid "Email To"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:281
+msgid "What email should we send this gift card to."
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:289
+msgid "From"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:291
+msgid "Who is sending this gift card."
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:299
+msgid "Email From"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:301
+msgid "What email account is sending this gift card."
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:309
+msgid "Personalize it"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:317 includes/admin/giftcard-save.php:39
+#: includes/giftcard/giftcard-emails.php:66
+msgid "Gift Card Amount"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:319
+msgid "Value of the Gift Card."
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:330
+msgid "Gift Card Balance"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:332
+msgid "Remaining Balance of the Gift Card."
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:343
+msgid "Gift Card Note"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:344
+msgid "Enter a message to your customer."
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:355
+msgctxt "placeholder"
+msgid "Never expire"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:356
+msgid "The date this Gift Card will expire, <code>YYYY-MM-DD</code>."
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:386
+msgid "Send Gift Card Email"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:389
+msgid "Regenerate Card Number"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:394
+msgid "No additional options available. Zero balance"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:420
+msgid "Gift Card #:"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:423
+msgid "Payment:"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:426
+msgid "Balance remaining:"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:435
+msgid "Access Gift Card"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:438
+msgid "Gift card refunded "
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:468
+msgid "Order Number:"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:471
+msgid "Amount Used:"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:474
+msgid "Card Balance After Order:"
+msgstr ""
+
+#: includes/admin/giftcard-metabox.php:488
+msgid "Gift card has not been used."
+msgstr ""
+
+#: includes/admin/giftcard-save.php:40
+#: includes/giftcard/giftcard-emails.php:67
+msgid "Gift Card Number"
+msgstr ""
+
+#: includes/admin/giftcard-save.php:90
+#: includes/giftcard/giftcard-checkout.php:130
+msgid "Gift Card Payment"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:22 includes/post-type.php:19
+msgid "Gift Cards"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:41
+msgid "Gift Card Options"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:43
+msgid "Premium Extensions"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:106
+msgid "Processing Options"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:109
+msgid "Display on Cart?"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:110
+msgid "Display the giftcard form on the cart page."
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:118
+msgid "Display on Checkout?"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:119
+msgid "Display the giftcard form on the checkout page."
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:128
+msgid "Require Recipient Information?"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:129
+msgid ""
+"Requires that your customers enter a name and email when purchasing a Gift "
+"Card."
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:136
+msgid "Customize Add to Cart?"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:137
+msgid "Change Add to cart label and disable add to cart from product list."
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:144
+msgid "Physical Card?"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:145
+msgid "Select this if you would like to offer physical gift cards."
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:155
+msgid "Gift Card Uses"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:158
+msgid "Shipping"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:159
+msgid "Allow customers to pay for shipping with their gift card."
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:167
+msgid "Tax"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:168
+msgid "Allow customers to pay for tax with their gift card."
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:176
+msgid "Fee"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:177
+msgid "Allow customers to pay for fees with their gift card."
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:210
+msgid "Product Options"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:214
+#: includes/admin/giftcard-settings.php:224
+msgid "This is the value that will display before a gift card number."
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:223
+#: includes/giftcard/giftcard-forms.php:142
+msgid "To Email"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:233
+msgid "Note Option"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:234
+msgid "This will change the placeholder field for the gift card note."
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:243
+msgid "Gift Card Button Test"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:244
+msgid ""
+"This is the text that will be displayed on the button to customize the "
+"information."
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:279
+msgid "Activate Extensions"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:287
+msgid " Premium features available"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:289
+msgid ""
+"You can now add additional functionallity to the gift card plugin using some "
+"of my premium plugins offered through"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:300
+msgid "Woocommerce Giftcards Pro"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:302
+msgid ""
+"Get all the added features of the Pro gift card addon in this one package."
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:308
+msgid "Custom Price"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:310
+msgid ""
+"Dont want to have to create multiple products to offer Gift Cards on your "
+"site.  Use this plugin to create a single product that allows your customers "
+"to put in the price.  Select 10 – 10000000 it wont matter."
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:316
+msgid "Customize Card Number"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:318
+msgid ""
+"Want to be able to customize the gift card number when it is created, this "
+"plugin will do it."
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:324
+msgid "Auto Send Card"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:326
+msgid ""
+"Save time creating gift cards by using this plugin.  Enable it and customers "
+"will have their gift card sent out directly upon purchase or payment."
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:332
+msgid "CSV Importer"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:334
+msgid ""
+"Import large number of gift cards with this extention. Use our supplied ."
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:374
+msgid "Exclude products"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:375
+msgid "Products which gift cards can not be used on"
+msgstr ""
+
+#: includes/admin/giftcard-settings.php:379
+msgid "Search for a product&hellip;"
+msgstr ""
+
+#: includes/giftcard/class-wpr-giftcard-email.php:22
+msgid "Gift Card Email"
+msgstr ""
+
+#: includes/giftcard/class-wpr-giftcard-email.php:23
+msgid "Email that is sent to a gift card recipent when they are created."
+msgstr ""
+
+#: includes/giftcard/class-wpr-giftcard-email.php:28
+#: includes/giftcard/class-wpr-giftcard-email.php:135
+#: includes/giftcard/giftcard-emails.php:22
+msgid "Gift Card Information"
+msgstr ""
+
+#: includes/giftcard/class-wpr-giftcard-email.php:29
+msgid "New gift card from {site_title}"
+msgstr ""
+
+#: includes/giftcard/class-wpr-giftcard-email.php:140
+msgid ""
+"This controls the main heading contained within the email notification. "
+"Leave blank to use the default heading: <code>%s</code>."
+msgstr ""
+
+#: includes/giftcard/class-wpr-giftcard-email.php:142
+#: includes/giftcard/giftcard-emails.php:34
+msgid "New gift card from "
+msgstr ""
+
+#: includes/giftcard/class-wpr-giftcard-email.php:151
+msgid "Plain text"
+msgstr ""
+
+#: includes/giftcard/class-wpr-giftcard-email.php:152
+msgid "HTML"
+msgstr ""
+
+#: includes/giftcard/class-wpr-giftcard-email.php:153
+msgid "Multipart"
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:36
+#: includes/giftcard/giftcard-checkout.php:77
+msgid "Gift card applied successfully."
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:39
+#: includes/giftcard/giftcard-checkout.php:80
+msgid "Gift Card does not have a balance!"
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:42
+#: includes/giftcard/giftcard-checkout.php:83
+msgid "Gift Card has expired!"
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:45
+#: includes/giftcard/giftcard-checkout.php:86
+msgid "Gift Card does not exist!"
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:48
+#: includes/giftcard/giftcard-checkout.php:89
+msgid "Gift Card already in the cart!"
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:132
+msgid "Remove Gift Card"
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:259
+msgid "Please complete form."
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:280
+msgid "Gift Card Balance After Order:"
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:291
+msgid "Gift Card Information:"
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:299
+#: includes/giftcard/giftcard-forms.php:20
+msgid "Giftcard"
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:301
+msgid "Card"
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:303
+msgid "Send To"
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:304
+msgid "Balance"
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:305
+#: includes/giftcard/giftcard-checkout.php:410
+#: includes/giftcard/giftcard-forms.php:143
+msgid "Note"
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:306
+msgid "Quantity"
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:331
+msgid "Gift Card Payment:"
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:410
+#: includes/giftcard/giftcard-forms.php:21
+#: includes/giftcard/giftcard-product.php:21 includes/post-type.php:20
+msgid "Gift Card"
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:410
+msgid "Name"
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:410
+msgid "Email"
+msgstr ""
+
+#: includes/giftcard/giftcard-checkout.php:410
+msgid "Price"
+msgstr ""
+
+#: includes/giftcard/giftcard-emails.php:62
+msgid "Dear"
+msgstr ""
+
+#: includes/giftcard/giftcard-emails.php:64
+msgid "has selected a"
+msgstr ""
+
+#: includes/giftcard/giftcard-emails.php:64
+msgid "Gift Card for you! This card can be used for online purchases at"
+msgstr ""
+
+#: includes/giftcard/giftcard-emails.php:71
+msgid "Expiration Date"
+msgstr ""
+
+#: includes/giftcard/giftcard-emails.php:81
+msgid "Using your Gift Card is easy"
+msgstr ""
+
+#: includes/giftcard/giftcard-emails.php:84
+msgid "Shop at"
+msgstr ""
+
+#: includes/giftcard/giftcard-emails.php:85
+msgid "Select \"Pay with a Gift Card\" during checkout."
+msgstr ""
+
+#: includes/giftcard/giftcard-emails.php:86
+msgid "Enter your card number."
+msgstr ""
+
+#: includes/giftcard/giftcard-forms.php:22
+#: includes/giftcard/giftcard-forms.php:67
+msgid "Apply Gift card"
+msgstr ""
+
+#: includes/giftcard/giftcard-forms.php:53
+msgid "Have a giftcard?"
+msgstr ""
+
+#: includes/giftcard/giftcard-forms.php:58
+msgid "Click here to enter your giftcard"
+msgstr ""
+
+#: includes/giftcard/giftcard-forms.php:63
+#: includes/giftcard/giftcard-shortcodes.php:28
+msgid "Gift card"
+msgstr ""
+
+#: includes/giftcard/giftcard-forms.php:149
+msgid "All fields below are required"
+msgstr ""
+
+#: includes/giftcard/giftcard-forms.php:151
+msgid "All fields below are optional"
+msgstr ""
+
+#: includes/giftcard/giftcard-forms.php:155
+msgid "Generated from the website."
+msgstr ""
+
+#: includes/giftcard/giftcard-product.php:22
+msgid "Make product a gift card."
+msgstr ""
+
+#: includes/giftcard/giftcard-shortcodes.php:32
+msgid "Check Balance"
+msgstr ""
+
+#: includes/giftcard/giftcard-shortcodes.php:63
+msgid "Gift Card Has Expired"
+msgstr ""
+
+#: includes/giftcard/giftcard-shortcodes.php:66
+msgid "Gift Card Does Not Exist"
+msgstr ""
+
+#: includes/post-type.php:21
+msgctxt "Admin menu name"
+msgid "Gift Cards"
+msgstr ""
+
+#: includes/post-type.php:22
+msgid "Add Gift Card"
+msgstr ""
+
+#: includes/post-type.php:23
+msgid "Add New Gift Card"
+msgstr ""
+
+#: includes/post-type.php:24
+msgid "Edit"
+msgstr ""
+
+#: includes/post-type.php:25
+msgid "Edit Gift Card"
+msgstr ""
+
+#: includes/post-type.php:26
+msgid "New Gift Card"
+msgstr ""
+
+#: includes/post-type.php:27
+msgid "View Gift Cards"
+msgstr ""
+
+#: includes/post-type.php:28
+msgid "View Gift Card"
+msgstr ""
+
+#: includes/post-type.php:29
+msgid "Search Gift Cards"
+msgstr ""
+
+#: includes/post-type.php:30
+msgid "No Gift Cards found"
+msgstr ""
+
+#: includes/post-type.php:31
+msgid "No Gift Cards found in trash"
+msgstr ""
+
+#: includes/post-type.php:32
+msgid "Parent Gift Card"
+msgstr ""
+
+#: includes/post-type.php:46
+msgid "Zero Balance"
+msgstr ""
+
+#: includes/post-type.php:51
+msgid "Zero Balance <span class=\"count\">(%s)</span>"
+msgid_plural "Zero Balance <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce - Gift Cards"
+msgstr ""
+
+#. #-#-#-#-#  plugin.pot (WooCommerce - Gift Cards 1.7.5)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  plugin.pot (WooCommerce - Gift Cards 1.7.5)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://wp-ronin.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"WooCommerce - Gift Cards allows you to offer gift cards to your customer and "
+"allow them to place orders using them."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WP Ronin"
+msgstr ""
