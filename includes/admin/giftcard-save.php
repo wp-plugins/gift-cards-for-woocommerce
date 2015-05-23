@@ -16,10 +16,13 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  *
  */
 function rpgc_create_number( $data , $postarr ) {
+	$regen = "no";
 	
-	if ( $data['post_type'] == 'rp_shop_giftcard'  ) {
-		if( ! isset ( $_POST['original_publish'] ) || ( $_POST["rpgc_regen_number"] == "yes" ) ) {
-			$myNumber = rpgc_generate_number( );
+	if( isset( $_POST["rpgc_regen_number"] ) ) $regen = $_POST["rpgc_regen_number"];
+
+	if ( ( $data['post_type'] == 'rp_shop_giftcard' ) && ( $data['post_name'] == '' ) ) {
+		if( ! isset ( $_POST['original_publish'] ) || ( $regen == "yes" ) ) {
+			$myNumber = rpgc_generate_number();
 			
 			$data["post_title"] = $myNumber;
 			$data["post_name"] = $myNumber;

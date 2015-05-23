@@ -17,7 +17,7 @@ function rpgc_cart_form() {
 		?>
 		
 		<div class="giftcard" style="float: left;">
-			<label for="giftcard_code" style="display: none;"><?php _e( 'Giftcard', 'rpgiftcards' ); ?>:</label>
+			<label type="text" for="giftcard_code" style="display: none;"><?php _e( 'Giftcard', 'rpgiftcards' ); ?>:</label>
 			<input type="text" name="giftcard_code" class="input-text" id="giftcard_code" value="" placeholder="<?php _e( 'Gift Card', 'rpgiftcards' ); ?>" />
 			<input type="submit" class="button" name="update_cart" value="<?php _e( 'Apply Gift card', 'rpgiftcards' ); ?>" />
 		</div>
@@ -153,7 +153,7 @@ function rpgc_cart_fields( ) {
 
 			<?php  do_action( 'rpgc_before_product_fields' ); ?>
 			<input type="hidden" id="rpgc_description" name="rpgc_description" value="<?php _e('Generated from the website.', 'rpgiftcards' ); ?>" />
-			<input name="rpgc_to" id="rpgc_to" class="input-text" placeholder="<?php echo $rpw_to_check; ?>" style="margin-bottom:5px;">
+			<input type="text" name="rpgc_to" id="rpgc_to" class="input-text" placeholder="<?php echo $rpw_to_check; ?>" style="margin-bottom:5px;">
 			<input type="email" name="rpgc_to_email" id="rpgc_to_email" class="input-text" placeholder="<?php echo $rpw_toEmail_check; ?>" style="margin-bottom:5px;">
 			<textarea class="input-text" id="rpgc_note" name="rpgc_note" rows="2" placeholder="<?php echo $rpw_note_check; ?>" style="margin-bottom:5px;"></textarea>
 			<?php  do_action( 'rpgc_after_product_fields' ); ?>

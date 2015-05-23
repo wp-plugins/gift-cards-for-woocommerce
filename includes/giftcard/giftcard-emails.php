@@ -21,6 +21,7 @@ class WPR_Giftcard_Email {
 		$blogname 		= wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 		$subject 		= apply_filters( 'woocommerce_email_subject_gift_card', sprintf( '[%s] %s', $blogname, __( 'Gift Card Information', 'rpgiftcards' ) ), $post->post_title );
 		$sendEmail 		= get_bloginfo( 'admin_email' );
+		$headers 		= array('Content-Type: text/html; charset=UTF-8');
 
 		ob_start();
 
@@ -43,7 +44,7 @@ class WPR_Giftcard_Email {
 		$message 		= ob_get_clean();
 
 		$email = new WC_Email();
-		$email->send( $toEmail, $subject, $message, $headers, $attachments );
+		$email->send( $toEmail, $subject, $message, $headers );
 
 	}
  

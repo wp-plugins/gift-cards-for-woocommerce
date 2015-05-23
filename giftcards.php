@@ -238,16 +238,3 @@ function WPRWooGiftcards_load() {
 add_action( 'plugins_loaded', 'WPRWooGiftcards_load' );
 
 
-/**
- * The activation hook is called outside of the singleton because WordPress doesn't
- * register the call from within the class, since we are preferring the plugins_loaded
- * hook for compatibility, we also can't reference a function inside the plugin class
- * for the activation function. If you need an activation function, put it here.
- *
- * @since       1.0.0
- * @return      void
- */
-function wpr_giftcard_activation() {
-    /* Activation functions here */
-}
-register_activation_hook( __FILE__, 'wpr_giftcard_activation' );

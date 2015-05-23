@@ -154,7 +154,12 @@ class WPR_Gift_Card_Meta {
 		}
 
 		if( ( ( $sendTheEmail == 1 ) && ( $balance <> 0 ) ) || isset( $_POST['rpgc_resend_email'] ) ) {
-			WPR_Giftcard_Email::sendEmail( $post );
+			
+			$email = new WPR_Giftcard_Email();
+			$post = get_post( $post_id );
+			$email->sendEmail ( $post );
+
+			update_post_meta( $post_id, 'rpgc_email_sent', "true" );
 		}
 
 		/* Deprecated - same hook name as in the meta */
