@@ -41,9 +41,11 @@ Q: Can I customize the email that is sent out?
 A: Unfortunately that is not a current feature.  The format of the email will match the email format of your site.  I will be looking into making it a feature in the future.
 
 == Changelog ==
+= 1.7.6.0 =
+* FIX: Email Error
+
 = 1.7.6 =
 * FIX: Text field options
-* 
 
 = 1.7.5 =
 * FIX: Duplicate card numbers being created
