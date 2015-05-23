@@ -3,7 +3,7 @@ Contributors: rpletcher
 Tags: woocommerce, gift, gift card, payment, gift certificate, certificate
 Requires at least: 3.0
 Tested up to: 4.1
-Stable tag: 1.7.5
+Stable tag: 1.7.6
 Donate link: https://ryanpletcher.com/donate/
 License: GPLv2 or later
 
