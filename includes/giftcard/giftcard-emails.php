@@ -43,8 +43,10 @@ class WPR_Giftcard_Email {
 
 		$message 		= ob_get_clean();
 
+		$attachment = '';
+
 		$email = new WC_Email();
-		$email->send( $toEmail, $subject, $message, $headers );
+		$email->send( $toEmail, $subject, $message, $headers, $attachment );
 
 	}
  
