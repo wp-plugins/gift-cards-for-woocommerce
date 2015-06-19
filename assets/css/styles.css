@@ -1,8 +1,3 @@
-.woocommerce form.checkout_giftcard {
-    border: 1px solid #E0DADF;
-    border-radius: 5px;
-    margin: 2em 0;
-    padding: 20px;
-    text-align: left;
+.woocommerce td.product-name dl.variation dd, .woocommerce td.product-name dl.variation dt {
+	margin-bottom: 0px !important;
 }
-

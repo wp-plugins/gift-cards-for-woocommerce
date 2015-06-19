@@ -2,8 +2,8 @@
 Contributors: rpletcher
 Tags: woocommerce, gift, gift card, payment, gift certificate, certificate
 Requires at least: 3.0
-Tested up to: 4.1
-Stable tag: 1.7.6.1
+Tested up to: 4.2
+Stable tag: 2.0.0
 Donate link: https://ryanpletcher.com/donate/
 License: GPLv2 or later
 
@@ -41,6 +41,12 @@ Q: Can I customize the email that is sent out?
 A: Unfortunately that is not a current feature.  The format of the email will match the email format of your site.  I will be looking into making it a feature in the future.
 
 == Changelog ==
+= 2.0.0 =
+* UPDATE: Optimized code for better database management
+* ADD: Database updater
+* ADD: Ability to manually set Gift card number on creation
+* ADD: Short code to decrease card value Manually
+
 = 1.7.6.1 =
 * FIX: Email Error
 
@@ -217,6 +223,4 @@ A: Unfortunately that is not a current feature.  The format of the email will ma
 6. Gift card value added to totals
 
 == Upgrade Notice ==
-Next Update: Simple Email message and instruction Editor and more.
-
-If you have premium plugins installed on your site you will want to download and reinstall the plugin.  Once you complete this ensure that your License is entered on the settings page.  Updates will be possible through the plugin page in the future with a valid license.
+Make sure that you back up your database before upgrading.  You will need to run the gift card updater to use the new version and I dont want you to loose any information. Documentation coming soon and additional payment gateways will also be added soon.

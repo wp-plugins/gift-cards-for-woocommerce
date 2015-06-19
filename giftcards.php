@@ -3,12 +3,10 @@
  * Plugin Name: WooCommerce - Gift Cards
  * Plugin URI: http://wp-ronin.com
  * Description: WooCommerce - Gift Cards allows you to offer gift cards to your customer and allow them to place orders using them.
- * Version: 1.7.6.1
+ * Version: 2.0.0
  * Author: WP Ronin
  * Author URI: http://wp-ronin.com
  * License: GPL2
- *
- * 
  * 
  * Text Domain:     rpgiftcards
  *
@@ -22,7 +20,6 @@
 if( !defined( 'ABSPATH' ) ) exit;
 
 
-
 if( !class_exists( 'WPRWooGiftcards' ) ) {
 
     /**
@@ -31,7 +28,6 @@ if( !class_exists( 'WPRWooGiftcards' ) ) {
      * @since       1.0.0
      */
     class WPRWooGiftcards {
-        
 
         /**
          * @var         WPRWooGiftcards $instance The one true WPRWooGiftcards
@@ -68,21 +64,15 @@ if( !class_exists( 'WPRWooGiftcards' ) ) {
          * @return      void
          */
         private function setup_constants() {
-            // Plugin version
-            define( 'RPWCGC_VERSION', '1.7.6.1' );
-
-            // Plugin Folder Path
-            define( 'RPWCGC_DIR', plugin_dir_path( __FILE__ ) );
-
-            // Plugin Folder URL
-            define( 'RPWCGC_URL', plugins_url( 'gift-cards-for-woocommerce', 'giftcards.php' ) );
-
-            // Plugin Root File
-            define( 'RPWCGC_FILE', plugin_basename( __FILE__ )  );
+            
+            define( 'RPWCGC_VERSION', '2.0.0' ); // Plugin version
+            define( 'RPWCGC_DIR', plugin_dir_path( __FILE__ ) ); // Plugin Folder Path
+            define( 'RPWCGC_URL', plugins_url( 'gift-cards-for-woocommerce', 'giftcards.php' ) ); // Plugin Folder URL
+            define( 'RPWCGC_FILE', plugin_basename( __FILE__ )  ); // Plugin Root File
             
             if ( ! defined( 'WPR_STORE_URL' ) )
-                // Premium Plugin Store
-                define( 'WPR_STORE_URL', 'https://wp-ronin.com' );
+                define( 'WPR_STORE_URL', 'https://wp-ronin.com' ); // Premium Plugin Store
+        
         }
 
 
@@ -98,26 +88,20 @@ if( !class_exists( 'WPRWooGiftcards' ) ) {
             require_once RPWCGC_DIR . 'includes/scripts.php';
             require_once RPWCGC_DIR . 'includes/functions.php';
             require_once RPWCGC_DIR . 'includes/post-type.php';
+
+            require_once RPWCGC_DIR . 'includes/admin/metabox.php';
+
+            require_once RPWCGC_DIR . 'includes/class.giftcard.php';
+            require_once RPWCGC_DIR . 'includes/class.giftcardemail.php';
+
+            require_once RPWCGC_DIR . 'includes/giftcard-product.php';
+            require_once RPWCGC_DIR . 'includes/giftcard-checkout.php';
+
+            require_once RPWCGC_DIR . 'includes/giftcard-meta.php';
             
-            // Include scripts
-            if( is_admin() ) {
-                // Create all admin functions and pages
-                require_once RPWCGC_DIR . 'includes/admin/giftcard-columns.php';  
-                require_once RPWCGC_DIR . 'includes/admin/giftcard-metabox.php';  
-                require_once RPWCGC_DIR . 'includes/admin/giftcard-save.php';
-            }
+            require_once RPWCGC_DIR . 'includes/shortcodes.php';
 
-            
-
-            require_once RPWCGC_DIR . 'includes/giftcard/giftcard-product.php';
-            require_once RPWCGC_DIR . 'includes/giftcard/giftcard-forms.php';
-            require_once RPWCGC_DIR . 'includes/giftcard/giftcard-checkout.php';
-            require_once RPWCGC_DIR . 'includes/giftcard/giftcard-paypal.php';
-            require_once RPWCGC_DIR . 'includes/giftcard/giftcard-shortcodes.php';
-
-            require_once RPWCGC_DIR . 'includes/giftcard/giftcard-functions.php';
-            require_once RPWCGC_DIR . 'includes/giftcard/giftcard-meta.php';
-            require_once RPWCGC_DIR . 'includes/giftcard/giftcard-emails.php';
+            // require_once RPWCGC_DIR . 'includes/widgets.php';
         }
 
 
@@ -130,16 +114,11 @@ if( !class_exists( 'WPRWooGiftcards' ) ) {
          *
          */
         private function hooks() {
-            global $wpr_woo_giftcard_settings;
-            
-            if ( ! class_exists( 'WooCommerce' ) )
-                add_action( 'admin_notices', array( $this, 'no_woo_nag' ) );
-            
+            // Register settings
             $wpr_woo_giftcard_settings = get_option( 'wpr_wg_options' );
 
-            add_action( 'init', 'rpgc_create_post_type' );
             add_filter( 'woocommerce_get_settings_pages', array( $this, 'rpgc_add_settings_page'), 10, 1);
-            add_action( 'enqueue_scripts', array( $this, 'load_styes' ) );
+            add_filter( 'woocommerce_calculated_total', array( 'WPR_Giftcard', 'wpr_discount_total'), 10, 2 );
 
         }
 
@@ -172,52 +151,14 @@ if( !class_exists( 'WPRWooGiftcards' ) ) {
         }
 
         public function rpgc_add_settings_page( $settings ) {
-            $settings[] = include( RPWCGC_DIR . 'includes/admin/giftcard-settings.php' );
+
+            require_once RPWCGC_DIR . 'includes/class.settings.php';
+
+            $settings[] = new RPGC_Settings();
 
             return apply_filters( 'rpgc_setting_classes', $settings );
         }
 
-
-        /**
-         * If no license key is saved, show a notice
-         * @return void
-         */
-        public function no_woo_nag() {
-             // We need plugin.php!
-            require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-            
-            $plugins = get_plugins();
-            
-            // Set plugin directory
-            $plugin_path = array_filter( explode( '/', $plugin_path ) );
-            $this->plugin_path = end( $plugin_path );
-            
-            // Set plugin file
-            $this->plugin_file = $plugin_file;
-            
-            // Set plugin name
-            $this->plugin_name = 'WooCommerce - Gift Cards';
-            
-            // Is EDD installed?
-            foreach( $plugins as $plugin_path => $plugin ) {
-                
-                if( $plugin['Name'] == 'WooCommerce' ) {
-                    $this->has_woo = true;
-                    $this->wpr_base = $plugin_path;
-                    break;
-                }
-            }
-
-            if( $this->has_woo ) {
-                $url  = esc_url( wp_nonce_url( admin_url( 'plugins.php?action=activate&plugin=' . $this->wpr_base ), 'activate-plugin_' . $this->wpr_base ) );
-                $link = '<a href="' . $url . '">' . __( 'activate it', 'rpgiftcards' ) . '</a>';
-            } else {
-                $url  = esc_url( wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=woocommerce' ), 'install-plugin_woocommerce' ) );
-                $link = '<a href="' . $url . '">' . __( 'install it', 'rpgiftcards' ) . '</a>';
-            }
-            
-            echo '<div class="error"><p>' . $this->plugin_name . sprintf( __( ' requires WooCommerce! Please %s to continue!', 'rpgiftcards' ), $link ) . '</p></div>';
-        }
     }
 } // End if class_exists check
 
@@ -231,10 +172,33 @@ if( !class_exists( 'WPRWooGiftcards' ) ) {
  *
  */
 function WPRWooGiftcards_load() {
+    if( ! class_exists( 'WooCommerce' ) ) {
+        if( ! class_exists( 'WPR_Giftcard_Activation' ) ) {
+            require_once 'includes/class.activation.php';
+        }
 
-    return WPRWooGiftcards::instance();
-    
+        $activation = new WPR_Giftcard_Activation( plugin_dir_path( __FILE__ ), basename( __FILE__ ) );
+        $activation = $activation->run();
+        
+        //return WPRWooGiftcards::instance();
+    } else {
+        return WPRWooGiftcards::instance();
+    }
+
 }
 add_action( 'plugins_loaded', 'WPRWooGiftcards_load' );
 
 
+/**
+ * The activation hook is called outside of the singleton because WordPress doesn't
+ * register the call from within the class, since we are preferring the plugins_loaded
+ * hook for compatibility, we also can't reference a function inside the plugin class
+ * for the activation function. If you need an activation function, put it here.
+ *
+ * @since       1.0.0
+ * @return      void
+ */
+function wpr_giftcard_activation() {
+    /* Activation functions here */
+}
+register_activation_hook( __FILE__, 'wpr_giftcard_activation' );
