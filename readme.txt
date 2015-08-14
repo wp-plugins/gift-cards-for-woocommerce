@@ -226,4 +226,5 @@ A: Unfortunately that is not a current feature.  The format of the email will ma
 6. Gift card value added to totals
 
 == Upgrade Notice ==
-Make sure that you back up your database before upgrading.  You will need to run the gift card updater to use the new version and I dont want you to loose any information. Documentation coming soon and additional payment gateways will also be added soon.
+I have also updated the pro version of my plugin.  Make sure that you update that as well.  If you do not get a notice to upgrade please contact me with your license.
+
