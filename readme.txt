@@ -2,8 +2,8 @@
 Contributors: rpletcher
 Tags: woocommerce, gift, gift card, payment, gift certificate, certificate
 Requires at least: 3.0
-Tested up to: 4.2
-Stable tag: 2.0.0
+Tested up to: 4.3
+Stable tag: 2.1.0
 Donate link: https://ryanpletcher.com/donate/
 License: GPLv2 or later
 
@@ -41,6 +41,9 @@ Q: Can I customize the email that is sent out?
 A: Unfortunately that is not a current feature.  The format of the email will match the email format of your site.  I will be looking into making it a feature in the future.
 
 == Changelog ==
+= 2.1.0 =
+* FIX: Calles for classes
+
 = 2.0.0 =
 * UPDATE: Optimized code for better database management
 * ADD: Database updater

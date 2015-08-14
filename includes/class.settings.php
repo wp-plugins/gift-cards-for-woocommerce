@@ -449,7 +449,7 @@ class RPGC_Settings extends WC_Settings_Page {
 	}
 
 	public function run_update() {
-
+		
 		if ( ! $wpr_gift_version ) {
 			// 1.3 is the first version to use this option so we must add it
 			$wpr_gift_version = '1.9';

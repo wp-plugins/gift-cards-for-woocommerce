@@ -33,17 +33,17 @@ add_filter( 'product_type_options', 'rpgc_extra_check' );
 function rpgc_process_meta( $post_id, $post ) {
 	global $wpdb, $woocommerce, $woocommerce_errors;
 
-	$is_giftcard  = isset( $_POST['_giftcard'] ) ? 'yes' : 'no';
-	
-	if( $is_giftcard == 'yes' ) {
-		update_post_meta( $post_id, '_giftcard', $is_giftcard );
-		update_post_meta( $post_id, '_sold_individually', $is_giftcard );
+	if( isset( $_POST['_giftcard'] ) ) {
+		if( $_POST['_giftcard'] == 'on'  ) {
 
-		$want_physical = get_option( 'woocommerce_enable_physical' );
+			update_post_meta( $post_id, '_giftcard', $is_giftcard );
+			update_post_meta( $post_id, '_sold_individually', $is_giftcard );
 
-		if ( $want_physical == "no" ) {
+			$want_physical = get_option( 'woocommerce_enable_physical' );
 
-			update_post_meta( $post_id, '_virtual', $is_giftcard );
+			if ( $want_physical == "no" ) {
+				update_post_meta( $post_id, '_virtual', $is_giftcard );
+			}
 		}
 	}
 }

@@ -76,7 +76,7 @@ class WPR_Giftcard_Email {
 		</div>
 
 		<div style="padding-top: 10px; padding-bottom: 10px; border-top: 1px solid #ccc;">
-			<?php echo get_post_meta( $giftCard, 'rpgc_note', true); ?>
+			<?php echo wpr_get_giftcard_note( $giftCard ); ?>
 		</div>
 
 		<div style="padding-top: 10px; border-top: 1px solid #ccc;">

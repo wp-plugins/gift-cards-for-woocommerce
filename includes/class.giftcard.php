@@ -195,7 +195,7 @@ class WPR_Giftcard {
             return $display;
         }
         
-    }//apply_filter( 'woocommerce_calculated_total', 'wpr_get_payment_amount' );
+    }
 
 
     public function wpr_decrease_balance( $giftCard_id ) {
