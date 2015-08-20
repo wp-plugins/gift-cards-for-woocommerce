@@ -80,7 +80,7 @@ function wpr_display_giftcard_in_cart() {
 	}
 
 	if( ! empty( $card ) ) {
-		echo '<h6>Gift Cards In Cart</h6>';
+		echo '<h6>' . __( 'Gift Cards In Cart', 'rpgiftcards' ) . '</h6>';
 		echo '<table width="100%" class="shop_table cart">';
 		echo '<thead>';
 		echo '<tr><td>' . __( 'Gift Card', 'rpgiftcards' ) . '</td><td>' . __( 'Name', 'rpgiftcards' ) . '</td><td>' . __( 'Email', 'rpgiftcards' ) . '</td><td>' . __( 'Price', 'rpgiftcards' ) . '</td><td>' . __( 'Note', 'rpgiftcards' ) . '</td></tr>';

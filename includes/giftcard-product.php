@@ -33,8 +33,11 @@ add_filter( 'product_type_options', 'rpgc_extra_check' );
 function rpgc_process_meta( $post_id, $post ) {
 	global $wpdb, $woocommerce, $woocommerce_errors;
 
-	if( isset( $_POST['_giftcard'] ) ) {
-		if( $_POST['_giftcard'] == 'on'  ) {
+	if ( get_post_type( $post_id ) == 'product' ) {
+
+		$is_giftcard  = isset( $_POST['_giftcard'] ) ? 'yes' : 'no';
+
+		if( $is_giftcard == 'yes' ) {
 
 			update_post_meta( $post_id, '_giftcard', $is_giftcard );
 			update_post_meta( $post_id, '_sold_individually', $is_giftcard );
