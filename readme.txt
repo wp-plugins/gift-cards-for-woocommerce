@@ -3,7 +3,7 @@ Contributors: rpletcher
 Tags: woocommerce, gift, gift card, payment, gift certificate, certificate
 Requires at least: 3.0
 Tested up to: 4.4
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 Donate link: https://ryanpletcher.com/donate/
 License: GPLv2 or later
 
@@ -13,7 +13,7 @@ Gift Cards for WooCommerce allows you to create gift cards that your customers p
 
 Gift Cards for WooCommerce is a plugin which allows you to manage and sell gift certificates for your site. You can sell them to your visitors, and accept payments through any of your other payment gateways.  It will then allow your customers to purchase gift card on the site that you will manually create.
 
-You can now add additional functionality to the gift card plugin using some of my premium plugins offered through <a href="http://wp-ronin.com?source=wordpress”>wp-ronin.com</a>.  If you are looking for some functionality that I have not created let me know and I would be happy to look into offering it in the future.
+You can now add additional functionality to the gift card plugin using some of my premium plugins offered through <a href="http://wp-ronin.com?source=wordpress">wp-ronin.com</a>.  If you are looking for some functionality that I have not created let me know and I would be happy to look into offering it in the future.
 
 If you have an interest in translating this plugin please let me know.
 
@@ -41,6 +41,9 @@ Q: Can I customize the email that is sent out?
 A: Unfortunately that is not a current feature.  The format of the email will match the email format of your site.  I will be looking into making it a feature in the future.
 
 == Changelog ==
+= 2.2.1 =
+* FIX: Product validation allowing products through when required
+
 = 2.2.0 =
 * UPDATE: Enabled multiple quanties to be sold of a single gift card.
 * UPDATE: Made discounting of gift cards to work

@@ -151,7 +151,7 @@ function rpgc_cart_fields( ) {
 }
 add_action( 'woocommerce_before_add_to_cart_button', 'rpgc_cart_fields' );
 
-function wpr_add_to_cart_validation( $passed, $product_id, $quantity, $variation_id = NULL, $variations = NULL ) {
+function wpr_add_to_cart_validation( $passed, $product_id, $quantity ) {
 	$is_giftcard = get_post_meta( $product_id, '_giftcard', true );
 	$is_required_field_giftcard = get_option( 'woocommerce_enable_giftcard_info_requirements' );
 
@@ -160,29 +160,25 @@ function wpr_add_to_cart_validation( $passed, $product_id, $quantity, $variation
 		if ( $_POST['rpgc_to'] == "" ) {
 			$notice = __( 'Please enter a name for the gift card.', 'rpgiftcards' );
 			wc_add_notice( $notice, 'error' );
-			$need_more = 1;
+			$passed = false;
 		}
 		if ( $_POST['rpgc_to_email'] == "" ) {
-			$notice = __( 'Please enter ab email address for the gift card.', 'rpgiftcards' );
+			$notice = __( 'Please enter an email address for the gift card.', 'rpgiftcards' );
 			wc_add_notice( $notice, 'error' );
-			$need_more = 1;
+			$passed = false;
 		}
 		if ( $_POST['rpgc_note'] == "" ) {
 			$notice = __( 'Please enter a note for the gift card.', 'rpgiftcards' );
 			wc_add_notice( $notice, 'error' );
-			$need_more = 1;
+			$passed = false;
 		}
+		
+		$passed = apply_filters( 'wpr_other_validations', $passed, $product_id, $quantity );
 	}
 
-	if( $need_more == 1) {
-		return false;
-	} else {
-		return true;	
-	}
-	
-
+	return $passed;
 }
-add_action( 'woocommerce_add_to_cart_validation', 'wpr_add_to_cart_validation', 10, 5 );
+add_filter( 'woocommerce_add_to_cart_validation', 'wpr_add_to_cart_validation', 10, 3 );
 
 
 function rpgc_add_card_data( $cart_item_key, $product_id, $quantity ) {
