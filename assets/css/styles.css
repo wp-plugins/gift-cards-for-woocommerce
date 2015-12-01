@@ -1,0 +1,3 @@
+.woocommerce td.product-name dl.variation dd, .woocommerce td.product-name dl.variation dt {
+	margin-bottom: 0px !important;
+}
