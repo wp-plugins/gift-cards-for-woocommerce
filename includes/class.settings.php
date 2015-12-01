@@ -47,7 +47,7 @@ class RPGC_Settings extends WC_Settings_Page {
 
 		if ( ! $wpr_gift_version ) {
 			// 2.0.0 is the first version to use this option so we must add it
-			$wpr_gift_version = '1.9';
+			$wpr_gift_version = RPWCGC_VERSION;
 		}
 
 		$sections = array_merge($sections, $premium);
@@ -168,6 +168,14 @@ class RPGC_Settings extends WC_Settings_Page {
 					'type'          => 'checkbox',
 					'autoload'      => false
 				),
+				array(
+					'title'         => __( 'Allow Multiples',  'rpgiftcards'  ),
+					'desc'          => __( 'Select this if you would like to allow customers to purchase multiples of one card.',  'rpgiftcards'  ),
+					'id'            => 'woocommerce_enable_multiples',
+					'default'       => 'no',
+					'type'          => 'checkbox',
+					'autoload'      => false
+				),
 
 
 				array( 'type' => 'sectionend', 'id' => 'account_registration_options'),
@@ -200,7 +208,7 @@ class RPGC_Settings extends WC_Settings_Page {
 					'type'          => 'checkbox',
 					'autoload'      => true
 				),
-				/*
+				
 				array(
 					'title'         => __( 'Other Gift Cards',  'rpgiftcards'  ),
 					'desc'          => __( 'Allow customers to pay for gift cards with their existing gift card.',  'rpgiftcards'  ),
@@ -208,7 +216,7 @@ class RPGC_Settings extends WC_Settings_Page {
 					'default'       => 'yes',
 					'type'          => 'checkbox',
 					'autoload'      => true
-				),*/
+				),
 
 				array( 'type' => 'excludeProduct' ),
 
@@ -218,7 +226,7 @@ class RPGC_Settings extends WC_Settings_Page {
 
 				array(
 					'title'         => __( 'Email Message',  'rpgiftcards'  ),
-					'desc'          => __( 'Change the email message that gets sent withyour gift card.',  'rpgiftcards'  ),
+					'desc'          => __( 'Change the email message that gets sent with your gift card.',  'rpgiftcards'  ),
 					'id'            => 'woocommerce_enable_giftcard_custom_message',
 					'default'       => '',
 					'css'     		=> 'width:100%; height: 65px;',
@@ -452,7 +460,7 @@ class RPGC_Settings extends WC_Settings_Page {
 		
 		if ( ! $wpr_gift_version ) {
 			// 1.3 is the first version to use this option so we must add it
-			$wpr_gift_version = '1.9';
+			$wpr_gift_version = RPWCGC_VERSION;
 			add_option( 'wpr_gift_version', $wpr_gift_version );
 		}
 

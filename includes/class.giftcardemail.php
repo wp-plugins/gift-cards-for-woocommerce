@@ -44,6 +44,8 @@ class WPR_Giftcard_Email {
 
 		$attachment = '';
 
+		
+
 		$email = new WC_Email();
 		$email->send( $toEmail, $subject, $message, $headers, $attachment );
 

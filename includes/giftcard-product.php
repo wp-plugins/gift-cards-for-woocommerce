@@ -40,7 +40,10 @@ function rpgc_process_meta( $post_id, $post ) {
 		if( $is_giftcard == 'yes' ) {
 
 			update_post_meta( $post_id, '_giftcard', $is_giftcard );
-			update_post_meta( $post_id, '_sold_individually', $is_giftcard );
+			
+			if ( get_option( "woocommerce_enable_multiples") != "yes" ) {
+				update_post_meta( $post_id, '_sold_individually', $is_giftcard );
+			}
 
 			$want_physical = get_option( 'woocommerce_enable_physical' );
 
@@ -111,13 +114,13 @@ function rpgc_cart_fields( ) {
 
 		do_action( 'rpgc_before_all_giftcard_fields', $post );
 		
-		$rpw_to 		= get_option( 'woocommerce_giftcard_to' );
-		$rpw_toEmail 	= get_option( 'woocommerce_giftcard_toEmail' );
-		$rpw_note 		= get_option( 'woocommerce_giftcard_note' );
+		$rpgc_to 		= ( isset( $_POST['rpgc_to'] ) ? sanitize_text_field( $_POST['rpgc_to'] ) : "" );
+		$rpgc_to_email 	= ( isset( $_POST['rpgc_to_email'] ) ? sanitize_text_field( $_POST['rpgc_to_email'] ) : "" );
+		$rpgc_note		= ( isset( $_POST['rpgc_note'] ) ? sanitize_text_field( $_POST['rpgc_note'] ) : ""  );
 
-		$rpw_to_check 		= ( $rpw_to <> NULL ? $rpw_to : __('To', 'rpgiftcards' ) );
-		$rpw_toEmail_check 	= ( $rpw_toEmail <> NULL ? $rpw_toEmail : __('To Email', 'rpgiftcards' )  );
-		$rpw_note_check		= ( $rpw_note <> NULL ? $rpw_note : __('Note', 'rpgiftcards' )  );
+		$rpw_to_check 		= ( get_option( 'woocommerce_giftcard_to' ) <> NULL ? get_option( 'woocommerce_giftcard_to' ) : __('To', 'rpgiftcards' ) );
+		$rpw_toEmail_check 	= ( get_option( 'woocommerce_giftcard_toEmail' ) <> NULL ? get_option( 'woocommerce_giftcard_toEmail' ) : __('To Email', 'rpgiftcards' )  );
+		$rpw_note_check		= ( get_option( 'woocommerce_giftcard_note' ) <> NULL ? get_option( 'woocommerce_giftcard_note' ) : __('Note', 'rpgiftcards' )  );
 
 		?>
 
@@ -130,22 +133,56 @@ function rpgc_cart_fields( ) {
 
 			<?php  do_action( 'rpgc_before_product_fields' ); ?>
 			<input type="hidden" id="rpgc_description" name="rpgc_description" value="<?php _e('Generated from the website.', 'rpgiftcards' ); ?>" />
-			<input type="text" name="rpgc_to" id="rpgc_to" class="input-text" placeholder="<?php echo $rpw_to_check; ?>" style="margin-bottom:5px;">
-			<input type="email" name="rpgc_to_email" id="rpgc_to_email" class="input-text" placeholder="<?php echo $rpw_toEmail_check; ?>" style="margin-bottom:5px;">
-			<textarea class="input-text" id="rpgc_note" name="rpgc_note" rows="2" placeholder="<?php echo $rpw_note_check; ?>" style="margin-bottom:5px;"></textarea>
+			<input type="text" name="rpgc_to" id="rpgc_to" class="input-text" placeholder="<?php echo $rpw_to_check; ?>" style="margin-bottom:5px;" value="<?php echo $rpgc_to; ?>">
+			<input type="email" name="rpgc_to_email" id="rpgc_to_email" class="input-text" placeholder="<?php echo $rpw_toEmail_check; ?>" style="margin-bottom:5px;" value="<?php echo $rpgc_to_email; ?>">
+			<textarea class="input-text" id="rpgc_note" name="rpgc_note" rows="2" placeholder="<?php echo $rpw_note_check; ?>" style="margin-bottom:5px;"><?php echo $rpgc_note; ?></textarea>
 			<?php  do_action( 'rpgc_after_product_fields' ); ?>
 		</div>
 		<?php
 
-		echo '
-	          <script>
-	          	jQuery( document ).ready( function( $ ){ $( ".quantity" ).hide( ); });
-	          </script>
-	    ';
+		if ( get_option( "woocommerce_enable_multiples") != 'yes' ) {
+			echo '
+				<script>
+					jQuery( document ).ready( function( $ ){ $( ".quantity" ).hide( ); });
+				</script>
+		    ';
+		}
 	}
 }
 add_action( 'woocommerce_before_add_to_cart_button', 'rpgc_cart_fields' );
 
+function wpr_add_to_cart_validation( $passed, $product_id, $quantity, $variation_id = NULL, $variations = NULL ) {
+	$is_giftcard = get_post_meta( $product_id, '_giftcard', true );
+	$is_required_field_giftcard = get_option( 'woocommerce_enable_giftcard_info_requirements' );
+
+	if ( $is_required_field_giftcard == "yes" && $is_giftcard == "yes" ) {
+
+		if ( $_POST['rpgc_to'] == "" ) {
+			$notice = __( 'Please enter a name for the gift card.', 'rpgiftcards' );
+			wc_add_notice( $notice, 'error' );
+			$need_more = 1;
+		}
+		if ( $_POST['rpgc_to_email'] == "" ) {
+			$notice = __( 'Please enter ab email address for the gift card.', 'rpgiftcards' );
+			wc_add_notice( $notice, 'error' );
+			$need_more = 1;
+		}
+		if ( $_POST['rpgc_note'] == "" ) {
+			$notice = __( 'Please enter a note for the gift card.', 'rpgiftcards' );
+			wc_add_notice( $notice, 'error' );
+			$need_more = 1;
+		}
+	}
+
+	if( $need_more == 1) {
+		return false;
+	} else {
+		return true;	
+	}
+	
+
+}
+add_action( 'woocommerce_add_to_cart_validation', 'wpr_add_to_cart_validation', 10, 5 );
 
 
 function rpgc_add_card_data( $cart_item_key, $product_id, $quantity ) {

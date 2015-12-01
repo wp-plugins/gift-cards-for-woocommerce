@@ -19,7 +19,7 @@ function wpr_upgrade_notice() {
 
 	if ( ! $wpr_gift_version ) {
 		// 2.0.0 is the first version to use this option so we must add it
-		$wpr_gift_version = '1.9';
+		$wpr_gift_version = RPWCGC_VERSION;
 	}
 
 	$wpr_gift_version = preg_replace( '/[^0-9.].*/', '', $wpr_gift_version );

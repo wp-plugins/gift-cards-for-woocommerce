@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce - Gift Cards
  * Plugin URI: http://wp-ronin.com
  * Description: WooCommerce - Gift Cards allows you to offer gift cards to your customer and allow them to place orders using them.
- * Version: 2.1.1
+ * Version: 2.2.0
  * Author: WP Ronin
  * Author URI: http://wp-ronin.com
  * License: GPL2
@@ -54,7 +54,7 @@ if( !class_exists( 'WPRWooGiftcards' ) ) {
 
             return self::$instance;
         }
-
+        
 
         /**
          * Setup plugin constants
@@ -65,7 +65,7 @@ if( !class_exists( 'WPRWooGiftcards' ) ) {
          */
         private function setup_constants() {
             
-            define( 'RPWCGC_VERSION',   '2.1.1' ); // Plugin version
+            define( 'RPWCGC_VERSION',   '2.2.0' ); // Plugin version
             define( 'RPWCGC_DIR',       plugin_dir_path( __FILE__ ) ); // Plugin Folder Path
             define( 'RPWCGC_URL',       plugins_url( 'gift-cards-for-woocommerce', 'giftcards.php' ) ); // Plugin Folder URL
             define( 'RPWCGC_FILE',      plugin_basename( __FILE__ )  ); // Plugin Root File
@@ -124,6 +124,7 @@ if( !class_exists( 'WPRWooGiftcards' ) ) {
 
             add_filter( 'woocommerce_get_settings_pages', array( $this, 'rpgc_add_settings_page'), 10, 1);
             add_filter( 'woocommerce_calculated_total', array( 'WPR_Giftcard', 'wpr_discount_total'), 10, 2 );
+            add_filter( 'plugin_action_links_' . RPWCGC_FILE, array( __CLASS__, 'plugin_action_links' ) );
 
         }
 
@@ -162,6 +163,20 @@ if( !class_exists( 'WPRWooGiftcards' ) ) {
             $settings[] = new RPGC_Settings();
 
             return apply_filters( 'rpgc_setting_classes', $settings );
+        }
+        
+        /**
+         * Show action links on the plugin screen.
+         *
+         * @param   mixed $links Plugin Action links
+         * @return  array
+         */
+        public static function plugin_action_links( $links ) {
+            $action_links = array(
+                'settings' => '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=giftcard' ) . '" title="' . esc_attr( __( 'View Gift Card Settings', 'rpgiftcards' ) ) . '">' . __( 'Settings', 'rpgiftcards' ) . '</a>',
+            );
+
+            return array_merge( $action_links, $links );
         }
 
     }

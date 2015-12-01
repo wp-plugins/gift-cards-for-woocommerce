@@ -83,20 +83,20 @@ function wpr_display_giftcard_in_cart() {
 		echo '<h6>' . __( 'Gift Cards In Cart', 'rpgiftcards' ) . '</h6>';
 		echo '<table width="100%" class="shop_table cart">';
 		echo '<thead>';
-		echo '<tr><td>' . __( 'Gift Card', 'rpgiftcards' ) . '</td><td>' . __( 'Name', 'rpgiftcards' ) . '</td><td>' . __( 'Email', 'rpgiftcards' ) . '</td><td>' . __( 'Price', 'rpgiftcards' ) . '</td><td>' . __( 'Note', 'rpgiftcards' ) . '</td></tr>';
+		echo '<tr><td>' . __( 'Name', 'rpgiftcards' ) . '</td><td>' . __( 'Email', 'rpgiftcards' ) . '</td><td>' . __( 'Price', 'rpgiftcards' ) . '</td><td>' . __( 'Note', 'rpgiftcards' ) . '</td></tr>';
 		echo '</thead>';
 		foreach( $card as $key => $information ) {
 			
 			if( WPR_Giftcard::wpr_is_giftcard($information['product_id'] ) ){
 				$gift += 1;
-
-				echo '<tr style="font-size: 0.8em">';
-					echo '<td>Gift Card ' . $gift . '</td>';
-					echo '<td>' . $information["variation"]["To"] . '</td>';
-					echo '<td>' . $information["variation"]["To Email"] . '</td>';
-					echo '<td>' . woocommerce_price( $information["line_total"] ) . '</td>';
-					echo '<td>' . $information["variation"]["Note"] . '</td>';
-				echo '</tr>';
+				for ( $i = 0; $i < $information["quantity"]; $i++ ) { 
+					echo '<tr style="font-size: 0.8em">';
+						echo '<td>' . $information["variation"]["To"] . '</td>';
+						echo '<td>' . $information["variation"]["To Email"] . '</td>';
+						echo '<td>' . woocommerce_price( $information["line_subtotal"] / $information["quantity"] ) . '</td>';
+						echo '<td>' . $information["variation"]["Note"] . '</td>';
+					echo '</tr>';
+				}
 			}
 		}
 		echo '</table>';
