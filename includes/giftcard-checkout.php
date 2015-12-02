@@ -139,8 +139,8 @@ function woocommerce_apply_giftcard($giftcard_code) {
 		}
 
 		wc_print_notices();
-
-		die();
+		//This kills the /cart page when applying a gift card
+		//die();
 	}
 }
 add_action( 'wp_ajax_woocommerce_apply_giftcard', 'woocommerce_apply_giftcard' );
